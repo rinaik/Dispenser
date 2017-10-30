@@ -47,8 +47,6 @@ static void MX_SPI5_Init(void);
 
 static void StartDefaultTask(void const * argument);
 
-bool lcd_flag;
-
 #define FALSE 0
 #define TRUE 1
 
@@ -96,33 +94,17 @@ void LCDInit()
 
 static void vLCDHelloWorld()
 {
-     lcd_flag = FALSE;
-
-	 for(;;)
+      for(;;)
 	    {
 
-		   if ( lcd_flag == FALSE ) {
 
-		    	BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)"FLUID DISPENSER", CENTER_MODE );
-		    	BSP_LCD_DisplayStringAt( 0, LINE(2), (uint8_t *)"               ", CENTER_MODE );
+			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+		    BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)" MOTOR CONTROLLER ", CENTER_MODE );
 
-
-		    }
-
-		    if ( lcd_flag == TRUE ) {
-
-		    	BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)"               ", CENTER_MODE );
-		    	BSP_LCD_DisplayStringAt( 0, LINE(2), (uint8_t *)"!THIS IS A TEST!", CENTER_MODE );
-
-		    }
-            lcd_flag = !lcd_flag;
-
-		 	BSP_LCD_DisplayStringAt( 0, LINE(3), (uint8_t *)"Hello world!", CENTER_MODE );
-		 	BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
 
 		 	printf("This is the LCD task.\n");
 
-		 	vTaskDelay( 1000 / portTICK_RATE_MS );
+		 	vTaskDelay( 100 / portTICK_RATE_MS );
 
 	    }
 };
@@ -131,9 +113,56 @@ static void vTSTest() {
 	for(;;)
 	    {
           printf("This is the TS task.\n");
+
+		  // find touch location
+
 	      touch_location = find_location(touch_location);
 	      printf("location is %d\n",touch_location);
-		  vTaskDelay( 500 / portTICK_RATE_MS );
+
+	      // fill touch boxes
+
+	      if (touch_location == START)
+	      		{
+	    	  	  	BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
+	    	        BSP_LCD_FillRect(40, 260, 40, 40);
+
+	    	    	BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+	    	        BSP_LCD_FillRect(160, 260, 40, 40);
+	    	        BSP_LCD_SetTextColor( LCD_COLOR_RED );
+	    	        BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"STOP  ", RIGHT_MODE );
+	    	        BSP_LCD_DrawRect(160, 260, 40, 40);
+	      		}
+	      if (touch_location == STOP)
+	      		{
+
+	      	        BSP_LCD_SetTextColor( LCD_COLOR_RED );
+	      	        BSP_LCD_FillRect(160, 260, 40, 40);
+	      	  	    BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+	      	  	    BSP_LCD_FillRect(40, 260, 40, 40);
+	      	  	    BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
+	      	  		BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"  START", LEFT_MODE );
+	      	  		BSP_LCD_DrawRect(40, 260, 40, 40);
+	      		}
+	      if (touch_location == REV)
+	      		{
+
+	      	        BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+	      			BSP_LCD_FillRect(160, 180, 40, 40);
+	      			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+	      		}
+	      if (touch_location == FWD)
+	      		{
+	    	  	  	BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+	      			BSP_LCD_FillRect(40, 180, 40, 40);
+	      			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+	      		}
+	      if (touch_location == NO_TOUCH)
+	      {
+	    	        screen_setup();
+
+	      }
+
+		  vTaskDelay( 50 / portTICK_RATE_MS );
 	    }
 };
 
@@ -142,6 +171,8 @@ static void vMotorRun() {
 	{
 		  GPIO_InitTypeDef GPIO_InitStruct;
 		  int motor_speed;
+		  bool was_stopped;
+          int direction;
 
 		  /* GPIO Ports Clock Enable */
 		  __HAL_RCC_GPIOF_CLK_ENABLE();
@@ -168,12 +199,37 @@ static void vMotorRun() {
 		L6470_GetStatus(0);
 
 		printf("This is motor task.\n");
+
+
+		/*// draw motor speed graph
+		BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+
+		BSP_LCD_FillRect(20,60,220,100);
+
+		BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+
+
+		if (motor_speed > 0)    {BSP_LCD_DrawVLine(20, 60, 40);}
+		if (motor_speed > 1000) {BSP_LCD_DrawVLine(40, 60, 40);}
+		if (motor_speed > 2000) {BSP_LCD_DrawVLine(60, 60, 40);}
+		if (motor_speed > 3000) {BSP_LCD_DrawVLine(80, 60, 40);}
+		if (motor_speed > 4000) {BSP_LCD_DrawVLine(100, 60, 40);}
+		if (motor_speed > 5000) {BSP_LCD_DrawVLine(120, 60, 40);}
+		if (motor_speed > 6000) {BSP_LCD_DrawVLine(140, 60, 40);}
+        if (motor_speed > 7000) {BSP_LCD_DrawVLine(160, 60, 40);}
+		if (motor_speed > 8000) {BSP_LCD_DrawVLine(180, 60, 40);}
+		if (motor_speed > 9000) {BSP_LCD_DrawVLine(200, 60, 40);}
+        if (motor_speed > 10000) {BSP_LCD_DrawVLine(220, 60, 40);}*/
+
+
+		if ((direction != 0) || (direction != 1)) { direction = 1;}
 		if (touch_location == START)
 		{
 			motor_speed = 1000;
-		    L6470_Run(0,1,motor_speed);
+		    L6470_Run(0,direction,motor_speed);
 			printf("Motor is running.\n");
 			touch_location = NO_TOUCH;
+			was_stopped = FALSE;
 
 		}
 		if (touch_location == STOP)
@@ -182,23 +238,38 @@ static void vMotorRun() {
 		 	L6470_SoftStop(0);
 			printf("Motor is stopped.\n");
 			touch_location = NO_TOUCH;
+			was_stopped = TRUE;
 		}
-		if (touch_location == PLUS)
+		if (touch_location == PLUS && was_stopped == FALSE)
 		{
 			motor_speed = motor_speed + 1000;
-			L6470_Run(0,1,motor_speed);
+
+			if (motor_speed > 10000) {motor_speed = 10000;}
+			L6470_Run(0,direction,motor_speed);
 			printf("Motor speed up.\n");
 			touch_location = NO_TOUCH;
+			was_stopped = FALSE;
 
 		}
 		if (touch_location == MINUS)
 		{
 			motor_speed = motor_speed - 1000;
-			L6470_Run(0,1,motor_speed);
+			if (motor_speed < 0) {motor_speed = 0;}
+			L6470_Run(0,direction,motor_speed);
 		    printf("Motor speed down.\n");
 		    touch_location = NO_TOUCH;
+		    was_stopped = FALSE;
 		}
-		vTaskDelay( 1000 / portTICK_RATE_MS );
+		if (touch_location == REV) {
+			direction = 1;
+			L6470_Run(0,direction,motor_speed);
+		}
+		if (touch_location == FWD) {
+			direction = 0;
+            L6470_Run(0,direction,motor_speed);
+		}
+
+		vTaskDelay( 50 / portTICK_RATE_MS );
 	}
 }
 
@@ -221,13 +292,12 @@ int main(void)
 
   /* Initialize LCD and Touch-screen */
 
-   LCDInit();
+  LCDInit();
 
   /* Initialize GUI */
 
-   init_gui();
-   screen_setup();
-
+  init_gui();
+  screen_setup();
 
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);

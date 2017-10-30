@@ -8,7 +8,7 @@
 
 bool tsPress(void) {
 	TS_StateTypeDef TS_State;
-	static bool flgTouch=true;
+	bool flgTouch;
 
 	BSP_TS_GetState(&TS_State);
 	if ( TS_State.TouchDetected ) {
@@ -40,47 +40,66 @@ int find_location (int current_location) {
 		if ((x > 40) && (x < 80) && (y > 260) && (y < 300)) {
 		  location = START;
 		}
-		// MINUS BOX
+		// FWD BOX
 		if ((x > 40) && (x < 80) && (y > 180) && (y < 220)) {
-		 location = MINUS;
+		 location = FWD;
 		}
-		// PLUS BOX
+		// REV BOX
 	    if ((x > 160) && (x < 200) && (y > 180) && (y < 220)) {
-		 location = PLUS;
+		 location = REV;
 		}
 		// STOP BOX
 		if ((x > 160) && (x < 200) && (y > 260) && (y < 300)) {
 		 location = STOP;
 		}
-
+		// MINUS BOX
+		if ((x > 40) && (x < 80) && (y > 100) && (y < 140)) {
+		 location = MINUS;
+		}
+		// PLUS BOX
+		if ((x > 160) && (x < 200) && (y > 100) && (y < 140)) {
+		 location = PLUS;
+		}
 	}
 	return location;
 }
 
 void screen_setup (void) {
 
-		// DRAW -
+	    // DRAW MINUS
 
 	    BSP_LCD_SetTextColor( LCD_COLOR_BLUE);
-	    BSP_LCD_DisplayStringAt( 0, LINE(9), (uint8_t *)"    -", LEFT_MODE );
+		BSP_LCD_DisplayStringAt( 0, LINE(4), (uint8_t *)"    -", LEFT_MODE );
+		BSP_LCD_DrawRect(40, 100, 40, 40);
+
+		// DRAW PLUS
+		BSP_LCD_SetTextColor( LCD_COLOR_BLUE);
+		BSP_LCD_DisplayStringAt(0 , LINE(4), (uint8_t *)"+    ", RIGHT_MODE );
+		BSP_LCD_DrawRect(160, 100, 40, 40);
+
+		// DRAW REV
+
+	    BSP_LCD_SetTextColor( LCD_COLOR_BLUE);
+	    BSP_LCD_DisplayStringAt(0, LINE(8), (uint8_t *)"   REV", LEFT_MODE );
 	    BSP_LCD_DrawRect(40, 180, 40, 40);
 
-		// DRAW +
+		// DRAW FWD
 
 	    BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-	    BSP_LCD_DisplayStringAt( 0, LINE(9), (uint8_t *)"+    ", RIGHT_MODE );
+	    BSP_LCD_DisplayStringAt( 0, LINE(8), (uint8_t *)"FWD   ", RIGHT_MODE );
 	    BSP_LCD_DrawRect(160, 180, 40, 40);
 
 	    // DRAW START
 
 	    BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
-	   	BSP_LCD_DisplayStringAt( 0, LINE(14), (uint8_t *)"  START", LEFT_MODE );
+	   	BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"  START", LEFT_MODE );
 	    BSP_LCD_DrawRect(40, 260, 40, 40);
 
 	    // DRAW STOP
 
 	    BSP_LCD_SetTextColor( LCD_COLOR_RED );
-	   	BSP_LCD_DisplayStringAt( 0, LINE(14), (uint8_t *)"STOP  ", RIGHT_MODE );
+	   	BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"STOP  ", RIGHT_MODE );
 	    BSP_LCD_DrawRect(160, 260, 40, 40);
 
 }
+

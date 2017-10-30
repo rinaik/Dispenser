@@ -119,7 +119,6 @@ x                   0x4               Startup/Src/gui.o
 hspi5               0x58              Startup/Src/main.o
 errno               0x4               /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
 EEP_I2cHandle       0x54              Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.o
-lcd_flag            0x1               Startup/Src/main.o
 L6470_DaisyChainSpiTxStruct
                     0x8               Startup/Drivers/BSP/Components/L6470/L6470.o
 LtdcHandler         0xa8              Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
@@ -987,8 +986,6 @@ Discarded input sections
                 0x0000000000000000      0x1f8 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
  .text.BSP_LCD_DrawBitmap
                 0x0000000000000000      0x128 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
- .text.BSP_LCD_FillRect
-                0x0000000000000000       0xb4 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
  .text.BSP_LCD_FillCircle
                 0x0000000000000000      0x140 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
  .text.BSP_LCD_FillTriangle
@@ -7275,6 +7272,7 @@ Discarded input sections
  .group         0x0000000000000000        0x8 Startup/Src/gui.o
  .group         0x0000000000000000        0x8 Startup/Src/gui.o
  .text          0x0000000000000000        0x0 Startup/Src/gui.o
+ .data          0x0000000000000000        0x0 Startup/Src/gui.o
  .bss           0x0000000000000000        0x0 Startup/Src/gui.o
  .debug_macro   0x0000000000000000      0x8c2 Startup/Src/gui.o
  .debug_macro   0x0000000000000000      0x1b0 Startup/Src/gui.o
@@ -8250,7 +8248,7 @@ LOAD /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugi
                 0x0000000008000000                g_pfnVectors
                 0x00000000080001ac                . = ALIGN (0x4)
 
-.text           0x00000000080001b0     0xd028
+.text           0x00000000080001b0     0xd274
                 0x00000000080001b0                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000080001b0       0x6c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
@@ -8679,732 +8677,735 @@ LOAD /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugi
                 0x0000000008004e38       0x62 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
                 0x0000000008004e38                BSP_LCD_DrawRect
  *fill*         0x0000000008004e9a        0x2 
+ .text.BSP_LCD_FillRect
+                0x0000000008004e9c       0xb4 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x0000000008004e9c                BSP_LCD_FillRect
  .text.BSP_LCD_DisplayOn
-                0x0000000008004e9c       0x20 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
-                0x0000000008004e9c                BSP_LCD_DisplayOn
+                0x0000000008004f50       0x20 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x0000000008004f50                BSP_LCD_DisplayOn
  .text.BSP_LCD_MspInit
-                0x0000000008004ebc      0x1ac Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
-                0x0000000008004ebc                BSP_LCD_MspInit
+                0x0000000008004f70      0x1ac Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x0000000008004f70                BSP_LCD_MspInit
  .text.BSP_LCD_DrawPixel
-                0x0000000008005068       0x4c Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
-                0x0000000008005068                BSP_LCD_DrawPixel
+                0x000000000800511c       0x4c Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x000000000800511c                BSP_LCD_DrawPixel
  .text.DrawChar
-                0x00000000080050b4      0x174 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x0000000008005168      0x174 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
  .text.FillBuffer
-                0x0000000008005228       0x70 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x00000000080052dc       0x70 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
  .text.BSP_SDRAM_Init
-                0x0000000008005298       0xbc Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
-                0x0000000008005298                BSP_SDRAM_Init
+                0x000000000800534c       0xbc Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
+                0x000000000800534c                BSP_SDRAM_Init
  .text.BSP_SDRAM_Initialization_sequence
-                0x0000000008005354       0xbc Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
-                0x0000000008005354                BSP_SDRAM_Initialization_sequence
+                0x0000000008005408       0xbc Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
+                0x0000000008005408                BSP_SDRAM_Initialization_sequence
  .text.BSP_SDRAM_MspInit
-                0x0000000008005410      0x218 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
-                0x0000000008005410                BSP_SDRAM_MspInit
+                0x00000000080054c4      0x218 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
+                0x00000000080054c4                BSP_SDRAM_MspInit
  .text.BSP_TS_Init
-                0x0000000008005628       0x74 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
-                0x0000000008005628                BSP_TS_Init
+                0x00000000080056dc       0x74 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
+                0x00000000080056dc                BSP_TS_Init
  .text.BSP_TS_GetState
-                0x000000000800569c      0x164 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
-                0x000000000800569c                BSP_TS_GetState
+                0x0000000008005750      0x164 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
+                0x0000000008005750                BSP_TS_GetState
  .text.HAL_InitTick
-                0x0000000008005800       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x0000000008005800                HAL_InitTick
+                0x00000000080058b4       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x00000000080058b4                HAL_InitTick
  .text.HAL_IncTick
-                0x0000000008005838       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x0000000008005838                HAL_IncTick
+                0x00000000080058ec       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x00000000080058ec                HAL_IncTick
  .text.HAL_GetTick
-                0x0000000008005854       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x0000000008005854                HAL_GetTick
+                0x0000000008005908       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x0000000008005908                HAL_GetTick
  .text.NVIC_GetPriorityGrouping
-                0x000000000800586c       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005920       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .text.NVIC_EnableIRQ
-                0x0000000008005888       0x34 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x000000000800593c       0x34 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .text.NVIC_SetPriority
-                0x00000000080058bc       0x54 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005970       0x54 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .text.NVIC_EncodePriority
-                0x0000000008005910       0x62 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- *fill*         0x0000000008005972        0x2 
+                0x00000000080059c4       0x62 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ *fill*         0x0000000008005a26        0x2 
  .text.SysTick_Config
-                0x0000000008005974       0x44 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005a28       0x44 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .text.HAL_NVIC_SetPriority
-                0x00000000080059b8       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
-                0x00000000080059b8                HAL_NVIC_SetPriority
+                0x0000000008005a6c       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005a6c                HAL_NVIC_SetPriority
  .text.HAL_NVIC_EnableIRQ
-                0x00000000080059f0       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
-                0x00000000080059f0                HAL_NVIC_EnableIRQ
+                0x0000000008005aa4       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005aa4                HAL_NVIC_EnableIRQ
  .text.HAL_SYSTICK_Config
-                0x0000000008005a0c       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
-                0x0000000008005a0c                HAL_SYSTICK_Config
+                0x0000000008005ac0       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005ac0                HAL_SYSTICK_Config
  .text.HAL_SYSTICK_CLKSourceConfig
-                0x0000000008005a24       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
-                0x0000000008005a24                HAL_SYSTICK_CLKSourceConfig
+                0x0000000008005ad8       0x38 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+                0x0000000008005ad8                HAL_SYSTICK_CLKSourceConfig
  .text.HAL_DMA_Init
-                0x0000000008005a5c      0x15c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
-                0x0000000008005a5c                HAL_DMA_Init
+                0x0000000008005b10      0x15c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+                0x0000000008005b10                HAL_DMA_Init
  .text.HAL_DMA_DeInit
-                0x0000000008005bb8       0x98 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
-                0x0000000008005bb8                HAL_DMA_DeInit
+                0x0000000008005c6c       0x98 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+                0x0000000008005c6c                HAL_DMA_DeInit
  .text.DMA_CalcBaseAndBitshift
-                0x0000000008005c50       0x6c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+                0x0000000008005d04       0x6c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
  .text.DMA_CheckFifoParam
-                0x0000000008005cbc       0xf4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+                0x0000000008005d70       0xf4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
  .text.HAL_DMA2D_Init
-                0x0000000008005db0      0x13c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
-                0x0000000008005db0                HAL_DMA2D_Init
+                0x0000000008005e64      0x13c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x0000000008005e64                HAL_DMA2D_Init
  .text.HAL_DMA2D_MspInit
-                0x0000000008005eec       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
-                0x0000000008005eec                HAL_DMA2D_MspInit
+                0x0000000008005fa0       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x0000000008005fa0                HAL_DMA2D_MspInit
  .text.HAL_DMA2D_Start
-                0x0000000008005f00       0x90 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
-                0x0000000008005f00                HAL_DMA2D_Start
+                0x0000000008005fb4       0x90 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x0000000008005fb4                HAL_DMA2D_Start
  .text.HAL_DMA2D_PollForTransfer
-                0x0000000008005f90      0x15e Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
-                0x0000000008005f90                HAL_DMA2D_PollForTransfer
- *fill*         0x00000000080060ee        0x2 
+                0x0000000008006044      0x15e Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x0000000008006044                HAL_DMA2D_PollForTransfer
+ *fill*         0x00000000080061a2        0x2 
  .text.HAL_DMA2D_ConfigLayer
-                0x00000000080060f0      0x274 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
-                0x00000000080060f0                HAL_DMA2D_ConfigLayer
+                0x00000000080061a4      0x274 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x00000000080061a4                HAL_DMA2D_ConfigLayer
  .text.DMA2D_SetConfig
-                0x0000000008006364      0x144 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+                0x0000000008006418      0x144 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
  .text.HAL_GPIO_Init
-                0x00000000080064a8      0x37c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
-                0x00000000080064a8                HAL_GPIO_Init
+                0x000000000800655c      0x37c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+                0x000000000800655c                HAL_GPIO_Init
  .text.HAL_GPIO_WritePin
-                0x0000000008006824       0x32 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
-                0x0000000008006824                HAL_GPIO_WritePin
- *fill*         0x0000000008006856        0x2 
+                0x00000000080068d8       0x32 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+                0x00000000080068d8                HAL_GPIO_WritePin
+ *fill*         0x000000000800690a        0x2 
  .text.HAL_GPIO_TogglePin
-                0x0000000008006858       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
-                0x0000000008006858                HAL_GPIO_TogglePin
+                0x000000000800690c       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+                0x000000000800690c                HAL_GPIO_TogglePin
  .text.HAL_I2C_Init
-                0x0000000008006898      0x2d0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006898                HAL_I2C_Init
+                0x000000000800694c      0x2d0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x000000000800694c                HAL_I2C_Init
  .text.HAL_I2C_DeInit
-                0x0000000008006b68       0x98 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006b68                HAL_I2C_DeInit
+                0x0000000008006c1c       0x98 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008006c1c                HAL_I2C_DeInit
  .text.HAL_I2C_MspInit
-                0x0000000008006c00       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006c00                HAL_I2C_MspInit
+                0x0000000008006cb4       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008006cb4                HAL_I2C_MspInit
  .text.HAL_I2C_MspDeInit
-                0x0000000008006c14       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006c14                HAL_I2C_MspDeInit
+                0x0000000008006cc8       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008006cc8                HAL_I2C_MspDeInit
  .text.HAL_I2C_Mem_Write
-                0x0000000008006c28      0x22c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006c28                HAL_I2C_Mem_Write
+                0x0000000008006cdc      0x22c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008006cdc                HAL_I2C_Mem_Write
  .text.HAL_I2C_Mem_Read
-                0x0000000008006e54      0x47c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x0000000008006e54                HAL_I2C_Mem_Read
+                0x0000000008006f08      0x47c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008006f08                HAL_I2C_Mem_Read
  .text.HAL_I2C_GetState
-                0x00000000080072d0       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
-                0x00000000080072d0                HAL_I2C_GetState
+                0x0000000008007384       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008007384                HAL_I2C_GetState
  .text.I2C_RequestMemoryWrite
-                0x00000000080072ec      0x124 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x00000000080073a0      0x124 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_RequestMemoryRead
-                0x0000000008007410      0x1c4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x00000000080074c4      0x1c4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_WaitOnFlagUntilTimeout
-                0x00000000080075d4       0xa2 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008007688       0xa2 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_WaitOnMasterAddressFlagUntilTimeout
-                0x0000000008007676       0xdc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x000000000800772a       0xdc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_WaitOnTXEFlagUntilTimeout
-                0x0000000008007752       0x7a Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008007806       0x7a Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_WaitOnBTFFlagUntilTimeout
-                0x00000000080077cc       0x7a Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x0000000008007880       0x7a Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_WaitOnRXNEFlagUntilTimeout
-                0x0000000008007846       0x94 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+                0x00000000080078fa       0x94 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .text.I2C_IsAcknowledgeFailed
-                0x00000000080078da       0x50 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- *fill*         0x000000000800792a        0x2 
+                0x000000000800798e       0x50 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ *fill*         0x00000000080079de        0x2 
  .text.HAL_LTDC_Init
-                0x000000000800792c      0x2bc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
-                0x000000000800792c                HAL_LTDC_Init
+                0x00000000080079e0      0x2bc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+                0x00000000080079e0                HAL_LTDC_Init
  .text.HAL_LTDC_MspInit
-                0x0000000008007be8       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
-                0x0000000008007be8                HAL_LTDC_MspInit
+                0x0000000008007c9c       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+                0x0000000008007c9c                HAL_LTDC_MspInit
  .text.HAL_LTDC_ConfigLayer
-                0x0000000008007bfc      0x1b0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
-                0x0000000008007bfc                HAL_LTDC_ConfigLayer
+                0x0000000008007cb0      0x1b0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+                0x0000000008007cb0                HAL_LTDC_ConfigLayer
  .text.HAL_LTDC_EnableDither
-                0x0000000008007dac       0x54 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
-                0x0000000008007dac                HAL_LTDC_EnableDither
+                0x0000000008007e60       0x54 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+                0x0000000008007e60                HAL_LTDC_EnableDither
  .text.LTDC_SetConfig
-                0x0000000008007e00      0x34e Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- *fill*         0x000000000800814e        0x2 
+                0x0000000008007eb4      0x34e Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ *fill*         0x0000000008008202        0x2 
  .text.HAL_RCC_OscConfig
-                0x0000000008008150      0x61c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-                0x0000000008008150                HAL_RCC_OscConfig
+                0x0000000008008204      0x61c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000008008204                HAL_RCC_OscConfig
  .text.HAL_RCC_ClockConfig
-                0x000000000800876c      0x3a8 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-                0x000000000800876c                HAL_RCC_ClockConfig
+                0x0000000008008820      0x3a8 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000008008820                HAL_RCC_ClockConfig
  .text.HAL_RCC_GetSysClockFreq
-                0x0000000008008b14       0xfc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-                0x0000000008008b14                HAL_RCC_GetSysClockFreq
+                0x0000000008008bc8       0xfc Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000008008bc8                HAL_RCC_GetSysClockFreq
  .text.HAL_RCC_GetHCLKFreq
-                0x0000000008008c10       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-                0x0000000008008c10                HAL_RCC_GetHCLKFreq
+                0x0000000008008cc4       0x18 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000008008cc4                HAL_RCC_GetHCLKFreq
  .text.HAL_RCC_GetPCLK1Freq
-                0x0000000008008c28       0x44 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-                0x0000000008008c28                HAL_RCC_GetPCLK1Freq
+                0x0000000008008cdc       0x44 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+                0x0000000008008cdc                HAL_RCC_GetPCLK1Freq
  .text.HAL_RCCEx_PeriphCLKConfig
-                0x0000000008008c6c      0x740 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
-                0x0000000008008c6c                HAL_RCCEx_PeriphCLKConfig
+                0x0000000008008d20      0x740 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+                0x0000000008008d20                HAL_RCCEx_PeriphCLKConfig
  .text.HAL_SDRAM_Init
-                0x00000000080093ac       0x68 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
-                0x00000000080093ac                HAL_SDRAM_Init
+                0x0000000008009460       0x68 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+                0x0000000008009460                HAL_SDRAM_Init
  .text.HAL_SDRAM_MspInit
-                0x0000000008009414       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
-                0x0000000008009414                HAL_SDRAM_MspInit
+                0x00000000080094c8       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+                0x00000000080094c8                HAL_SDRAM_MspInit
  .text.HAL_SDRAM_SendCommand
-                0x0000000008009428       0x56 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
-                0x0000000008009428                HAL_SDRAM_SendCommand
+                0x00000000080094dc       0x56 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+                0x00000000080094dc                HAL_SDRAM_SendCommand
  .text.HAL_SDRAM_ProgramRefreshRate
-                0x000000000800947e       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
-                0x000000000800947e                HAL_SDRAM_ProgramRefreshRate
- *fill*         0x00000000080094be        0x2 
+                0x0000000008009532       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+                0x0000000008009532                HAL_SDRAM_ProgramRefreshRate
+ *fill*         0x0000000008009572        0x2 
  .text.HAL_SPI_Init
-                0x00000000080094c0      0x268 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x00000000080094c0                HAL_SPI_Init
+                0x0000000008009574      0x268 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x0000000008009574                HAL_SPI_Init
  .text.HAL_SPI_DeInit
-                0x0000000008009728       0xb4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x0000000008009728                HAL_SPI_DeInit
+                0x00000000080097dc       0xb4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x00000000080097dc                HAL_SPI_DeInit
  .text.HAL_SPI_MspInit
-                0x00000000080097dc       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x00000000080097dc                HAL_SPI_MspInit
+                0x0000000008009890       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x0000000008009890                HAL_SPI_MspInit
  .text.HAL_SPI_MspDeInit
-                0x00000000080097f0       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x00000000080097f0                HAL_SPI_MspDeInit
+                0x00000000080098a4       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x00000000080098a4                HAL_SPI_MspDeInit
  .text.HAL_SPI_Transmit
-                0x0000000008009804      0x298 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x0000000008009804                HAL_SPI_Transmit
+                0x00000000080098b8      0x298 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x00000000080098b8                HAL_SPI_Transmit
  .text.HAL_SPI_Receive
-                0x0000000008009a9c      0x21c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x0000000008009a9c                HAL_SPI_Receive
+                0x0000000008009b50      0x21c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x0000000008009b50                HAL_SPI_Receive
  .text.HAL_SPI_TransmitReceive
-                0x0000000008009cb8      0x358 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x0000000008009cb8                HAL_SPI_TransmitReceive
+                0x0000000008009d6c      0x358 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x0000000008009d6c                HAL_SPI_TransmitReceive
  .text.HAL_SPI_GetState
-                0x000000000800a010       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
-                0x000000000800a010                HAL_SPI_GetState
+                0x000000000800a0c4       0x1c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x000000000800a0c4                HAL_SPI_GetState
  .text.SPI_WaitFlagStateUntilTimeout
-                0x000000000800a02c       0xd2 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x000000000800a0e0       0xd2 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
  .text.SPI_CheckFlag_BSY
-                0x000000000800a0fe       0x3c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+                0x000000000800a1b2       0x3c Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
  .text.HAL_TIM_IRQHandler
-                0x000000000800a13a      0x210 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
-                0x000000000800a13a                HAL_TIM_IRQHandler
+                0x000000000800a1ee      0x210 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x000000000800a1ee                HAL_TIM_IRQHandler
  .text.HAL_TIM_OC_DelayElapsedCallback
-                0x000000000800a34a       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
-                0x000000000800a34a                HAL_TIM_OC_DelayElapsedCallback
+                0x000000000800a3fe       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x000000000800a3fe                HAL_TIM_OC_DelayElapsedCallback
  .text.HAL_TIM_IC_CaptureCallback
-                0x000000000800a35e       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
-                0x000000000800a35e                HAL_TIM_IC_CaptureCallback
+                0x000000000800a412       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x000000000800a412                HAL_TIM_IC_CaptureCallback
  .text.HAL_TIM_PWM_PulseFinishedCallback
-                0x000000000800a372       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
-                0x000000000800a372                HAL_TIM_PWM_PulseFinishedCallback
+                0x000000000800a426       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x000000000800a426                HAL_TIM_PWM_PulseFinishedCallback
  .text.HAL_TIM_TriggerCallback
-                0x000000000800a386       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
-                0x000000000800a386                HAL_TIM_TriggerCallback
+                0x000000000800a43a       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+                0x000000000800a43a                HAL_TIM_TriggerCallback
  .text.HAL_TIMEx_CommutationCallback
-                0x000000000800a39a       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
-                0x000000000800a39a                HAL_TIMEx_CommutationCallback
+                0x000000000800a44e       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+                0x000000000800a44e                HAL_TIMEx_CommutationCallback
  .text.HAL_TIMEx_BreakCallback
-                0x000000000800a3ae       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
-                0x000000000800a3ae                HAL_TIMEx_BreakCallback
- *fill*         0x000000000800a3c2        0x2 
+                0x000000000800a462       0x14 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+                0x000000000800a462                HAL_TIMEx_BreakCallback
+ *fill*         0x000000000800a476        0x2 
  .text.FMC_SDRAM_Init
-                0x000000000800a3c4      0x248 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
-                0x000000000800a3c4                FMC_SDRAM_Init
+                0x000000000800a478      0x248 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+                0x000000000800a478                FMC_SDRAM_Init
  .text.FMC_SDRAM_Timing_Init
-                0x000000000800a60c      0x1e0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
-                0x000000000800a60c                FMC_SDRAM_Timing_Init
+                0x000000000800a6c0      0x1e0 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+                0x000000000800a6c0                FMC_SDRAM_Timing_Init
  .text.FMC_SDRAM_SendCommand
-                0x000000000800a7ec      0x124 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
-                0x000000000800a7ec                FMC_SDRAM_SendCommand
+                0x000000000800a8a0      0x124 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+                0x000000000800a8a0                FMC_SDRAM_SendCommand
  .text.FMC_SDRAM_ProgramRefreshRate
-                0x000000000800a910       0x50 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
-                0x000000000800a910                FMC_SDRAM_ProgramRefreshRate
+                0x000000000800a9c4       0x50 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+                0x000000000800a9c4                FMC_SDRAM_ProgramRefreshRate
  .text.makeFreeRtosPriority
-                0x000000000800a960       0x30 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+                0x000000000800aa14       0x30 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
  .text.osKernelStart
-                0x000000000800a990        0xe Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
-                0x000000000800a990                osKernelStart
+                0x000000000800aa44        0xe Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+                0x000000000800aa44                osKernelStart
  .text.osThreadCreate
-                0x000000000800a99e       0x4e Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
-                0x000000000800a99e                osThreadCreate
- .text.osDelay  0x000000000800a9ec       0x28 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
-                0x000000000800a9ec                osDelay
+                0x000000000800aa52       0x4e Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+                0x000000000800aa52                osThreadCreate
+ .text.osDelay  0x000000000800aaa0       0x28 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+                0x000000000800aaa0                osDelay
  .text.osSystickHandler
-                0x000000000800aa14       0x16 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
-                0x000000000800aa14                osSystickHandler
+                0x000000000800aac8       0x16 Startup/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.o
+                0x000000000800aac8                osSystickHandler
  .text.vListInitialise
-                0x000000000800aa2a       0x40 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
-                0x000000000800aa2a                vListInitialise
+                0x000000000800aade       0x40 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
+                0x000000000800aade                vListInitialise
  .text.vListInitialiseItem
-                0x000000000800aa6a       0x1a Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
-                0x000000000800aa6a                vListInitialiseItem
+                0x000000000800ab1e       0x1a Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
+                0x000000000800ab1e                vListInitialiseItem
  .text.vListInsertEnd
-                0x000000000800aa84       0x48 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
-                0x000000000800aa84                vListInsertEnd
+                0x000000000800ab38       0x48 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
+                0x000000000800ab38                vListInsertEnd
  .text.vListInsert
-                0x000000000800aacc       0x72 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
-                0x000000000800aacc                vListInsert
+                0x000000000800ab80       0x72 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
+                0x000000000800ab80                vListInsert
  .text.uxListRemove
-                0x000000000800ab3e       0x54 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
-                0x000000000800ab3e                uxListRemove
- *fill*         0x000000000800ab92        0x2 
+                0x000000000800abf2       0x54 Startup/Middlewares/Third_Party/FreeRTOS/Source/list.o
+                0x000000000800abf2                uxListRemove
+ *fill*         0x000000000800ac46        0x2 
  .text.pxPortInitialiseStack
-                0x000000000800ab94       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800ab94                pxPortInitialiseStack
+                0x000000000800ac48       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800ac48                pxPortInitialiseStack
  .text.prvTaskExitError
-                0x000000000800abfc       0x3c Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- *fill*         0x000000000800ac38        0x8 
+                0x000000000800acb0       0x3c Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ *fill*         0x000000000800acec        0x4 
  .text.SVC_Handler
-                0x000000000800ac40       0x28 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800ac40                SVC_Handler
+                0x000000000800acf0       0x28 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800acf0                SVC_Handler
  .text.prvPortStartFirstTask
-                0x000000000800ac68       0x20 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800ad18       0x20 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .text.xPortStartScheduler
-                0x000000000800ac88      0x118 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800ac88                xPortStartScheduler
+                0x000000000800ad38      0x118 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800ad38                xPortStartScheduler
  .text.vPortEnterCritical
-                0x000000000800ada0       0x5c Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800ada0                vPortEnterCritical
+                0x000000000800ae50       0x5c Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800ae50                vPortEnterCritical
  .text.vPortExitCritical
-                0x000000000800adfc       0x50 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800adfc                vPortExitCritical
- *fill*         0x000000000800ae4c        0x4 
+                0x000000000800aeac       0x50 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800aeac                vPortExitCritical
+ *fill*         0x000000000800aefc        0x4 
  .text.PendSV_Handler
-                0x000000000800ae50       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800ae50                PendSV_Handler
+                0x000000000800af00       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800af00                PendSV_Handler
  .text.xPortSysTickHandler
-                0x000000000800aeb8       0x40 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800aeb8                xPortSysTickHandler
+                0x000000000800af68       0x40 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800af68                xPortSysTickHandler
  .text.vPortSetupTimerInterrupt
-                0x000000000800aef8       0x38 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800aef8                vPortSetupTimerInterrupt
+                0x000000000800afa8       0x38 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800afa8                vPortSetupTimerInterrupt
  .text.vPortEnableVFP
-                0x000000000800af30       0x14 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800afe0       0x14 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .text.pvPortMalloc
-                0x000000000800af44      0x184 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
-                0x000000000800af44                pvPortMalloc
+                0x000000000800aff4      0x184 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+                0x000000000800aff4                pvPortMalloc
  .text.vPortFree
-                0x000000000800b0c8       0xb0 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
-                0x000000000800b0c8                vPortFree
+                0x000000000800b178       0xb0 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+                0x000000000800b178                vPortFree
  .text.prvHeapInit
-                0x000000000800b178       0xc4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+                0x000000000800b228       0xc4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .text.prvInsertBlockIntoFreeList
-                0x000000000800b23c       0xb4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+                0x000000000800b2ec       0xb4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .text.xTaskCreate
-                0x000000000800b2f0       0x82 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b2f0                xTaskCreate
+                0x000000000800b3a0       0x82 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b3a0                xTaskCreate
  .text.prvInitialiseNewTask
-                0x000000000800b372       0xfc Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- *fill*         0x000000000800b46e        0x2 
+                0x000000000800b422       0xfc Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ *fill*         0x000000000800b51e        0x2 
  .text.prvAddNewTaskToReadyList
-                0x000000000800b470       0xd4 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b520       0xd4 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.vTaskDelay
-                0x000000000800b544       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b544                vTaskDelay
+                0x000000000800b5f4       0x68 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b5f4                vTaskDelay
  .text.vTaskStartScheduler
-                0x000000000800b5ac       0x8c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b5ac                vTaskStartScheduler
+                0x000000000800b65c       0x8c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b65c                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x000000000800b638       0x1c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b638                vTaskSuspendAll
+                0x000000000800b6e8       0x1c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b6e8                vTaskSuspendAll
  .text.xTaskResumeAll
-                0x000000000800b654      0x138 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b654                xTaskResumeAll
+                0x000000000800b704      0x138 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b704                xTaskResumeAll
  .text.xTaskIncrementTick
-                0x000000000800b78c      0x178 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b78c                xTaskIncrementTick
+                0x000000000800b83c      0x178 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b83c                xTaskIncrementTick
  .text.vTaskSwitchContext
-                0x000000000800b904       0xb4 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800b904                vTaskSwitchContext
+                0x000000000800b9b4       0xb4 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800b9b4                vTaskSwitchContext
  .text.prvIdleTask
-                0x000000000800b9b8       0x30 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800ba68       0x30 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.prvInitialiseTaskLists
-                0x000000000800b9e8       0x80 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800ba98       0x80 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.prvCheckTasksWaitingTermination
-                0x000000000800ba68       0x78 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800bb18       0x78 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.prvDeleteTCB
-                0x000000000800bae0       0x20 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800bb90       0x20 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.prvResetNextTaskUnblockTime
-                0x000000000800bb00       0x4c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800bbb0       0x4c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
  .text.xTaskGetSchedulerState
-                0x000000000800bb4c       0x3c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x000000000800bb4c                xTaskGetSchedulerState
+                0x000000000800bbfc       0x3c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x000000000800bbfc                xTaskGetSchedulerState
  .text.prvAddCurrentTaskToDelayedList
-                0x000000000800bb88       0xcc Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .text.tsPress  0x000000000800bc54       0x68 Startup/Src/gui.o
-                0x000000000800bc54                tsPress
+                0x000000000800bc38       0xcc Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ .text.tsPress  0x000000000800bd04       0x60 Startup/Src/gui.o
+                0x000000000800bd04                tsPress
  .text.init_gui
-                0x000000000800bcbc       0x2c Startup/Src/gui.o
-                0x000000000800bcbc                init_gui
+                0x000000000800bd64       0x2c Startup/Src/gui.o
+                0x000000000800bd64                init_gui
  .text.find_location
-                0x000000000800bce8       0xc0 Startup/Src/gui.o
-                0x000000000800bce8                find_location
+                0x000000000800bd90      0x108 Startup/Src/gui.o
+                0x000000000800bd90                find_location
  .text.screen_setup
-                0x000000000800bda8       0xdc Startup/Src/gui.o
-                0x000000000800bda8                screen_setup
+                0x000000000800be98      0x12c Startup/Src/gui.o
+                0x000000000800be98                screen_setup
  .text.vLedBlinkGreen
-                0x000000000800be84       0x2c Startup/Src/main.o
+                0x000000000800bfc4       0x2c Startup/Src/main.o
  .text.vLedBlinkRed
-                0x000000000800beb0       0x2c Startup/Src/main.o
- .text.LCDInit  0x000000000800bedc       0x58 Startup/Src/main.o
-                0x000000000800bedc                LCDInit
+                0x000000000800bff0       0x2c Startup/Src/main.o
+ .text.LCDInit  0x000000000800c01c       0x58 Startup/Src/main.o
+                0x000000000800c01c                LCDInit
  .text.vLCDHelloWorld
-                0x000000000800bf34       0xd8 Startup/Src/main.o
- .text.vTSTest  0x000000000800c00c       0x3c Startup/Src/main.o
+                0x000000000800c074       0x38 Startup/Src/main.o
+ .text.vTSTest  0x000000000800c0ac      0x160 Startup/Src/main.o
  .text.vMotorRun
-                0x000000000800c048      0x14c Startup/Src/main.o
- .text.main     0x000000000800c194       0xe8 Startup/Src/main.o
-                0x000000000800c194                main
+                0x000000000800c20c      0x1d4 Startup/Src/main.o
+ .text.main     0x000000000800c3e0       0xe8 Startup/Src/main.o
+                0x000000000800c3e0                main
  .text.SystemClock_Config
-                0x000000000800c27c      0x11c Startup/Src/main.o
+                0x000000000800c4c8      0x11c Startup/Src/main.o
  .text.MX_SPI5_Init
-                0x000000000800c398       0x80 Startup/Src/main.o
+                0x000000000800c5e4       0x80 Startup/Src/main.o
  .text.MX_GPIO_Init
-                0x000000000800c418      0x238 Startup/Src/main.o
+                0x000000000800c664      0x238 Startup/Src/main.o
  .text.StartDefaultTask
-                0x000000000800c650       0x10 Startup/Src/main.o
+                0x000000000800c89c       0x10 Startup/Src/main.o
  .text.HAL_TIM_PeriodElapsedCallback
-                0x000000000800c660       0x24 Startup/Src/main.o
-                0x000000000800c660                HAL_TIM_PeriodElapsedCallback
+                0x000000000800c8ac       0x24 Startup/Src/main.o
+                0x000000000800c8ac                HAL_TIM_PeriodElapsedCallback
  .text._Error_Handler
-                0x000000000800c684       0x20 Startup/Src/main.o
-                0x000000000800c684                _Error_Handler
+                0x000000000800c8d0       0x20 Startup/Src/main.o
+                0x000000000800c8d0                _Error_Handler
  .text.assert_failed
-                0x000000000800c6a4       0x20 Startup/Src/main.o
-                0x000000000800c6a4                assert_failed
+                0x000000000800c8f0       0x20 Startup/Src/main.o
+                0x000000000800c8f0                assert_failed
  .text.Reset_Handler
-                0x000000000800c6c4       0x50 Startup/Src/startup_stm32f429xx.o
-                0x000000000800c6c4                Reset_Handler
+                0x000000000800c910       0x50 Startup/Src/startup_stm32f429xx.o
+                0x000000000800c910                Reset_Handler
  .text.Default_Handler
-                0x000000000800c714        0x2 Startup/Src/startup_stm32f429xx.o
-                0x000000000800c714                RTC_Alarm_IRQHandler
-                0x000000000800c714                HASH_RNG_IRQHandler
-                0x000000000800c714                EXTI2_IRQHandler
-                0x000000000800c714                TIM8_CC_IRQHandler
-                0x000000000800c714                DebugMon_Handler
-                0x000000000800c714                UART8_IRQHandler
-                0x000000000800c714                SPI4_IRQHandler
-                0x000000000800c714                TIM1_CC_IRQHandler
-                0x000000000800c714                DMA2_Stream5_IRQHandler
-                0x000000000800c714                HardFault_Handler
-                0x000000000800c714                DMA1_Stream5_IRQHandler
-                0x000000000800c714                PVD_IRQHandler
-                0x000000000800c714                SDIO_IRQHandler
-                0x000000000800c714                TAMP_STAMP_IRQHandler
-                0x000000000800c714                NMI_Handler
-                0x000000000800c714                CAN2_RX1_IRQHandler
-                0x000000000800c714                EXTI3_IRQHandler
-                0x000000000800c714                TIM8_TRG_COM_TIM14_IRQHandler
-                0x000000000800c714                TIM8_UP_TIM13_IRQHandler
-                0x000000000800c714                I2C3_ER_IRQHandler
-                0x000000000800c714                EXTI0_IRQHandler
-                0x000000000800c714                I2C2_EV_IRQHandler
-                0x000000000800c714                DMA1_Stream2_IRQHandler
-                0x000000000800c714                CAN1_RX0_IRQHandler
-                0x000000000800c714                FPU_IRQHandler
-                0x000000000800c714                OTG_HS_WKUP_IRQHandler
-                0x000000000800c714                UsageFault_Handler
-                0x000000000800c714                LTDC_ER_IRQHandler
-                0x000000000800c714                CAN2_SCE_IRQHandler
-                0x000000000800c714                DMA2_Stream2_IRQHandler
-                0x000000000800c714                SPI1_IRQHandler
-                0x000000000800c714                TIM6_DAC_IRQHandler
-                0x000000000800c714                TIM1_BRK_TIM9_IRQHandler
-                0x000000000800c714                DCMI_IRQHandler
-                0x000000000800c714                CAN2_RX0_IRQHandler
-                0x000000000800c714                DMA2_Stream3_IRQHandler
-                0x000000000800c714                USART6_IRQHandler
-                0x000000000800c714                USART3_IRQHandler
-                0x000000000800c714                CAN1_RX1_IRQHandler
-                0x000000000800c714                UART5_IRQHandler
-                0x000000000800c714                DMA2_Stream0_IRQHandler
-                0x000000000800c714                TIM4_IRQHandler
-                0x000000000800c714                I2C1_EV_IRQHandler
-                0x000000000800c714                DMA1_Stream6_IRQHandler
-                0x000000000800c714                DMA1_Stream1_IRQHandler
-                0x000000000800c714                UART4_IRQHandler
-                0x000000000800c714                TIM3_IRQHandler
-                0x000000000800c714                RCC_IRQHandler
-                0x000000000800c714                TIM8_BRK_TIM12_IRQHandler
-                0x000000000800c714                Default_Handler
-                0x000000000800c714                EXTI15_10_IRQHandler
-                0x000000000800c714                ADC_IRQHandler
-                0x000000000800c714                DMA1_Stream7_IRQHandler
-                0x000000000800c714                SPI5_IRQHandler
-                0x000000000800c714                TIM7_IRQHandler
-                0x000000000800c714                CAN2_TX_IRQHandler
-                0x000000000800c714                TIM5_IRQHandler
-                0x000000000800c714                DMA2_Stream7_IRQHandler
-                0x000000000800c714                I2C3_EV_IRQHandler
-                0x000000000800c714                EXTI9_5_IRQHandler
-                0x000000000800c714                RTC_WKUP_IRQHandler
-                0x000000000800c714                LTDC_IRQHandler
-                0x000000000800c714                ETH_WKUP_IRQHandler
-                0x000000000800c714                SPI2_IRQHandler
-                0x000000000800c714                OTG_HS_EP1_IN_IRQHandler
-                0x000000000800c714                MemManage_Handler
-                0x000000000800c714                DMA1_Stream0_IRQHandler
-                0x000000000800c714                CAN1_TX_IRQHandler
-                0x000000000800c714                EXTI4_IRQHandler
-                0x000000000800c714                ETH_IRQHandler
-                0x000000000800c714                OTG_HS_EP1_OUT_IRQHandler
-                0x000000000800c714                WWDG_IRQHandler
-                0x000000000800c714                SPI6_IRQHandler
-                0x000000000800c714                TIM2_IRQHandler
-                0x000000000800c714                OTG_FS_WKUP_IRQHandler
-                0x000000000800c714                TIM1_TRG_COM_TIM11_IRQHandler
-                0x000000000800c714                OTG_HS_IRQHandler
-                0x000000000800c714                DMA2D_IRQHandler
-                0x000000000800c714                EXTI1_IRQHandler
-                0x000000000800c714                UART7_IRQHandler
-                0x000000000800c714                USART2_IRQHandler
-                0x000000000800c714                I2C2_ER_IRQHandler
-                0x000000000800c714                DMA2_Stream1_IRQHandler
-                0x000000000800c714                CAN1_SCE_IRQHandler
-                0x000000000800c714                FLASH_IRQHandler
-                0x000000000800c714                DMA2_Stream4_IRQHandler
-                0x000000000800c714                BusFault_Handler
-                0x000000000800c714                USART1_IRQHandler
-                0x000000000800c714                OTG_FS_IRQHandler
-                0x000000000800c714                SPI3_IRQHandler
-                0x000000000800c714                DMA1_Stream4_IRQHandler
-                0x000000000800c714                I2C1_ER_IRQHandler
-                0x000000000800c714                FMC_IRQHandler
-                0x000000000800c714                DMA2_Stream6_IRQHandler
-                0x000000000800c714                SAI1_IRQHandler
-                0x000000000800c714                DMA1_Stream3_IRQHandler
+                0x000000000800c960        0x2 Startup/Src/startup_stm32f429xx.o
+                0x000000000800c960                RTC_Alarm_IRQHandler
+                0x000000000800c960                HASH_RNG_IRQHandler
+                0x000000000800c960                EXTI2_IRQHandler
+                0x000000000800c960                TIM8_CC_IRQHandler
+                0x000000000800c960                DebugMon_Handler
+                0x000000000800c960                UART8_IRQHandler
+                0x000000000800c960                SPI4_IRQHandler
+                0x000000000800c960                TIM1_CC_IRQHandler
+                0x000000000800c960                DMA2_Stream5_IRQHandler
+                0x000000000800c960                HardFault_Handler
+                0x000000000800c960                DMA1_Stream5_IRQHandler
+                0x000000000800c960                PVD_IRQHandler
+                0x000000000800c960                SDIO_IRQHandler
+                0x000000000800c960                TAMP_STAMP_IRQHandler
+                0x000000000800c960                NMI_Handler
+                0x000000000800c960                CAN2_RX1_IRQHandler
+                0x000000000800c960                EXTI3_IRQHandler
+                0x000000000800c960                TIM8_TRG_COM_TIM14_IRQHandler
+                0x000000000800c960                TIM8_UP_TIM13_IRQHandler
+                0x000000000800c960                I2C3_ER_IRQHandler
+                0x000000000800c960                EXTI0_IRQHandler
+                0x000000000800c960                I2C2_EV_IRQHandler
+                0x000000000800c960                DMA1_Stream2_IRQHandler
+                0x000000000800c960                CAN1_RX0_IRQHandler
+                0x000000000800c960                FPU_IRQHandler
+                0x000000000800c960                OTG_HS_WKUP_IRQHandler
+                0x000000000800c960                UsageFault_Handler
+                0x000000000800c960                LTDC_ER_IRQHandler
+                0x000000000800c960                CAN2_SCE_IRQHandler
+                0x000000000800c960                DMA2_Stream2_IRQHandler
+                0x000000000800c960                SPI1_IRQHandler
+                0x000000000800c960                TIM6_DAC_IRQHandler
+                0x000000000800c960                TIM1_BRK_TIM9_IRQHandler
+                0x000000000800c960                DCMI_IRQHandler
+                0x000000000800c960                CAN2_RX0_IRQHandler
+                0x000000000800c960                DMA2_Stream3_IRQHandler
+                0x000000000800c960                USART6_IRQHandler
+                0x000000000800c960                USART3_IRQHandler
+                0x000000000800c960                CAN1_RX1_IRQHandler
+                0x000000000800c960                UART5_IRQHandler
+                0x000000000800c960                DMA2_Stream0_IRQHandler
+                0x000000000800c960                TIM4_IRQHandler
+                0x000000000800c960                I2C1_EV_IRQHandler
+                0x000000000800c960                DMA1_Stream6_IRQHandler
+                0x000000000800c960                DMA1_Stream1_IRQHandler
+                0x000000000800c960                UART4_IRQHandler
+                0x000000000800c960                TIM3_IRQHandler
+                0x000000000800c960                RCC_IRQHandler
+                0x000000000800c960                TIM8_BRK_TIM12_IRQHandler
+                0x000000000800c960                Default_Handler
+                0x000000000800c960                EXTI15_10_IRQHandler
+                0x000000000800c960                ADC_IRQHandler
+                0x000000000800c960                DMA1_Stream7_IRQHandler
+                0x000000000800c960                SPI5_IRQHandler
+                0x000000000800c960                TIM7_IRQHandler
+                0x000000000800c960                CAN2_TX_IRQHandler
+                0x000000000800c960                TIM5_IRQHandler
+                0x000000000800c960                DMA2_Stream7_IRQHandler
+                0x000000000800c960                I2C3_EV_IRQHandler
+                0x000000000800c960                EXTI9_5_IRQHandler
+                0x000000000800c960                RTC_WKUP_IRQHandler
+                0x000000000800c960                LTDC_IRQHandler
+                0x000000000800c960                ETH_WKUP_IRQHandler
+                0x000000000800c960                SPI2_IRQHandler
+                0x000000000800c960                OTG_HS_EP1_IN_IRQHandler
+                0x000000000800c960                MemManage_Handler
+                0x000000000800c960                DMA1_Stream0_IRQHandler
+                0x000000000800c960                CAN1_TX_IRQHandler
+                0x000000000800c960                EXTI4_IRQHandler
+                0x000000000800c960                ETH_IRQHandler
+                0x000000000800c960                OTG_HS_EP1_OUT_IRQHandler
+                0x000000000800c960                WWDG_IRQHandler
+                0x000000000800c960                SPI6_IRQHandler
+                0x000000000800c960                TIM2_IRQHandler
+                0x000000000800c960                OTG_FS_WKUP_IRQHandler
+                0x000000000800c960                TIM1_TRG_COM_TIM11_IRQHandler
+                0x000000000800c960                OTG_HS_IRQHandler
+                0x000000000800c960                DMA2D_IRQHandler
+                0x000000000800c960                EXTI1_IRQHandler
+                0x000000000800c960                UART7_IRQHandler
+                0x000000000800c960                USART2_IRQHandler
+                0x000000000800c960                I2C2_ER_IRQHandler
+                0x000000000800c960                DMA2_Stream1_IRQHandler
+                0x000000000800c960                CAN1_SCE_IRQHandler
+                0x000000000800c960                FLASH_IRQHandler
+                0x000000000800c960                DMA2_Stream4_IRQHandler
+                0x000000000800c960                BusFault_Handler
+                0x000000000800c960                USART1_IRQHandler
+                0x000000000800c960                OTG_FS_IRQHandler
+                0x000000000800c960                SPI3_IRQHandler
+                0x000000000800c960                DMA1_Stream4_IRQHandler
+                0x000000000800c960                I2C1_ER_IRQHandler
+                0x000000000800c960                FMC_IRQHandler
+                0x000000000800c960                DMA2_Stream6_IRQHandler
+                0x000000000800c960                SAI1_IRQHandler
+                0x000000000800c960                DMA1_Stream3_IRQHandler
  .text.SysTick_Handler
-                0x000000000800c716        0xc Startup/Src/stm32f4xx_it.o
-                0x000000000800c716                SysTick_Handler
- *fill*         0x000000000800c722        0x2 
+                0x000000000800c962        0xc Startup/Src/stm32f4xx_it.o
+                0x000000000800c962                SysTick_Handler
+ *fill*         0x000000000800c96e        0x2 
  .text.TIM1_UP_TIM10_IRQHandler
-                0x000000000800c724       0x14 Startup/Src/stm32f4xx_it.o
-                0x000000000800c724                TIM1_UP_TIM10_IRQHandler
+                0x000000000800c970       0x14 Startup/Src/stm32f4xx_it.o
+                0x000000000800c970                TIM1_UP_TIM10_IRQHandler
  .text.SystemInit
-                0x000000000800c738       0x6c Startup/Src/system_stm32f4xx.o
-                0x000000000800c738                SystemInit
- .text.__errno  0x000000000800c7a4        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
-                0x000000000800c7a4                __errno
+                0x000000000800c984       0x6c Startup/Src/system_stm32f4xx.o
+                0x000000000800c984                SystemInit
+ .text.__errno  0x000000000800c9f0        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+                0x000000000800c9f0                __errno
  .text._cleanup_r
-                0x000000000800c7b0        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x000000000800c7b0                _cleanup_r
+                0x000000000800c9fc        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000800c9fc                _cleanup_r
  .text.std.isra.0
-                0x000000000800c7bc       0x48 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000800ca08       0x48 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
  .text.__sfmoreglue
-                0x000000000800c804       0x2c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x000000000800c804                __sfmoreglue
- .text.__sinit  0x000000000800c830       0x60 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x000000000800c830                __sinit
- .text.__sfp    0x000000000800c890       0x78 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x000000000800c890                __sfp
+                0x000000000800ca50       0x2c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000800ca50                __sfmoreglue
+ .text.__sinit  0x000000000800ca7c       0x60 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000800ca7c                __sinit
+ .text.__sfp    0x000000000800cadc       0x78 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000800cadc                __sfp
  .text._fwalk_reent
-                0x000000000800c908       0x3c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fwalk.o)
-                0x000000000800c908                _fwalk_reent
- .text.printf   0x000000000800c944       0x30 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-printf.o)
-                0x000000000800c944                printf
-                0x000000000800c944                iprintf
- .text._puts_r  0x000000000800c974       0xb8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-puts.o)
-                0x000000000800c974                _puts_r
- .text.puts     0x000000000800ca2c       0x10 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-puts.o)
-                0x000000000800ca2c                puts
- .text.__sread  0x000000000800ca3c       0x22 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
-                0x000000000800ca3c                __sread
+                0x000000000800cb54       0x3c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fwalk.o)
+                0x000000000800cb54                _fwalk_reent
+ .text.printf   0x000000000800cb90       0x30 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-printf.o)
+                0x000000000800cb90                printf
+                0x000000000800cb90                iprintf
+ .text._puts_r  0x000000000800cbc0       0xb8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-puts.o)
+                0x000000000800cbc0                _puts_r
+ .text.puts     0x000000000800cc78       0x10 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-puts.o)
+                0x000000000800cc78                puts
+ .text.__sread  0x000000000800cc88       0x22 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
+                0x000000000800cc88                __sread
  .text.__swrite
-                0x000000000800ca5e       0x38 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
-                0x000000000800ca5e                __swrite
- .text.__sseek  0x000000000800ca96       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
-                0x000000000800ca96                __sseek
+                0x000000000800ccaa       0x38 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
+                0x000000000800ccaa                __swrite
+ .text.__sseek  0x000000000800cce2       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
+                0x000000000800cce2                __sseek
  .text.__sclose
-                0x000000000800caba        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
-                0x000000000800caba                __sclose
- *fill*         0x000000000800cac2        0x2 
+                0x000000000800cd06        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-stdio.o)
+                0x000000000800cd06                __sclose
+ *fill*         0x000000000800cd0e        0x2 
  .text.__swbuf_r
-                0x000000000800cac4       0xa4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-wbuf.o)
-                0x000000000800cac4                __swbuf_r
+                0x000000000800cd10       0xa4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-wbuf.o)
+                0x000000000800cd10                __swbuf_r
  .text._write_r
-                0x000000000800cb68       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-writer.o)
-                0x000000000800cb68                _write_r
+                0x000000000800cdb4       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-writer.o)
+                0x000000000800cdb4                _write_r
  .text.__swsetup_r
-                0x000000000800cb8c       0xdc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-wsetup.o)
-                0x000000000800cb8c                __swsetup_r
+                0x000000000800cdd8       0xdc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-wsetup.o)
+                0x000000000800cdd8                __swsetup_r
  .text._close_r
-                0x000000000800cc68       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-closer.o)
-                0x000000000800cc68                _close_r
+                0x000000000800ceb4       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-closer.o)
+                0x000000000800ceb4                _close_r
  .text.__sflush_r
-                0x000000000800cc88      0x110 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fflush.o)
-                0x000000000800cc88                __sflush_r
+                0x000000000800ced4      0x110 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fflush.o)
+                0x000000000800ced4                __sflush_r
  .text._fflush_r
-                0x000000000800cd98       0x54 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fflush.o)
-                0x000000000800cd98                _fflush_r
+                0x000000000800cfe4       0x54 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fflush.o)
+                0x000000000800cfe4                _fflush_r
  .text._lseek_r
-                0x000000000800cdec       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-lseekr.o)
-                0x000000000800cdec                _lseek_r
+                0x000000000800d038       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-lseekr.o)
+                0x000000000800d038                _lseek_r
  .text.__swhatbuf_r
-                0x000000000800ce10       0x48 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-makebuf.o)
-                0x000000000800ce10                __swhatbuf_r
+                0x000000000800d05c       0x48 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-makebuf.o)
+                0x000000000800d05c                __swhatbuf_r
  .text.__smakebuf_r
-                0x000000000800ce58       0x80 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-makebuf.o)
-                0x000000000800ce58                __smakebuf_r
+                0x000000000800d0a4       0x80 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-makebuf.o)
+                0x000000000800d0a4                __smakebuf_r
  .text.__sfputc_r
-                0x000000000800ced8       0x30 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
+                0x000000000800d124       0x30 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
  .text.__sfputs_r
-                0x000000000800cf08       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
-                0x000000000800cf08                __sfputs_r
+                0x000000000800d154       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
+                0x000000000800d154                __sfputs_r
  .text._vfprintf_r
-                0x000000000800cf2c      0x22c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
-                0x000000000800cf2c                _vfiprintf_r
-                0x000000000800cf2c                _vfprintf_r
- .text._read_r  0x000000000800d158       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-readr.o)
-                0x000000000800d158                _read_r
+                0x000000000800d178      0x22c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
+                0x000000000800d178                _vfiprintf_r
+                0x000000000800d178                _vfprintf_r
+ .text._read_r  0x000000000800d3a4       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-readr.o)
+                0x000000000800d3a4                _read_r
  .text._fstat_r
-                0x000000000800d17c       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fstatr.o)
-                0x000000000800d17c                _fstat_r
+                0x000000000800d3c8       0x24 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fstatr.o)
+                0x000000000800d3c8                _fstat_r
  .text._isatty_r
-                0x000000000800d1a0       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-isattyr.o)
-                0x000000000800d1a0                _isatty_r
+                0x000000000800d3ec       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-isattyr.o)
+                0x000000000800d3ec                _isatty_r
  *(.glue_7)
- .glue_7        0x000000000800d1c0        0x0 linker stubs
+ .glue_7        0x000000000800d40c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x000000000800d1c0        0x0 linker stubs
+ .glue_7t       0x000000000800d40c        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x000000000800d1c0        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .eh_frame      0x000000000800d40c        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.init)
- .init          0x000000000800d1c0        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x000000000800d1c0                _init
- .init          0x000000000800d1c4        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ .init          0x000000000800d40c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x000000000800d40c                _init
+ .init          0x000000000800d410        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
  *(.fini)
- .fini          0x000000000800d1cc        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x000000000800d1cc                _fini
- .fini          0x000000000800d1d0        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
-                0x000000000800d1d8                . = ALIGN (0x4)
-                0x000000000800d1d8                _etext = .
+ .fini          0x000000000800d418        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x000000000800d418                _fini
+ .fini          0x000000000800d41c        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x000000000800d424                . = ALIGN (0x4)
+                0x000000000800d424                _etext = .
 
-.vfp11_veneer   0x000000000800d1d8        0x0
- .vfp11_veneer  0x000000000800d1d8        0x0 linker stubs
+.vfp11_veneer   0x000000000800d424        0x0
+ .vfp11_veneer  0x000000000800d424        0x0 linker stubs
 
-.v4_bx          0x000000000800d1d8        0x0
- .v4_bx         0x000000000800d1d8        0x0 linker stubs
+.v4_bx          0x000000000800d424        0x0
+ .v4_bx         0x000000000800d424        0x0 linker stubs
 
-.iplt           0x000000000800d1d8        0x0
- .iplt          0x000000000800d1d8        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.iplt           0x000000000800d424        0x0
+ .iplt          0x000000000800d424        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.rodata         0x000000000800d1d8     0x3458
-                0x000000000800d1d8                . = ALIGN (0x4)
+.rodata         0x000000000800d428     0x3448
+                0x000000000800d428                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x000000000800d1d8      0x321 Startup/Drivers/BSP/Components/L6470/L6470.o
-                0x000000000800d1d8                L6470_Register
-                0x000000000800d3cc                L6470_ApplicationCommand
-                0x000000000800d4d8                L6470_Direction
-                0x000000000800d4ec                L6470_ACT
- *fill*         0x000000000800d4f9        0x3 
- .rodata        0x000000000800d4fc       0x48 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .rodata        0x000000000800d544       0x42 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
- *fill*         0x000000000800d586        0x2 
- .rodata        0x000000000800d588       0x41 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- *fill*         0x000000000800d5c9        0x3 
- .rodata        0x000000000800d5cc       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .rodata        0x000000000800d60c       0x41 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- *fill*         0x000000000800d64d        0x3 
- .rodata        0x000000000800d650       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .rodata        0x000000000800d690       0x43 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- *fill*         0x000000000800d6d3        0x1 
- .rodata        0x000000000800d6d4       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .rodata        0x000000000800d714       0x3f Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
- *fill*         0x000000000800d753        0x1 
- .rodata        0x000000000800d754        0x5 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- *fill*         0x000000000800d759        0x3 
- .rodata        0x000000000800d75c       0x3b Startup/Src/gui.o
- *fill*         0x000000000800d797        0x1 
- .rodata        0x000000000800d798      0x226 Startup/Src/main.o
- *fill*         0x000000000800d9be        0x2 
- .rodata        0x000000000800d9c0       0x18 Startup/Src/system_stm32f4xx.o
-                0x000000000800d9c0                AHBPrescTable
-                0x000000000800d9d0                APBPrescTable
- .rodata        0x000000000800d9d8      0xed8 Startup/Utilities/Fonts/font20.o
-                0x000000000800d9d8                Font20_Table
- .rodata        0x000000000800e8b0     0x1ab8 Startup/Utilities/Fonts/font24.o
-                0x000000000800e8b0                Font24_Table
+ .rodata        0x000000000800d428      0x321 Startup/Drivers/BSP/Components/L6470/L6470.o
+                0x000000000800d428                L6470_Register
+                0x000000000800d61c                L6470_ApplicationCommand
+                0x000000000800d728                L6470_Direction
+                0x000000000800d73c                L6470_ACT
+ *fill*         0x000000000800d749        0x3 
+ .rodata        0x000000000800d74c       0x48 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .rodata        0x000000000800d794       0x42 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+ *fill*         0x000000000800d7d6        0x2 
+ .rodata        0x000000000800d7d8       0x41 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ *fill*         0x000000000800d819        0x3 
+ .rodata        0x000000000800d81c       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .rodata        0x000000000800d85c       0x41 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ *fill*         0x000000000800d89d        0x3 
+ .rodata        0x000000000800d8a0       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .rodata        0x000000000800d8e0       0x43 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ *fill*         0x000000000800d923        0x1 
+ .rodata        0x000000000800d924       0x40 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .rodata        0x000000000800d964       0x3f Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+ *fill*         0x000000000800d9a3        0x1 
+ .rodata        0x000000000800d9a4        0x5 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+ *fill*         0x000000000800d9a9        0x3 
+ .rodata        0x000000000800d9ac       0x4b Startup/Src/gui.o
+ *fill*         0x000000000800d9f7        0x1 
+ .rodata        0x000000000800d9f8      0x206 Startup/Src/main.o
+ *fill*         0x000000000800dbfe        0x2 
+ .rodata        0x000000000800dc00       0x18 Startup/Src/system_stm32f4xx.o
+                0x000000000800dc00                AHBPrescTable
+                0x000000000800dc10                APBPrescTable
+ .rodata        0x000000000800dc18      0xed8 Startup/Utilities/Fonts/font20.o
+                0x000000000800dc18                Font20_Table
+ .rodata        0x000000000800eaf0     0x1ab8 Startup/Utilities/Fonts/font24.o
+                0x000000000800eaf0                Font24_Table
  *(.rodata*)
  .rodata._global_impure_ptr
-                0x0000000008010368        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
-                0x0000000008010368                _global_impure_ptr
+                0x00000000080105a8        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
+                0x00000000080105a8                _global_impure_ptr
  .rodata._printf_float.str1.1
-                0x000000000801036c       0x12 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x00000000080105ac       0x12 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_float.o)
  .rodata._printf_i.str1.1
-                0x000000000801037e       0x22 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000080105be       0x22 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._dtoa_r.str1.1
-                0x00000000080103a0        0xd /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-dtoa.o)
+                0x00000000080105e0        0xd /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-dtoa.o)
                                           0xf (size before relaxing)
- *fill*         0x00000000080103ad        0x3 
+ *fill*         0x00000000080105ed        0x3 
  .rodata.__mprec_bigtens
-                0x00000000080103b0       0x28 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
-                0x00000000080103b0                __mprec_bigtens
+                0x00000000080105f0       0x28 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
+                0x00000000080105f0                __mprec_bigtens
  .rodata.__mprec_tens
-                0x00000000080103d8       0xc8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
-                0x00000000080103d8                __mprec_tens
+                0x0000000008010618       0xc8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
+                0x0000000008010618                __mprec_tens
  .rodata.p05.7170
-                0x00000000080104a0        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
+                0x00000000080106e0        0xc /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mprec.o)
  .rodata._setlocale_r.str1.1
-                0x00000000080104ac        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
+                0x00000000080106ec        0x8 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
                                           0x9 (size before relaxing)
  .rodata.str1.1
-                0x00000000080104b4        0x2 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
+                0x00000000080106f4        0x2 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
  .rodata._ctype_
-                0x00000000080104b6      0x101 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-ctype_.o)
-                0x00000000080104b6                _ctype_
+                0x00000000080106f6      0x101 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-ctype_.o)
+                0x00000000080106f6                _ctype_
  .rodata.initialise_monitor_handles.str1.1
-                0x00000000080105b7        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
- *fill*         0x00000000080105bb        0x1 
+                0x00000000080107f7        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+ *fill*         0x00000000080107fb        0x1 
  .rodata.__sf_fake_stderr
-                0x00000000080105bc       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x00000000080105bc                __sf_fake_stderr
+                0x00000000080107fc       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x00000000080107fc                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x00000000080105dc       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x00000000080105dc                __sf_fake_stdin
+                0x000000000801081c       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000801081c                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x00000000080105fc       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
-                0x00000000080105fc                __sf_fake_stdout
+                0x000000000801083c       0x20 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-findfp.o)
+                0x000000000801083c                __sf_fake_stdout
  .rodata._vfprintf_r.str1.1
-                0x000000000801061c       0x11 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
-                0x0000000008010630                . = ALIGN (0x4)
- *fill*         0x000000000801062d        0x3 
+                0x000000000801085c       0x11 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf.o)
+                0x0000000008010870                . = ALIGN (0x4)
+ *fill*         0x000000000801086d        0x3 
 
-.rel.dyn        0x0000000008010630        0x0
- .rel.iplt      0x0000000008010630        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.rel.dyn        0x0000000008010870        0x0
+ .rel.iplt      0x0000000008010870        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0000000008010630        0x0
-                0x0000000008010630                __exidx_start = .
+.ARM            0x0000000008010870        0x0
+                0x0000000008010870                __exidx_start = .
  *(.ARM.exidx*)
-                0x0000000008010630                __exidx_end = .
+                0x0000000008010870                __exidx_end = .
 
-.preinit_array  0x0000000008010630        0x0
-                0x0000000008010630                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x0000000008010870        0x0
+                0x0000000008010870                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x0000000008010630                PROVIDE (__preinit_array_end, .)
+                0x0000000008010870                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x0000000008010630        0x4
-                0x0000000008010630                PROVIDE (__init_array_start, .)
+.init_array     0x0000000008010870        0x4
+                0x0000000008010870                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008010630        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x0000000008010634                PROVIDE (__init_array_end, .)
+ .init_array    0x0000000008010870        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0000000008010874                PROVIDE (__init_array_end, .)
 
-.fini_array     0x0000000008010634        0x4
+.fini_array     0x0000000008010874        0x4
                 [!provide]                        PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000008010634        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .fini_array    0x0000000008010874        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end, .)
-                0x0000000008010638                _sidata = LOADADDR (.data)
+                0x0000000008010878                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x294 load address 0x0000000008010638
+.data           0x0000000020000000      0x290 load address 0x0000000008010878
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -9421,37 +9422,35 @@ LOAD /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugi
  .data          0x00000000200000a0        0x1 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
  *fill*         0x00000000200000a1        0x3 
  .data          0x00000000200000a4        0x4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- .data          0x00000000200000a8        0x1 Startup/Src/gui.o
- *fill*         0x00000000200000a9        0x3 
- .data          0x00000000200000ac        0x4 Startup/Src/system_stm32f4xx.o
-                0x00000000200000ac                SystemCoreClock
- .data          0x00000000200000b0        0x8 Startup/Utilities/Fonts/font20.o
-                0x00000000200000b0                Font20
- .data          0x00000000200000b8        0x8 Startup/Utilities/Fonts/font24.o
-                0x00000000200000b8                Font24
+ .data          0x00000000200000a8        0x4 Startup/Src/system_stm32f4xx.o
+                0x00000000200000a8                SystemCoreClock
+ .data          0x00000000200000ac        0x8 Startup/Utilities/Fonts/font20.o
+                0x00000000200000ac                Font20
+ .data          0x00000000200000b4        0x8 Startup/Utilities/Fonts/font24.o
+                0x00000000200000b4                Font24
  *(.data*)
  .data._impure_ptr
-                0x00000000200000c0        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
-                0x00000000200000c0                _impure_ptr
+                0x00000000200000bc        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
+                0x00000000200000bc                _impure_ptr
  .data.impure_data
-                0x00000000200000c4       0x60 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
+                0x00000000200000c0       0x60 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
  .data.__global_locale
-                0x0000000020000124      0x16c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
-                0x0000000020000124                __global_locale
+                0x0000000020000120      0x16c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-locale.o)
+                0x0000000020000120                __global_locale
  .data.__heap_limit
-                0x0000000020000290        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
-                0x0000000020000290                __heap_limit
-                0x0000000020000294                . = ALIGN (0x4)
-                0x0000000020000294                _edata = .
-                0x00000000080108cc                _siccmram = LOADADDR (.ccmram)
+                0x000000002000028c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x000000002000028c                __heap_limit
+                0x0000000020000290                . = ALIGN (0x4)
+                0x0000000020000290                _edata = .
+                0x0000000008010b08                _siccmram = LOADADDR (.ccmram)
 
-.jcr            0x0000000020000294        0x0 load address 0x00000000080108cc
- .jcr           0x0000000020000294        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.jcr            0x0000000020000290        0x0 load address 0x0000000008010b08
+ .jcr           0x0000000020000290        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.igot.plt       0x0000000020000294        0x0 load address 0x00000000080108cc
- .igot.plt      0x0000000020000294        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.igot.plt       0x0000000020000290        0x0 load address 0x0000000008010b08
+ .igot.plt      0x0000000020000290        0x0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.ccmram         0x0000000010000000        0x0 load address 0x00000000080108cc
+.ccmram         0x0000000010000000        0x0 load address 0x0000000008010b08
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _sccmram = .
  *(.ccmram)
@@ -9460,84 +9459,83 @@ LOAD /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugi
                 0x0000000010000000                _eccmram = .
                 0x0000000010000000                . = ALIGN (0x4)
 
-.bss            0x0000000020000294     0x4224
-                0x0000000020000294                _sbss = .
-                0x0000000020000294                __bss_start__ = _sbss
+.bss            0x0000000020000290     0x4220
+                0x0000000020000290                _sbss = .
+                0x0000000020000290                __bss_start__ = _sbss
  *(.bss)
- .bss           0x0000000020000294       0x1c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
- .bss           0x00000000200002b0        0x1 Startup/Drivers/BSP/Components/L6470/L6470.o
-                0x00000000200002b0                L6470_DaisyChain_HalfPrepared
- *fill*         0x00000000200002b1        0x3 
- .bss           0x00000000200002b4        0x2 Startup/Drivers/BSP/Components/stmpe811/stmpe811.o
-                0x00000000200002b4                stmpe811
- *fill*         0x00000000200002b6        0x2 
- .bss           0x00000000200002b8       0x59 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.o
- *fill*         0x0000000020000311        0x3 
- .bss           0x0000000020000314       0x8c Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
- .bss           0x00000000200003a0      0x120 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
- .bss           0x00000000200004c0       0x10 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
- .bss           0x00000000200004d0        0x8 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
- .bss           0x00000000200004d8     0x3c18 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
- .bss           0x00000000200040f0      0x12c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
-                0x00000000200040f0                pxCurrentTCB
+ .bss           0x0000000020000290       0x1c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .bss           0x00000000200002ac        0x1 Startup/Drivers/BSP/Components/L6470/L6470.o
+                0x00000000200002ac                L6470_DaisyChain_HalfPrepared
+ *fill*         0x00000000200002ad        0x3 
+ .bss           0x00000000200002b0        0x2 Startup/Drivers/BSP/Components/stmpe811/stmpe811.o
+                0x00000000200002b0                stmpe811
+ *fill*         0x00000000200002b2        0x2 
+ .bss           0x00000000200002b4       0x59 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.o
+ *fill*         0x000000002000030d        0x3 
+ .bss           0x0000000020000310       0x8c Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+ .bss           0x000000002000039c      0x120 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.o
+ .bss           0x00000000200004bc       0x10 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.o
+ .bss           0x00000000200004cc        0x8 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .bss           0x00000000200004d4     0x3c18 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
+ .bss           0x00000000200040ec      0x12c Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
+                0x00000000200040ec                pxCurrentTCB
  *(.bss*)
  .bss.__malloc_free_list
-                0x000000002000421c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x000000002000421c                __malloc_free_list
+                0x0000000020004218        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020004218                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x0000000020004220        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020004220                __malloc_sbrk_start
+                0x000000002000421c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000002000421c                __malloc_sbrk_start
  .bss.heap_end.7284
-                0x0000000020004224        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x0000000020004220        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
  .bss.monitor_stderr
-                0x0000000020004228        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x0000000020004224        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
  .bss.monitor_stdin
-                0x000000002000422c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x0000000020004228        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
  .bss.monitor_stdout
-                0x0000000020004230        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x000000002000422c        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
  .bss.openfiles
-                0x0000000020004234       0xa0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
+                0x0000000020004230       0xa0 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/librdimon_nano.a(rdimon-syscalls.o)
  *(COMMON)
- COMMON         0x00000000200042d4        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
-                0x00000000200042d4                errno
- COMMON         0x00000000200042d8       0x33 Startup/Drivers/BSP/Components/L6470/L6470.o
-                0x00000000200042d8                L6470_DaisyChainSpiRxStruct
-                0x00000000200042e0                L6470_DaisyChainSpiTxStruct
-                0x00000000200042e8                L6470_AppCmdPkg
-                0x0000000020004308                L6470_StatusRegister
-                0x000000002000430a                delay_cnt
- *fill*         0x000000002000430b        0x1 
- COMMON         0x000000002000430c       0x54 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.o
-                0x000000002000430c                EEP_I2cHandle
- COMMON         0x0000000020004360       0xac Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
-                0x0000000020004360                LtdcHandler
-                0x0000000020004408                LcdDrv
- COMMON         0x000000002000440c        0x4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x000000002000440c                uwTick
- COMMON         0x0000000020004410        0xc Startup/Src/gui.o
-                0x0000000020004410                x
-                0x0000000020004414                y
-                0x0000000020004418                touch_location
- COMMON         0x000000002000441c       0x9c Startup/Src/main.o
-                0x000000002000441c                defaultTaskHandle
-                0x0000000020004420                hspi5
-                0x0000000020004478                lcd_flag
-                0x000000002000447c                htim1
-                0x00000000200044b8                . = ALIGN (0x4)
-                0x00000000200044b8                _ebss = .
-                0x00000000200044b8                __bss_end__ = _ebss
+ COMMON         0x00000000200042d0        0x4 /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x00000000200042d0                errno
+ COMMON         0x00000000200042d4       0x33 Startup/Drivers/BSP/Components/L6470/L6470.o
+                0x00000000200042d4                L6470_DaisyChainSpiRxStruct
+                0x00000000200042dc                L6470_DaisyChainSpiTxStruct
+                0x00000000200042e4                L6470_AppCmdPkg
+                0x0000000020004304                L6470_StatusRegister
+                0x0000000020004306                delay_cnt
+ *fill*         0x0000000020004307        0x1 
+ COMMON         0x0000000020004308       0x54 Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.o
+                0x0000000020004308                EEP_I2cHandle
+ COMMON         0x000000002000435c       0xac Startup/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o
+                0x000000002000435c                LtdcHandler
+                0x0000000020004404                LcdDrv
+ COMMON         0x0000000020004408        0x4 Startup/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x0000000020004408                uwTick
+ COMMON         0x000000002000440c        0xc Startup/Src/gui.o
+                0x000000002000440c                x
+                0x0000000020004410                y
+                0x0000000020004414                touch_location
+ COMMON         0x0000000020004418       0x98 Startup/Src/main.o
+                0x0000000020004418                defaultTaskHandle
+                0x000000002000441c                hspi5
+                0x0000000020004474                htim1
+                0x00000000200044b0                . = ALIGN (0x4)
+                0x00000000200044b0                _ebss = .
+                0x00000000200044b0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200044b8      0x600
-                0x00000000200044b8                . = ALIGN (0x8)
-                0x00000000200044b8                PROVIDE (end, .)
+                0x00000000200044b0      0x600
+                0x00000000200044b0                . = ALIGN (0x8)
+                0x00000000200044b0                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x00000000200044b8                PROVIDE (__end__, .)
-                0x00000000200046b8                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200044b8      0x200 
-                0x0000000020004ab8                . = (. + _Min_Stack_Size)
- *fill*         0x00000000200046b8      0x400 
-                0x0000000020004ab8                . = ALIGN (0x8)
+                0x00000000200044b0                PROVIDE (__end__, .)
+                0x00000000200046b0                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200044b0      0x200 
+                0x0000000020004ab0                . = (. + _Min_Stack_Size)
+ *fill*         0x00000000200046b0      0x400 
+                0x0000000020004ab0                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -9784,7 +9782,7 @@ OUTPUT(Dispenser.elf elf32-littlearm)
  .debug_frame   0x0000000000008ca4       0x2c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-fstatr.o)
  .debug_frame   0x0000000000008cd0       0x2c /home/rinaik/.eclipse/org.eclipse.platform_155965261_linux_gtk_x86_64/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-isattyr.o)
 
-.debug_info     0x0000000000000000    0x296c7
+.debug_info     0x0000000000000000    0x296e9
  .debug_info    0x0000000000000000     0x29e5 Startup/Drivers/BSP/Components/L6470/L6470.o
  .debug_info    0x00000000000029e5      0x344 Startup/Drivers/BSP/Components/ili9341/ili9341.o
  .debug_info    0x0000000000002d29      0xb94 Startup/Drivers/BSP/Components/stmpe811/stmpe811.o
@@ -9811,15 +9809,15 @@ OUTPUT(Dispenser.elf elf32-littlearm)
  .debug_info    0x00000000000217af      0x50f Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .debug_info    0x0000000000021cbe      0xc01 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .debug_info    0x00000000000228bf     0x20c9 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_info    0x0000000000024988      0xf4e Startup/Src/gui.o
- .debug_info    0x00000000000258d6     0x279b Startup/Src/main.o
- .debug_info    0x0000000000028071       0x70 Startup/Src/startup_stm32f429xx.o
- .debug_info    0x00000000000280e1      0xe2e Startup/Src/stm32f4xx_it.o
- .debug_info    0x0000000000028f0f      0x51c Startup/Src/system_stm32f4xx.o
- .debug_info    0x000000000002942b      0x14e Startup/Utilities/Fonts/font20.o
- .debug_info    0x0000000000029579      0x14e Startup/Utilities/Fonts/font24.o
+ .debug_info    0x0000000000024988      0xf57 Startup/Src/gui.o
+ .debug_info    0x00000000000258df     0x27b4 Startup/Src/main.o
+ .debug_info    0x0000000000028093       0x70 Startup/Src/startup_stm32f429xx.o
+ .debug_info    0x0000000000028103      0xe2e Startup/Src/stm32f4xx_it.o
+ .debug_info    0x0000000000028f31      0x51c Startup/Src/system_stm32f4xx.o
+ .debug_info    0x000000000002944d      0x14e Startup/Utilities/Fonts/font20.o
+ .debug_info    0x000000000002959b      0x14e Startup/Utilities/Fonts/font24.o
 
-.debug_abbrev   0x0000000000000000     0x5162
+.debug_abbrev   0x0000000000000000     0x5174
  .debug_abbrev  0x0000000000000000      0x325 Startup/Drivers/BSP/Components/L6470/L6470.o
  .debug_abbrev  0x0000000000000325      0x151 Startup/Drivers/BSP/Components/ili9341/ili9341.o
  .debug_abbrev  0x0000000000000476      0x1da Startup/Drivers/BSP/Components/stmpe811/stmpe811.o
@@ -9846,13 +9844,13 @@ OUTPUT(Dispenser.elf elf32-littlearm)
  .debug_abbrev  0x0000000000003f52      0x1d8 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .debug_abbrev  0x000000000000412a      0x2d4 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .debug_abbrev  0x00000000000043fe      0x38a Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_abbrev  0x0000000000004788      0x246 Startup/Src/gui.o
- .debug_abbrev  0x00000000000049ce      0x32f Startup/Src/main.o
- .debug_abbrev  0x0000000000004cfd       0x12 Startup/Src/startup_stm32f429xx.o
- .debug_abbrev  0x0000000000004d0f      0x1f8 Startup/Src/stm32f4xx_it.o
- .debug_abbrev  0x0000000000004f07      0x111 Startup/Src/system_stm32f4xx.o
- .debug_abbrev  0x0000000000005018       0xa5 Startup/Utilities/Fonts/font20.o
- .debug_abbrev  0x00000000000050bd       0xa5 Startup/Utilities/Fonts/font24.o
+ .debug_abbrev  0x0000000000004788      0x24f Startup/Src/gui.o
+ .debug_abbrev  0x00000000000049d7      0x338 Startup/Src/main.o
+ .debug_abbrev  0x0000000000004d0f       0x12 Startup/Src/startup_stm32f429xx.o
+ .debug_abbrev  0x0000000000004d21      0x1f8 Startup/Src/stm32f4xx_it.o
+ .debug_abbrev  0x0000000000004f19      0x111 Startup/Src/system_stm32f4xx.o
+ .debug_abbrev  0x000000000000502a       0xa5 Startup/Utilities/Fonts/font20.o
+ .debug_abbrev  0x00000000000050cf       0xa5 Startup/Utilities/Fonts/font24.o
 
 .debug_aranges  0x0000000000000000     0x1d98
  .debug_aranges
@@ -10093,7 +10091,7 @@ OUTPUT(Dispenser.elf elf32-littlearm)
  .debug_macro   0x0000000000029fa2       0x73 Startup/Utilities/Fonts/font20.o
  .debug_macro   0x000000000002a015       0x73 Startup/Utilities/Fonts/font24.o
 
-.debug_line     0x0000000000000000    0x1c26d
+.debug_line     0x0000000000000000    0x1c2e1
  .debug_line    0x0000000000000000     0x1109 Startup/Drivers/BSP/Components/L6470/L6470.o
  .debug_line    0x0000000000001109      0x507 Startup/Drivers/BSP/Components/ili9341/ili9341.o
  .debug_line    0x0000000000001610      0x700 Startup/Drivers/BSP/Components/stmpe811/stmpe811.o
@@ -10120,15 +10118,15 @@ OUTPUT(Dispenser.elf elf32-littlearm)
  .debug_line    0x00000000000170e8      0x749 Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
  .debug_line    0x0000000000017831      0x71e Startup/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .debug_line    0x0000000000017f4f     0x1033 Startup/Middlewares/Third_Party/FreeRTOS/Source/tasks.o
- .debug_line    0x0000000000018f82      0xbb8 Startup/Src/gui.o
- .debug_line    0x0000000000019b3a      0xf92 Startup/Src/main.o
- .debug_line    0x000000000001aacc       0x83 Startup/Src/startup_stm32f429xx.o
- .debug_line    0x000000000001ab4f      0xb11 Startup/Src/stm32f4xx_it.o
- .debug_line    0x000000000001b660      0x4e1 Startup/Src/system_stm32f4xx.o
- .debug_line    0x000000000001bb41      0x396 Startup/Utilities/Fonts/font20.o
- .debug_line    0x000000000001bed7      0x396 Startup/Utilities/Fonts/font24.o
+ .debug_line    0x0000000000018f82      0xbe5 Startup/Src/gui.o
+ .debug_line    0x0000000000019b67      0xfd9 Startup/Src/main.o
+ .debug_line    0x000000000001ab40       0x83 Startup/Src/startup_stm32f429xx.o
+ .debug_line    0x000000000001abc3      0xb11 Startup/Src/stm32f4xx_it.o
+ .debug_line    0x000000000001b6d4      0x4e1 Startup/Src/system_stm32f4xx.o
+ .debug_line    0x000000000001bbb5      0x396 Startup/Utilities/Fonts/font20.o
+ .debug_line    0x000000000001bf4b      0x396 Startup/Utilities/Fonts/font24.o
 
-.debug_str      0x0000000000000000    0xeaa62
+.debug_str      0x0000000000000000    0xeaa6f
  .debug_str     0x0000000000000000    0xd97d9 Startup/Drivers/BSP/Components/L6470/L6470.o
                                       0xd9eb0 (size before relaxing)
  .debug_str     0x00000000000d97d9      0x80c Startup/Drivers/BSP/Components/ili9341/ili9341.o
@@ -10183,15 +10181,15 @@ OUTPUT(Dispenser.elf elf32-littlearm)
                                        0xc44e (size before relaxing)
  .debug_str     0x00000000000ea6f8       0xd1 Startup/Src/gui.o
                                       0xda3da (size before relaxing)
- .debug_str     0x00000000000ea7c9      0x11d Startup/Src/main.o
-                                      0xe2162 (size before relaxing)
- .debug_str     0x00000000000ea8e6       0x7a Startup/Src/stm32f4xx_it.o
+ .debug_str     0x00000000000ea7c9      0x12a Startup/Src/main.o
+                                      0xe216f (size before relaxing)
+ .debug_str     0x00000000000ea8f3       0x7a Startup/Src/stm32f4xx_it.o
                                       0xdc6df (size before relaxing)
- .debug_str     0x00000000000ea960       0xa0 Startup/Src/system_stm32f4xx.o
+ .debug_str     0x00000000000ea96d       0xa0 Startup/Src/system_stm32f4xx.o
                                       0x8ef52 (size before relaxing)
- .debug_str     0x00000000000eaa00       0x31 Startup/Utilities/Fonts/font20.o
+ .debug_str     0x00000000000eaa0d       0x31 Startup/Utilities/Fonts/font20.o
                                        0x3525 (size before relaxing)
- .debug_str     0x00000000000eaa31       0x31 Startup/Utilities/Fonts/font24.o
+ .debug_str     0x00000000000eaa3e       0x31 Startup/Utilities/Fonts/font24.o
                                        0x3525 (size before relaxing)
 
 .comment        0x0000000000000000       0x7f

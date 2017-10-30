@@ -4,7 +4,7 @@
 
 //Notes: Screen Size: 240x320
 
-enum { STOP, START, MINUS, PLUS, NO_TOUCH };
+enum { NO_TOUCH, STOP, START, REV, FWD, PLUS, MINUS };
 int touch_location;
 int x;
 int y;
