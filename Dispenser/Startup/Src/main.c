@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * File Name          : main.c by RIN version 0.9  10/5/2017
+  * File Name          : main.c by RIN version 1.0  11/02/2017
   * Description        : Main program body
   ******************************************************************************
 */
@@ -20,6 +20,7 @@
 #include "stdbool.h" //boolean operators
 
 #include "gui.h" //  gui functions
+#include "ugui.h"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -28,6 +29,8 @@ TIM_HandleTypeDef htim1;
 osThreadId defaultTaskHandle;
 
 SPI_HandleTypeDef hspi5;
+
+UG_GUI gui;
 
 //Notes: Screen Size: 240x320
 
@@ -47,8 +50,6 @@ static void MX_SPI5_Init(void);
 
 static void StartDefaultTask(void const * argument);
 
-#define FALSE 0
-#define TRUE 1
 
 static void vLedBlinkGreen(void *pvParameters)
 {
@@ -98,8 +99,8 @@ static void vLCDHelloWorld()
 	    {
 
 
-			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-		    BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)" MOTOR CONTROLLER ", CENTER_MODE );
+			//BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+		  //  BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)" MOTOR CONTROLLER ", CENTER_MODE );
 
 
 		 	printf("This is the LCD task.\n");
@@ -114,53 +115,7 @@ static void vTSTest() {
 	    {
           printf("This is the TS task.\n");
 
-		  // find touch location
-
-	      touch_location = find_location(touch_location);
-	      printf("location is %d\n",touch_location);
-
-	      // fill touch boxes
-
-	      if (touch_location == START)
-	      		{
-	    	  	  	BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
-	    	        BSP_LCD_FillRect(40, 260, 40, 40);
-
-	    	    	BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
-	    	        BSP_LCD_FillRect(160, 260, 40, 40);
-	    	        BSP_LCD_SetTextColor( LCD_COLOR_RED );
-	    	        BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"STOP  ", RIGHT_MODE );
-	    	        BSP_LCD_DrawRect(160, 260, 40, 40);
-	      		}
-	      if (touch_location == STOP)
-	      		{
-
-	      	        BSP_LCD_SetTextColor( LCD_COLOR_RED );
-	      	        BSP_LCD_FillRect(160, 260, 40, 40);
-	      	  	    BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
-	      	  	    BSP_LCD_FillRect(40, 260, 40, 40);
-	      	  	    BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
-	      	  		BSP_LCD_DisplayStringAt( 0, LINE(12), (uint8_t *)"  START", LEFT_MODE );
-	      	  		BSP_LCD_DrawRect(40, 260, 40, 40);
-	      		}
-	      if (touch_location == REV)
-	      		{
-
-	      	        BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-	      			BSP_LCD_FillRect(160, 180, 40, 40);
-	      			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-	      		}
-	      if (touch_location == FWD)
-	      		{
-	    	  	  	BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-	      			BSP_LCD_FillRect(40, 180, 40, 40);
-	      			BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-	      		}
-	      if (touch_location == NO_TOUCH)
-	      {
-	    	        screen_setup();
-
-	      }
+          // nothing here now
 
 		  vTaskDelay( 50 / portTICK_RATE_MS );
 	    }
@@ -201,35 +156,24 @@ static void vMotorRun() {
 		printf("This is motor task.\n");
 
 
-		/*// draw motor speed graph
-		BSP_LCD_SetTextColor( LCD_COLOR_BLACK );
+		motor_speed = 1000;
 
-		BSP_LCD_FillRect(20,60,220,100);
-
-		BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
+		UG_FillScreen (C_RED);
 
 
-		if (motor_speed > 0)    {BSP_LCD_DrawVLine(20, 60, 40);}
-		if (motor_speed > 1000) {BSP_LCD_DrawVLine(40, 60, 40);}
-		if (motor_speed > 2000) {BSP_LCD_DrawVLine(60, 60, 40);}
-		if (motor_speed > 3000) {BSP_LCD_DrawVLine(80, 60, 40);}
-		if (motor_speed > 4000) {BSP_LCD_DrawVLine(100, 60, 40);}
-		if (motor_speed > 5000) {BSP_LCD_DrawVLine(120, 60, 40);}
-		if (motor_speed > 6000) {BSP_LCD_DrawVLine(140, 60, 40);}
-        if (motor_speed > 7000) {BSP_LCD_DrawVLine(160, 60, 40);}
-		if (motor_speed > 8000) {BSP_LCD_DrawVLine(180, 60, 40);}
-		if (motor_speed > 9000) {BSP_LCD_DrawVLine(200, 60, 40);}
-        if (motor_speed > 10000) {BSP_LCD_DrawVLine(220, 60, 40);}*/
+		// draw motor speed graph
+		//BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
+		//BSP_LCD_DisplayStringAt( 0, LINE(3), (uint8_t *)motor_speed, RIGHT_MODE );
 
+		int touch_location = 0;
 
-		if ((direction != 0) || (direction != 1)) { direction = 1;}
 		if (touch_location == START)
 		{
 			motor_speed = 1000;
 		    L6470_Run(0,direction,motor_speed);
 			printf("Motor is running.\n");
 			touch_location = NO_TOUCH;
-			was_stopped = FALSE;
+			was_stopped = 1;
 
 		}
 		if (touch_location == STOP)
@@ -238,9 +182,9 @@ static void vMotorRun() {
 		 	L6470_SoftStop(0);
 			printf("Motor is stopped.\n");
 			touch_location = NO_TOUCH;
-			was_stopped = TRUE;
+			was_stopped = 1;
 		}
-		if (touch_location == PLUS && was_stopped == FALSE)
+		if ((touch_location == PLUS) && (was_stopped == 0))
 		{
 			motor_speed = motor_speed + 1000;
 
@@ -248,7 +192,7 @@ static void vMotorRun() {
 			L6470_Run(0,direction,motor_speed);
 			printf("Motor speed up.\n");
 			touch_location = NO_TOUCH;
-			was_stopped = FALSE;
+			was_stopped = 0;
 
 		}
 		if (touch_location == MINUS)
@@ -258,7 +202,7 @@ static void vMotorRun() {
 			L6470_Run(0,direction,motor_speed);
 		    printf("Motor speed down.\n");
 		    touch_location = NO_TOUCH;
-		    was_stopped = FALSE;
+		    was_stopped = 0;
 		}
 		if (touch_location == REV) {
 			direction = 1;
@@ -279,7 +223,7 @@ extern void initialise_monitor_handles(void);
 int main(void)
 {
 
-	initialise_monitor_handles();
+  initialise_monitor_handles();
 
   printf("Welcome to the Dispenser test.\n");
 
@@ -296,8 +240,10 @@ int main(void)
 
   /* Initialize GUI */
 
-  init_gui();
-  screen_setup();
+  UG_Init(&gui, UserPixelSet, 240, 320);
+
+  UG_FillScreen (C_RED);
+
 
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);

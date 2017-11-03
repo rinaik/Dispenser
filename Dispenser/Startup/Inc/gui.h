@@ -2,16 +2,14 @@
 #ifndef __GUI_H
 #define __GUI_H
 
+#include "ugui.h"
+
 //Notes: Screen Size: 240x320
 
 enum { NO_TOUCH, STOP, START, REV, FWD, PLUS, MINUS };
-int touch_location;
-int x;
-int y;
 
-void init_gui(void);
 bool tsPress(void);
-int find_location (int current_location);
-void screen_setup (void);
+
+void UserPixelSet(UG_S16 x, UG_S16 y, UG_COLOR c);
 
 #endif /* __GUI_H */
