@@ -17,12 +17,12 @@
 #include "params.h" // motor parameters
 #include "L6470.h" // motor control
 
-#include "stdbool.h" //boolean operators
-
 #include "gui.h" //  gui functions
 #include "ugui.h"
 
 /* Private variables ---------------------------------------------------------*/
+
+#define MAX_OBJECTS 10
 
 TIM_HandleTypeDef htim1;
 
@@ -30,16 +30,20 @@ osThreadId defaultTaskHandle;
 
 SPI_HandleTypeDef hspi5;
 
-UG_GUI gui;
-
 //Notes: Screen Size: 240x320
+
+UG_GUI gui;
+UG_WINDOW window_1;
+UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
+UG_BUTTON button_1, button_2, button_3, button_4;
+
 
 /* Private variables ---------------------------------------------------------*/
 
 static void vLedBlinkGreen(void *pvParameters);
 static void vLedBlinkRed(void *pvParameters);
-static void vLCDHelloWorld();
-static void vTSTest();
+
+static void vGUIRun();
 static void vMotorRun();
 
 /* Private function prototypes -----------------------------------------------*/
@@ -85,39 +89,61 @@ void LCDInit()
 
 	  BSP_LCD_DisplayOn();
 
-	  BSP_LCD_Clear( LCD_COLOR_BLACK );
-	  BSP_LCD_SetBackColor( LCD_COLOR_BLACK );
-	  BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
-	  BSP_LCD_SetFont( &Font20 );
-
-	  printf("This is the LCD initialization.\n");
+	  printf("This is LCD initialization.\n");
 }
 
-static void vLCDHelloWorld()
+void window_1_callback (UG_MESSAGE* msg)
 {
-      for(;;)
-	    {
+	//
+}
+
+void GUIInit()
+{
+	 // Create a window
+
+	          UG_WindowCreate(&window_1, obj_buff_wnd_1, MAX_OBJECTS, window_1_callback);
+
+	          // Modify the window title
+
+	          UG_WindowSetTitleText(&window_1,"Motor Control");
+	          UG_WindowSetTitleTextFont(&window_1, &FONT_12X20);
+
+	          // Change window fore and back color
+	          UG_WindowSetForeColor(&window_1, C_YELLOW);
+	          UG_WindowSetBackColor(&window_1, C_BLUE);
+
+	          // Create some buttons
+	          UG_ButtonCreate(&window_1, &button_1, BTN_ID_0, 10, 10, 110, 60);
+	          UG_ButtonCreate(&window_1, &button_2, BTN_ID_1, 10, 80, 110, 130);
+	          UG_ButtonCreate(&window_1, &button_3, BTN_ID_2, 10, 150, 110, 200);
+
+	          // Label the buttons
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
+
+	          UG_ButtonSetFont ( &window_1, BTN_ID_0, &FONT_12X20);
+	          UG_ButtonSetText ( &window_1, BTN_ID_0, "Button A");
+	          UG_ButtonSetFont ( &window_1, BTN_ID_1, &FONT_12X20);
+	          UG_ButtonSetText ( &window_1, BTN_ID_1, "Button B");
+	          UG_ButtonSetFont ( &window_1, BTN_ID_2, &FONT_12X20);
+	          UG_ButtonSetText ( &window_1, BTN_ID_2, "Button C");
+
+	          // Show the window
+
+	          UG_WindowShow(&window_1);
+
+}
 
 
-			//BSP_LCD_SetTextColor( LCD_COLOR_BLUE );
-		  //  BSP_LCD_DisplayStringAt( 0, LINE(1), (uint8_t *)" MOTOR CONTROLLER ", CENTER_MODE );
-
-
-		 	printf("This is the LCD task.\n");
-
-		 	vTaskDelay( 100 / portTICK_RATE_MS );
-
-	    }
-};
-
-static void vTSTest() {
+static void vGUIRun() {
 	for(;;)
 	    {
-          printf("This is the TS task.\n");
+          printf("This is the GUI task.\n");
 
-          // nothing here now
+          UG_Update();
 
-		  vTaskDelay( 50 / portTICK_RATE_MS );
+		  vTaskDelay( 500 / portTICK_RATE_MS );
 	    }
 };
 
@@ -126,7 +152,7 @@ static void vMotorRun() {
 	{
 		  GPIO_InitTypeDef GPIO_InitStruct;
 		  int motor_speed;
-		  bool was_stopped;
+		 int was_stopped;
           int direction;
 
 		  /* GPIO Ports Clock Enable */
@@ -157,13 +183,6 @@ static void vMotorRun() {
 
 
 		motor_speed = 1000;
-
-		UG_FillScreen (C_RED);
-
-
-		// draw motor speed graph
-		//BSP_LCD_SetTextColor( LCD_COLOR_GREEN );
-		//BSP_LCD_DisplayStringAt( 0, LINE(3), (uint8_t *)motor_speed, RIGHT_MODE );
 
 		int touch_location = 0;
 
@@ -218,6 +237,7 @@ static void vMotorRun() {
 }
 
 
+
 extern void initialise_monitor_handles(void);
 
 int main(void)
@@ -242,8 +262,7 @@ int main(void)
 
   UG_Init(&gui, UserPixelSet, 240, 320);
 
-  UG_FillScreen (C_RED);
-
+  GUIInit();
 
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
@@ -258,10 +277,7 @@ int main(void)
   xTaskCreate( vLedBlinkRed, (const char*)"Led Blink Red",
         128, NULL, tskIDLE_PRIORITY, NULL );
 
-  xTaskCreate( vLCDHelloWorld, (const char*)"LCD Hello World",
-	 128, NULL, tskIDLE_PRIORITY, NULL );
-
-  xTaskCreate( vTSTest, (const char*)"Touch Screen",
+  xTaskCreate( vGUIRun, (const char*)"GUI Run",
  	 128, NULL, tskIDLE_PRIORITY, NULL );
 
   xTaskCreate( vMotorRun, (const char*)"Motor Run",

@@ -4575,14 +4575,9 @@ UG_S16 UG_Init( UG_GUI* g, void (*p)(UG_S16,UG_S16,UG_COLOR), UG_S16 x, UG_S16 y
    g->font.start_char = 0;
    g->font.end_char = 0;
    g->font.widths = NULL;
-   #ifdef USE_COLOR_RGB888
-   g->desktop_color = 0x5E8BEf;
-   #endif
-   #ifdef USE_COLOR_RGB565
-   g->desktop_color = 0x5C5D;
-   #endif
-   g->fore_color = C_WHITE;
-   g->back_color = C_BLACK;
+   g->desktop_color = LCD_COLOR_GRAY;
+   g->fore_color = LCD_COLOR_WHITE;
+   g->back_color = LCD_COLOR_BLACK;
    g->next_window = NULL;
    g->active_window = NULL;
    g->last_window = NULL;
@@ -5879,12 +5874,12 @@ UG_RESULT UG_WindowCreate( UG_WINDOW* wnd, UG_OBJECT* objlst, UG_U8 objcnt, void
    wnd->objlst = objlst;
    wnd->state = WND_STATE_VALID;
    #ifdef USE_COLOR_RGB888
-   wnd->fc = 0x000000;
-   wnd->bc = 0xF0F0F0;
+   wnd->fc = C_WHITE;
+   wnd->bc = C_BLACK;
    #endif
    #ifdef USE_COLOR_RGB565
-   wnd->fc = 0x0000;
-   wnd->bc = 0xEF7D;
+   wnd->fc = C_WHITE;
+   wnd->bc = C_BLACK;
    #endif
    wnd->xs = 0;
    wnd->ys = 0;
@@ -5899,9 +5894,9 @@ UG_RESULT UG_WindowCreate( UG_WINDOW* wnd, UG_OBJECT* objlst, UG_U8 objcnt, void
    else wnd->title.font = NULL;
    wnd->title.h_space = 2;
    wnd->title.v_space = 2;
-   wnd->title.align = ALIGN_CENTER_LEFT;
+   wnd->title.align = ALIGN_CENTER;
    wnd->title.fc = C_WHITE;
-   wnd->title.bc = C_BLUE;
+   wnd->title.bc = C_BLACK;
    wnd->title.ifc = C_WHITE;
    wnd->title.ibc = C_GRAY;
    wnd->title.height = 15;
@@ -7939,7 +7934,7 @@ UG_COLOR UG_TextboxGetForeColor( UG_WINDOW* wnd, UG_U8 id )
 {
    UG_OBJECT* obj=NULL;
    UG_TEXTBOX* txb=NULL;
-   UG_COLOR c = C_BLACK;
+   UG_COLOR c = LCD_COLOR_BLACK;
 
    obj = _UG_SearchObject( wnd, OBJ_TYPE_TEXTBOX, id );
    if ( obj != NULL )

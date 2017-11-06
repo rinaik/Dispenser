@@ -8,7 +8,7 @@
 
 enum { NO_TOUCH, STOP, START, REV, FWD, PLUS, MINUS };
 
-bool tsPress(void);
+void TouchPress(void);
 
 void UserPixelSet(UG_S16 x, UG_S16 y, UG_COLOR c);
 
