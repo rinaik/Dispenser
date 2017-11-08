@@ -1,7 +1,7 @@
 #ifndef __UGUI_CONFIG_H
 #define __UGUI_CONFIG_H
 
-#define USE_MULTITASKING
+//#define USE_MULTITASKING
 #define USE_COLOR_RGB888
 #define C_BLACK LCD_COLOR_BLACK
 #define C_WHITE LCD_COLOR_WHITE
@@ -40,8 +40,8 @@ typedef unsigned long int       UG_U32;
 typedef long int                UG_S32;
 
 
-#define USE_PRERENDER_EVENT
-#define USE_POSTRENDER_EVENT
+//#define USE_PRERENDER_EVENT
+//#define USE_POSTRENDER_EVENT
 
 
 #endif

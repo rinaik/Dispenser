@@ -4575,9 +4575,9 @@ UG_S16 UG_Init( UG_GUI* g, void (*p)(UG_S16,UG_S16,UG_COLOR), UG_S16 x, UG_S16 y
    g->font.start_char = 0;
    g->font.end_char = 0;
    g->font.widths = NULL;
-   g->desktop_color = LCD_COLOR_GRAY;
-   g->fore_color = LCD_COLOR_WHITE;
-   g->back_color = LCD_COLOR_BLACK;
+   g->desktop_color = LCD_COLOR_WHITE;
+   g->fore_color = LCD_COLOR_BLACK;
+   g->back_color = LCD_COLOR_WHITE;
    g->next_window = NULL;
    g->active_window = NULL;
    g->last_window = NULL;

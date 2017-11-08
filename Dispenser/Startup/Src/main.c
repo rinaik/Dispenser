@@ -61,7 +61,7 @@ static void vLedBlinkGreen(void *pvParameters)
     {
         HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_13);
 
-        printf("This is the green LED task.\n");
+       // printf("This is the green LED task.\n");
 
         vTaskDelay( 500 / portTICK_RATE_MS );
     }
@@ -73,7 +73,7 @@ static void vLedBlinkRed(void *pvParameters)
     {
         HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_14);
 
-        printf("This is the red LED task.\n");
+      //  printf("This is the red LED task.\n");
 
         vTaskDelay( 1000 / portTICK_RATE_MS );
     }
@@ -89,12 +89,39 @@ void LCDInit()
 
 	  BSP_LCD_DisplayOn();
 
-	  printf("This is LCD initialization.\n");
+	 // printf("This is LCD initialization.\n");
 }
 
 void window_1_callback (UG_MESSAGE* msg)
 {
-	//
+	TouchPress();
+    if (msg->type == MSG_TYPE_OBJECT )
+    {
+    	if (msg->id == OBJ_TYPE_BUTTON )
+    	{
+    		if (msg->sub_id == BTN_ID_0)
+    		{
+    		  if (msg->event == 0) {
+    		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNA");
+    		   UG_Update();
+    		  }
+    		  if (msg->event == 1) {
+    		     		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNB");
+    		     		   UG_Update();
+
+    		  }
+    		  if (msg->event == 3) {
+    		     		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNC");
+    		     		   UG_Update();
+    		     		  }
+    		  if (msg->event == 4) {
+
+    			  UG_ButtonSetText ( &window_1, BTN_ID_0, "BTND");
+    		     		   UG_Update();
+    		     }
+    		}
+    	}
+    }
 }
 
 void GUIInit()
@@ -109,29 +136,33 @@ void GUIInit()
 	          UG_WindowSetTitleTextFont(&window_1, &FONT_12X20);
 
 	          // Change window fore and back color
-	          UG_WindowSetForeColor(&window_1, C_YELLOW);
-	          UG_WindowSetBackColor(&window_1, C_BLUE);
+	          UG_WindowSetForeColor(&window_1, C_WHITE);
+	          UG_WindowSetBackColor(&window_1, C_WHITE);
 
 	          // Create some buttons
 	          UG_ButtonCreate(&window_1, &button_1, BTN_ID_0, 10, 10, 110, 60);
 	          UG_ButtonCreate(&window_1, &button_2, BTN_ID_1, 10, 80, 110, 130);
 	          UG_ButtonCreate(&window_1, &button_3, BTN_ID_2, 10, 150, 110, 200);
+	          UG_ButtonCreate(&window_1, &button_4, BTN_ID_3, 10, 220, 110, 270);
 
 	          // Label the buttons
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
 
 	          UG_ButtonSetFont ( &window_1, BTN_ID_0, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_0, "Button A");
+	          UG_ButtonSetText ( &window_1, BTN_ID_0, "START");
 	          UG_ButtonSetFont ( &window_1, BTN_ID_1, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_1, "Button B");
+	          UG_ButtonSetText ( &window_1, BTN_ID_1, "STOP");
 	          UG_ButtonSetFont ( &window_1, BTN_ID_2, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_2, "Button C");
+	          UG_ButtonSetText ( &window_1, BTN_ID_2, "REV");
+	          UG_ButtonSetFont ( &window_1, BTN_ID_3, &FONT_12X20);
+	          UG_ButtonSetText ( &window_1, BTN_ID_3, "FWD");
 
-	          // Show the window
 
-	          UG_WindowShow(&window_1);
+              UG_WindowShow(&window_1);
+              UG_Update();
 
 }
 
@@ -139,10 +170,7 @@ void GUIInit()
 static void vGUIRun() {
 	for(;;)
 	    {
-          printf("This is the GUI task.\n");
-
-          UG_Update();
-
+		  TouchPress();
 		  vTaskDelay( 500 / portTICK_RATE_MS );
 	    }
 };
@@ -153,7 +181,6 @@ static void vMotorRun() {
 		  GPIO_InitTypeDef GPIO_InitStruct;
 		  int motor_speed;
 		 int was_stopped;
-          int direction;
 
 		  /* GPIO Ports Clock Enable */
 		  __HAL_RCC_GPIOF_CLK_ENABLE();
@@ -177,10 +204,7 @@ static void vMotorRun() {
 		  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
 		MX_SPI5_Init();
-		L6470_GetStatus(0);
-
-		printf("This is motor task.\n");
-
+		//L6470_GetStatus(0);
 
 		motor_speed = 1000;
 
@@ -189,8 +213,7 @@ static void vMotorRun() {
 		if (touch_location == START)
 		{
 			motor_speed = 1000;
-		    L6470_Run(0,direction,motor_speed);
-			printf("Motor is running.\n");
+		   // L6470_Run(0,direction,motor_speed);
 			touch_location = NO_TOUCH;
 			was_stopped = 1;
 
@@ -198,7 +221,7 @@ static void vMotorRun() {
 		if (touch_location == STOP)
 		{
 			motor_speed = 0;
-		 	L6470_SoftStop(0);
+		 	//L6470_SoftStop(0);
 			printf("Motor is stopped.\n");
 			touch_location = NO_TOUCH;
 			was_stopped = 1;
@@ -208,7 +231,7 @@ static void vMotorRun() {
 			motor_speed = motor_speed + 1000;
 
 			if (motor_speed > 10000) {motor_speed = 10000;}
-			L6470_Run(0,direction,motor_speed);
+		//	L6470_Run(0,direction,motor_speed);
 			printf("Motor speed up.\n");
 			touch_location = NO_TOUCH;
 			was_stopped = 0;
@@ -218,34 +241,27 @@ static void vMotorRun() {
 		{
 			motor_speed = motor_speed - 1000;
 			if (motor_speed < 0) {motor_speed = 0;}
-			L6470_Run(0,direction,motor_speed);
+		//	L6470_Run(0,direction,motor_speed);
 		    printf("Motor speed down.\n");
 		    touch_location = NO_TOUCH;
 		    was_stopped = 0;
 		}
 		if (touch_location == REV) {
-			direction = 1;
-			L6470_Run(0,direction,motor_speed);
+			//direction = 1;
+		//	L6470_Run(0,direction,motor_speed);
 		}
 		if (touch_location == FWD) {
-			direction = 0;
-            L6470_Run(0,direction,motor_speed);
+		//	direction = 0;
+        //    L6470_Run(0,direction,motor_speed);
 		}
 
-		vTaskDelay( 50 / portTICK_RATE_MS );
+		vTaskDelay( 100 / portTICK_RATE_MS );
 	}
 }
 
 
-
-extern void initialise_monitor_handles(void);
-
 int main(void)
 {
-
-  initialise_monitor_handles();
-
-  printf("Welcome to the Dispenser test.\n");
 
   /* Configure the system clock */
   SystemClock_Config();
@@ -261,7 +277,6 @@ int main(void)
   /* Initialize GUI */
 
   UG_Init(&gui, UserPixelSet, 240, 320);
-
   GUIInit();
 
   /* definition and creation of defaultTask */
@@ -525,12 +540,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 void _Error_Handler(char * file, int line)
 {
-   printf("ERROR AT LINE %d\n",line);
+  // printf("ERROR AT LINE %d\n",line);
 }
 
 void assert_failed(uint8_t* file, uint32_t line)
 {
-	printf ("Assert Error at line %lu\n",line);
+	//printf ("Assert Error at line %lu\n",line);
 }
 
 
