@@ -36,6 +36,7 @@ UG_GUI gui;
 UG_WINDOW window_1;
 UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
 UG_BUTTON button_1, button_2, button_3, button_4;
+UG_TEXTBOX textbox_1, textbox_2;
 
 
 /* Private variables ---------------------------------------------------------*/
@@ -61,8 +62,6 @@ static void vLedBlinkGreen(void *pvParameters)
     {
         HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_13);
 
-       // printf("This is the green LED task.\n");
-
         vTaskDelay( 500 / portTICK_RATE_MS );
     }
 };
@@ -72,8 +71,6 @@ static void vLedBlinkRed(void *pvParameters)
     for(;;)
     {
         HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_14);
-
-      //  printf("This is the red LED task.\n");
 
         vTaskDelay( 1000 / portTICK_RATE_MS );
     }
@@ -94,31 +91,30 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
-	TouchPress();
     if (msg->type == MSG_TYPE_OBJECT )
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
     	{
     		if (msg->sub_id == BTN_ID_0)
     		{
-    		  if (msg->event == 0) {
-    		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNA");
-    		   UG_Update();
-    		  }
-    		  if (msg->event == 1) {
-    		     		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNB");
-    		     		   UG_Update();
-
-    		  }
-    		  if (msg->event == 3) {
-    		     		   UG_ButtonSetText ( &window_1, BTN_ID_0, "BTNC");
-    		     		   UG_Update();
-    		     		  }
-    		  if (msg->event == 4) {
-
-    			  UG_ButtonSetText ( &window_1, BTN_ID_0, "BTND");
-    		     		   UG_Update();
-    		     }
+    		   if (msg->event == OBJ_EVENT_PRESSED) {
+    		     UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
+    		   }
+    		   else {
+    			   UG_ButtonSetText(&window_1, BTN_ID_0, "REL!");
+    		   }
+    		}
+    		if (msg->sub_id == BTN_ID_1)
+    		{
+    		   UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
+    		}
+    		if (msg->sub_id == BTN_ID_2)
+    		{
+    		   UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
+    		}
+    		if (msg->sub_id == BTN_ID_3)
+    		{
+    			UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
     		}
     	}
     }
@@ -137,7 +133,7 @@ void GUIInit()
 
 	          // Change window fore and back color
 	          UG_WindowSetForeColor(&window_1, C_WHITE);
-	          UG_WindowSetBackColor(&window_1, C_WHITE);
+	          UG_WindowSetBackColor(&window_1, C_BLUE);
 
 	          // Create some buttons
 	          UG_ButtonCreate(&window_1, &button_1, BTN_ID_0, 10, 10, 110, 60);
@@ -146,8 +142,8 @@ void GUIInit()
 	          UG_ButtonCreate(&window_1, &button_4, BTN_ID_3, 10, 220, 110, 270);
 
 	          // Label the buttons
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_GREEN);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_RED);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
 
@@ -160,10 +156,21 @@ void GUIInit()
 	          UG_ButtonSetFont ( &window_1, BTN_ID_3, &FONT_12X20);
 	          UG_ButtonSetText ( &window_1, BTN_ID_3, "FWD");
 
+	          //  Create Textboxs
+
+	          UG_TextboxCreate( &window_1 , &textbox_1 , TXB_ID_0 , 110 , 10 , 200 , 60 );
+	          UG_TextboxSetFont ( &window_1 , TXB_ID_0 , &FONT_12X20 ) ;
+	          UG_TextboxSetText ( &window_1 , TXB_ID_0, "SPEED:" );
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_0 , ALIGN_CENTER );
+
+
+	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 110 , 80 , 200 , 130 );
+	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 ) ;
+	          UG_TextboxSetText ( &window_1 , TXB_ID_1, "1000" );
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_CENTER );
+
 
               UG_WindowShow(&window_1);
-              UG_Update();
-
 }
 
 
@@ -171,7 +178,8 @@ static void vGUIRun() {
 	for(;;)
 	    {
 		  TouchPress();
-		  vTaskDelay( 500 / portTICK_RATE_MS );
+		  UG_Update();
+		  vTaskDelay( 100 / portTICK_RATE_MS );
 	    }
 };
 
@@ -179,8 +187,7 @@ static void vMotorRun() {
 	for(;;)
 	{
 		  GPIO_InitTypeDef GPIO_InitStruct;
-		  int motor_speed;
-		 int was_stopped;
+
 
 		  /* GPIO Ports Clock Enable */
 		  __HAL_RCC_GPIOF_CLK_ENABLE();
@@ -206,11 +213,8 @@ static void vMotorRun() {
 		MX_SPI5_Init();
 		//L6470_GetStatus(0);
 
-		motor_speed = 1000;
-
-		int touch_location = 0;
-
-		if (touch_location == START)
+ ;
+	/*	if (touch_location == START)
 		{
 			motor_speed = 1000;
 		   // L6470_Run(0,direction,motor_speed);
@@ -254,6 +258,7 @@ static void vMotorRun() {
 		//	direction = 0;
         //    L6470_Run(0,direction,motor_speed);
 		}
+         */
 
 		vTaskDelay( 100 / portTICK_RATE_MS );
 	}

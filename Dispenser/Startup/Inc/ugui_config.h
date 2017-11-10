@@ -3,6 +3,8 @@
 
 //#define USE_MULTITASKING
 #define USE_COLOR_RGB888
+#define C_RED LCD_COLOR_RED
+#define C_GREEN LCD_COLOR_GREEN
 #define C_BLACK LCD_COLOR_BLACK
 #define C_WHITE LCD_COLOR_WHITE
 #define C_BLUE LCD_COLOR_BLUE
@@ -26,7 +28,7 @@
 #define  USE_FONT_12X20
 //#define  USE_FONT_16X26
 //#define  USE_FONT_22X36
-//#define  USE_FONT_24X40
+#define  USE_FONT_24X40
 //#define  USE_FONT_32X53
 
 /* Specify platform-dependent integer types here */
