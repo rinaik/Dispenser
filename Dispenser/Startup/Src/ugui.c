@@ -5634,7 +5634,6 @@ void _UG_HandleEvents( UG_WINDOW* wnd )
    msg.src = NULL;
 
    /* Handle window-related events */
-   //ToDo
 
 
    /* Handle object-related events */
@@ -8210,7 +8209,7 @@ void _UG_ImageUpdate(UG_WINDOW* wnd, UG_OBJECT* obj)
          if ( obj->state & OBJ_STATE_REDRAW )
          {
             UG_WindowGetArea(wnd,&a);
-            /* ToDo: more/better image features */
+            /* add more/better image features */
             obj->a_abs.xs = obj->a_rel.xs + a.xs;
             obj->a_abs.ys = obj->a_rel.ys + a.ys;
             obj->a_abs.xe = obj->a_rel.xs + ((UG_BMP*)img->img)->width + a.xs;

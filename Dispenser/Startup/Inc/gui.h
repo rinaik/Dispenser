@@ -4,7 +4,23 @@
 
 #include "ugui.h"
 
+enum {NO_TOUCH, STOP, START, FWD, REV, PLUS, MINUS};
+
+int gui_state;
+
+#define MAX_OBJECTS 10
+
+UG_GUI gui;
+UG_WINDOW window_1;
+UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
+UG_BUTTON button_1, button_2, button_3, button_4, button_5, button_6;
+UG_TEXTBOX textbox_1, textbox_2;
+
 //Notes: Screen Size: 240x320
+
+void LCDInit(void);
+
+void GUIInit(void);
 
 void TouchPress(void);
 

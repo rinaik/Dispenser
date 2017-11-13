@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * File Name          : main.c by RIN version 1.0  11/02/2017
+  * File Name          : main.c by RIN
   * Description        : Main program body
   ******************************************************************************
 */
@@ -18,11 +18,8 @@
 #include "L6470.h" // motor control
 
 #include "gui.h" //  gui functions
-#include "ugui.h"
 
 /* Private variables ---------------------------------------------------------*/
-
-#define MAX_OBJECTS 10
 
 TIM_HandleTypeDef htim1;
 
@@ -30,24 +27,15 @@ osThreadId defaultTaskHandle;
 
 SPI_HandleTypeDef hspi5;
 
-//Notes: Screen Size: 240x320
+int motor_speed = 1000;
+int direction = 0;
 
-UG_GUI gui;
-UG_WINDOW window_1;
-UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
-UG_BUTTON button_1, button_2, button_3, button_4;
-UG_TEXTBOX textbox_1, textbox_2;
-
-
-/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes ---------------------------------------------------------*/
 
 static void vLedBlinkGreen(void *pvParameters);
 static void vLedBlinkRed(void *pvParameters);
-
 static void vGUIRun();
 static void vMotorRun();
-
-/* Private function prototypes -----------------------------------------------*/
 
 static void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -55,6 +43,7 @@ static void MX_SPI5_Init(void);
 
 static void StartDefaultTask(void const * argument);
 
+// Private functions
 
 static void vLedBlinkGreen(void *pvParameters)
 {
@@ -76,191 +65,82 @@ static void vLedBlinkRed(void *pvParameters)
     }
 };
 
-void LCDInit()
-{
-	  BSP_LCD_Init();
-	  BSP_TS_Init(240,360);
-
-	  BSP_LCD_LayerDefaultInit(1,SDRAM_DEVICE_ADDR);
-	  BSP_LCD_SelectLayer(1);
-
-	  BSP_LCD_DisplayOn();
-
-	 // printf("This is LCD initialization.\n");
-}
-
-void window_1_callback (UG_MESSAGE* msg)
-{
-    if (msg->type == MSG_TYPE_OBJECT )
-    {
-    	if (msg->id == OBJ_TYPE_BUTTON )
-    	{
-    		if (msg->sub_id == BTN_ID_0)
-    		{
-    		   if (msg->event == OBJ_EVENT_PRESSED) {
-    		     UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
-    		   }
-    		   else {
-    			   UG_ButtonSetText(&window_1, BTN_ID_0, "REL!");
-    		   }
-    		}
-    		if (msg->sub_id == BTN_ID_1)
-    		{
-    		   UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
-    		}
-    		if (msg->sub_id == BTN_ID_2)
-    		{
-    		   UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
-    		}
-    		if (msg->sub_id == BTN_ID_3)
-    		{
-    			UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
-    		}
-    	}
-    }
-}
-
-void GUIInit()
-{
-	 // Create a window
-
-	          UG_WindowCreate(&window_1, obj_buff_wnd_1, MAX_OBJECTS, window_1_callback);
-
-	          // Modify the window title
-
-	          UG_WindowSetTitleText(&window_1,"Motor Control");
-	          UG_WindowSetTitleTextFont(&window_1, &FONT_12X20);
-
-	          // Change window fore and back color
-	          UG_WindowSetForeColor(&window_1, C_WHITE);
-	          UG_WindowSetBackColor(&window_1, C_BLUE);
-
-	          // Create some buttons
-	          UG_ButtonCreate(&window_1, &button_1, BTN_ID_0, 10, 10, 110, 60);
-	          UG_ButtonCreate(&window_1, &button_2, BTN_ID_1, 10, 80, 110, 130);
-	          UG_ButtonCreate(&window_1, &button_3, BTN_ID_2, 10, 150, 110, 200);
-	          UG_ButtonCreate(&window_1, &button_4, BTN_ID_3, 10, 220, 110, 270);
-
-	          // Label the buttons
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_GREEN);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_RED);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
-
-	          UG_ButtonSetFont ( &window_1, BTN_ID_0, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_0, "START");
-	          UG_ButtonSetFont ( &window_1, BTN_ID_1, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_1, "STOP");
-	          UG_ButtonSetFont ( &window_1, BTN_ID_2, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_2, "REV");
-	          UG_ButtonSetFont ( &window_1, BTN_ID_3, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_3, "FWD");
-
-	          //  Create Textboxs
-
-	          UG_TextboxCreate( &window_1 , &textbox_1 , TXB_ID_0 , 110 , 10 , 200 , 60 );
-	          UG_TextboxSetFont ( &window_1 , TXB_ID_0 , &FONT_12X20 ) ;
-	          UG_TextboxSetText ( &window_1 , TXB_ID_0, "SPEED:" );
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_0 , ALIGN_CENTER );
-
-
-	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 110 , 80 , 200 , 130 );
-	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 ) ;
-	          UG_TextboxSetText ( &window_1 , TXB_ID_1, "1000" );
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_CENTER );
-
-
-              UG_WindowShow(&window_1);
-}
-
 
 static void vGUIRun() {
 	for(;;)
 	    {
 		  TouchPress();
 		  UG_Update();
+
 		  vTaskDelay( 100 / portTICK_RATE_MS );
 	    }
 };
 
+void MotorSPI() {
+	          GPIO_InitTypeDef GPIO_InitStruct;
+
+			  /* GPIO Ports Clock Enable */
+			  __HAL_RCC_GPIOF_CLK_ENABLE();
+
+			  /* Enable SPI CLK */
+			    __HAL_RCC_SPI5_CLK_ENABLE();
+
+			 /*Configure GPIO pins :SPI5 */
+
+			  GPIO_InitStruct.Pin = GPIO_PIN_6;               // Chip select
+			  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+			  GPIO_InitStruct.Pull = GPIO_NOPULL;
+			  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+			  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+			  GPIO_InitStruct.Pin = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 ; // SCLK MISO MOSI
+			  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+			  GPIO_InitStruct.Pull = GPIO_NOPULL;
+			  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+			  GPIO_InitStruct.Alternate = GPIO_AF5_SPI5;
+			  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+}
+
 static void vMotorRun() {
 	for(;;)
 	{
-		  GPIO_InitTypeDef GPIO_InitStruct;
+		  MotorSPI();
+		  MX_SPI5_Init();
 
+		  L6470_GetStatus(0);
 
-		  /* GPIO Ports Clock Enable */
-		  __HAL_RCC_GPIOF_CLK_ENABLE();
+		  if (gui_state == START)
+		  {
+			  motor_speed = 1000;
+			  L6470_Run(0,direction,motor_speed);
+		  }
+		  if (gui_state == STOP)
+		  {
+			  motor_speed = 0;
+			  L6470_SoftStop(0);
+		  }
+		  if (gui_state == PLUS)
+		  {
+			  motor_speed = motor_speed + 1000;
+              if (motor_speed > 10000) {motor_speed = 10000;}
+		      L6470_Run(0,direction,motor_speed);
+		  }
+		  if (gui_state == MINUS)
+		  {
+			  motor_speed = motor_speed - 1000;
+			  if (motor_speed < 0) {motor_speed = 0;}
+		      L6470_Run(0,direction,motor_speed);
+		  }
+		  if (gui_state == REV) {
+			  direction = 1;
+			  L6470_Run(0,direction,motor_speed);
+		  }
+		  if (gui_state == FWD) {
+			  direction = 0;
+		      L6470_Run(0,direction,motor_speed);
+		  }
 
-		  /* Enable SPI CLK */
-		    __HAL_RCC_SPI5_CLK_ENABLE();
-
-		 /*Configure GPIO pins :SPI5 */
-
-		  GPIO_InitStruct.Pin = GPIO_PIN_6;               // Chip select
-		  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-		  GPIO_InitStruct.Pull = GPIO_NOPULL;
-		  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
-		  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-		  GPIO_InitStruct.Pin = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 ; // SCLK MISO MOSI
-		  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		  GPIO_InitStruct.Pull = GPIO_NOPULL;
-		  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
-		  GPIO_InitStruct.Alternate = GPIO_AF5_SPI5;
-		  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-		MX_SPI5_Init();
-		//L6470_GetStatus(0);
-
- ;
-	/*	if (touch_location == START)
-		{
-			motor_speed = 1000;
-		   // L6470_Run(0,direction,motor_speed);
-			touch_location = NO_TOUCH;
-			was_stopped = 1;
-
-		}
-		if (touch_location == STOP)
-		{
-			motor_speed = 0;
-		 	//L6470_SoftStop(0);
-			printf("Motor is stopped.\n");
-			touch_location = NO_TOUCH;
-			was_stopped = 1;
-		}
-		if ((touch_location == PLUS) && (was_stopped == 0))
-		{
-			motor_speed = motor_speed + 1000;
-
-			if (motor_speed > 10000) {motor_speed = 10000;}
-		//	L6470_Run(0,direction,motor_speed);
-			printf("Motor speed up.\n");
-			touch_location = NO_TOUCH;
-			was_stopped = 0;
-
-		}
-		if (touch_location == MINUS)
-		{
-			motor_speed = motor_speed - 1000;
-			if (motor_speed < 0) {motor_speed = 0;}
-		//	L6470_Run(0,direction,motor_speed);
-		    printf("Motor speed down.\n");
-		    touch_location = NO_TOUCH;
-		    was_stopped = 0;
-		}
-		if (touch_location == REV) {
-			//direction = 1;
-		//	L6470_Run(0,direction,motor_speed);
-		}
-		if (touch_location == FWD) {
-		//	direction = 0;
-        //    L6470_Run(0,direction,motor_speed);
-		}
-         */
-
-		vTaskDelay( 100 / portTICK_RATE_MS );
+          vTaskDelay( 100 / portTICK_RATE_MS );
 	}
 }
 
@@ -279,7 +159,7 @@ int main(void)
 
   LCDInit();
 
-  /* Initialize GUI */
+  /* Initialize GUI with 240x320 screen size*/
 
   UG_Init(&gui, UserPixelSet, 240, 320);
   GUIInit();
@@ -414,14 +294,6 @@ static void MX_SPI5_Init(void)
 }
 
 
-/** Configure pins as
-        * Analog
-        * Input
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
-
 static void MX_GPIO_Init(void)
 {
 
@@ -509,33 +381,19 @@ static void MX_GPIO_Init(void)
 
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
 {
-  /* init code for USB_HOST */
- // MX_USB_HOST_Init();
 
-  /* USER CODE BEGIN 5 */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END 5 */
 }
 
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
+// Period elapsed callback in non blocking mode
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim->Instance == TIM1) {
@@ -545,12 +403,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 void _Error_Handler(char * file, int line)
 {
-  // printf("ERROR AT LINE %d\n",line);
+    printf("ERROR AT LINE %d\n",line);
 }
 
 void assert_failed(uint8_t* file, uint32_t line)
 {
-	//printf ("Assert Error at line %lu\n",line);
+	printf ("Assert Error at line %lu\n",line);
 }
 
 
