@@ -11,12 +11,14 @@ char buffer[4];
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
-
-uint32_t location = 0x800C000;
+#define ADDR_FLASH_SECTOR_0  ((uint32_t)0x08000000)
+#define location ADDR_FLASH_SECTOR_0
 
 void save_data_to_flash(int data) {
 	HAL_FLASH_Unlock();
-	HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, location, data);
+	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
+    FLASH_Erase_Sector(FLASH_SECTOR_0, VOLTAGE_RANGE_3);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_0,data);
 	HAL_FLASH_Lock();
 }
 
