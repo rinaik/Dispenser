@@ -1,0 +1,11 @@
+/*
+ * flash.c
+ *
+ */
+#pragma location=0x800C000;
+
+void save_data_to_flash() {
+	HAL_FLASH_Unlock();
+	HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, location, 0xFF);
+	HAL_FLASH_Lock();
+}

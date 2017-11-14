@@ -3,7 +3,22 @@
 #include "stm32f429i_discovery_ts.h"  // touch-screen header
 #include "stm32f429i_discovery_lcd.h" // lcd header
 
+#include <stdlib.h>
+char buffer[4];
+
 //Notes: Screen Size: 240x320
+
+// do flash routine here for now
+
+#include "stm32f4xx_hal_flash.h"
+
+uint32_t location = 0x800C000;
+
+void save_data_to_flash(int data) {
+	HAL_FLASH_Unlock();
+	HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, location, data);
+	HAL_FLASH_Lock();
+}
 
 void LCDInit()
 {
@@ -70,8 +85,10 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     		     gui_state = PLUS;
-    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, "+1000" );
+    		     itoa(motor_speed,buffer,10);
+    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "PRESS!");
+    		     save_data_to_flash(motor_speed);
     		  }
     		  else {
 
@@ -83,7 +100,9 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     		     gui_state = MINUS;
-    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, "-1000" );
+    		     itoa(motor_speed,buffer,10);
+    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+                 save_data_to_flash(motor_speed);
 
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
     		  }
@@ -152,7 +171,8 @@ void GUIInit()
 
 	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 130 , 80 , 220 , 130 );
 	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 ) ;
-	          UG_TextboxSetText ( &window_1 , TXB_ID_1, "1000" );
+	          itoa(location,buffer,10);
+	          UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_CENTER );
 
 

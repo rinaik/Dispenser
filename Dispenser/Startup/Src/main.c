@@ -27,9 +27,6 @@ osThreadId defaultTaskHandle;
 
 SPI_HandleTypeDef hspi5;
 
-int motor_speed = 1000;
-int direction = 0;
-
 /* Private function prototypes ---------------------------------------------------------*/
 
 static void vLedBlinkGreen(void *pvParameters);
@@ -121,13 +118,13 @@ static void vMotorRun() {
 		  }
 		  if (gui_state == PLUS)
 		  {
-			  motor_speed = motor_speed + 1000;
+			  motor_speed = motor_speed + 100;
               if (motor_speed > 10000) {motor_speed = 10000;}
 		      L6470_Run(0,direction,motor_speed);
 		  }
 		  if (gui_state == MINUS)
 		  {
-			  motor_speed = motor_speed - 1000;
+			  motor_speed = motor_speed - 100;
 			  if (motor_speed < 0) {motor_speed = 0;}
 		      L6470_Run(0,direction,motor_speed);
 		  }
@@ -158,6 +155,10 @@ int main(void)
   /* Initialize LCD and Touch-screen */
 
   LCDInit();
+
+  // miscellaneous inits
+  motor_speed = 0;
+  direction = 0;
 
   /* Initialize GUI with 240x320 screen size*/
 
