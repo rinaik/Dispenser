@@ -64,9 +64,21 @@ static void vLedBlinkRed(void *pvParameters)
 
 
 static void vGUIRun() {
+	int on_flag;
+
+	on_flag = 0;
 	for(;;)
 	    {
 		  TouchPress();
+
+		  if (HAL_GPIO_ReadPin(KEY_BUTTON_GPIO_PORT,KEY_BUTTON_PIN)&&on_flag==0) {
+			  UG_TextboxSetText ( &window_1 , TXB_ID_3, "ON");
+			  on_flag = 1;
+		  } else if (!HAL_GPIO_ReadPin(KEY_BUTTON_GPIO_PORT,KEY_BUTTON_PIN)&&on_flag==1) {
+        	  UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
+              on_flag = 0;
+          }
+
 		  UG_Update();
 
 		  vTaskDelay( 100 / portTICK_RATE_MS );
@@ -108,7 +120,6 @@ static void vMotorRun() {
 
 		  if (gui_state == START)
 		  {
-			  motor_speed = 1000;
 			  L6470_Run(0,direction,motor_speed);
 		  }
 		  if (gui_state == STOP)
@@ -157,7 +168,6 @@ int main(void)
   LCDInit();
 
   // miscellaneous inits
-  motor_speed = 0;
   direction = 0;
 
   /* Initialize GUI with 240x320 screen size*/

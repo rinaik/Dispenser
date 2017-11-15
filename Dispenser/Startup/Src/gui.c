@@ -4,21 +4,21 @@
 #include "stm32f429i_discovery_lcd.h" // lcd header
 
 #include <stdlib.h>
-char buffer[4];
+char buffer[5];
 
 //Notes: Screen Size: 240x320
 
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
-#define ADDR_FLASH_SECTOR_0  ((uint32_t)0x08000000)
-#define location ADDR_FLASH_SECTOR_0
+#define ADDR_FLASH_SECTOR_11  ((uint32_t)0x080E0000)
+#define location ADDR_FLASH_SECTOR_11
 
 void save_data_to_flash(int data) {
 	HAL_FLASH_Unlock();
 	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
-    FLASH_Erase_Sector(FLASH_SECTOR_0, VOLTAGE_RANGE_3);
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_0,data);
+    FLASH_Erase_Sector(FLASH_SECTOR_11, VOLTAGE_RANGE_3);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11,data);
 	HAL_FLASH_Lock();
 }
 
@@ -104,9 +104,8 @@ void window_1_callback (UG_MESSAGE* msg)
     		     gui_state = MINUS;
     		     itoa(motor_speed,buffer,10);
     		     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
-                 save_data_to_flash(motor_speed);
-
-    		     UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
+                 UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
+    		     save_data_to_flash(motor_speed);
     		  }
     		  else {
     		     gui_state = NO_TOUCH;
@@ -165,17 +164,29 @@ void GUIInit()
 
 	          //  Create Textboxs
 
-	          UG_TextboxCreate( &window_1 , &textbox_1 , TXB_ID_0 , 130 , 10 , 220 , 60 );
+	          UG_TextboxCreate( &window_1 , &textbox_1 , TXB_ID_0 , 130 , 10 , 220 , 40 );
 	          UG_TextboxSetFont ( &window_1 , TXB_ID_0 , &FONT_12X20 ) ;
 	          UG_TextboxSetText ( &window_1 , TXB_ID_0, "SPEED:" );
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_0 , ALIGN_CENTER );
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_0 , ALIGN_TOP_CENTER );
 
 
-	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 130 , 80 , 220 , 130 );
-	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 ) ;
-	          itoa(location,buffer,10);
+	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 130 , 40 , 220 , 70 );
+	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 );
+	          motor_speed = *(int*)location;
+	          itoa(motor_speed,buffer,10);
 	          UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_CENTER );
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_TOP_CENTER );
+
+	          UG_TextboxCreate( &window_1 , &textbox_3 , TXB_ID_2 , 130 , 80 , 220 , 110 );
+	          UG_TextboxSetFont ( &window_1 , TXB_ID_2 , &FONT_12X20 ) ;
+	          UG_TextboxSetText ( &window_1 , TXB_ID_2, "I/O:");
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_2 , ALIGN_TOP_CENTER );
+
+	          UG_TextboxCreate( &window_1 , &textbox_4 , TXB_ID_3 , 130 , 110 , 220 , 140 );
+	          UG_TextboxSetFont ( &window_1 , TXB_ID_3 , &FONT_12X20 ) ;
+	          UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
+	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_3 , ALIGN_TOP_CENTER );
+
 
 
               UG_WindowShow(&window_1);
