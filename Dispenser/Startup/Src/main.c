@@ -18,6 +18,9 @@
 #include "L6470.h" // motor control
 
 #include "gui.h" //  gui functions
+#include <stdlib.h>
+
+int motor_delta;
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -62,10 +65,8 @@ static void vLedBlinkRed(void *pvParameters)
     }
 };
 
-
 static void vGUIRun() {
 	int on_flag;
-
 	on_flag = 0;
 	for(;;)
 	    {
@@ -78,6 +79,11 @@ static void vGUIRun() {
         	  UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
               on_flag = 0;
           }
+
+		  if (motor_delta == 1) {
+			  itoa(motor_speed,buffer,10);
+			  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+		  }
 
 		  UG_Update();
 
@@ -111,6 +117,8 @@ void MotorSPI() {
 }
 
 static void vMotorRun() {
+
+	motor_delta = 0;
 	for(;;)
 	{
 		  MotorSPI();
@@ -127,15 +135,17 @@ static void vMotorRun() {
 			  motor_speed = 0;
 			  L6470_SoftStop(0);
 		  }
-		  if (gui_state == PLUS)
+		  if ((gui_state == PLUS) && (motor_delta == 0))
 		  {
 			  motor_speed = motor_speed + 100;
+			  motor_delta = 1;
               if (motor_speed > 10000) {motor_speed = 10000;}
 		      L6470_Run(0,direction,motor_speed);
 		  }
-		  if (gui_state == MINUS)
+		  if ((gui_state == MINUS ) && (motor_delta == 0))
 		  {
 			  motor_speed = motor_speed - 100;
+			  motor_delta = 1;
 			  if (motor_speed < 0) {motor_speed = 0;}
 		      L6470_Run(0,direction,motor_speed);
 		  }
@@ -146,6 +156,9 @@ static void vMotorRun() {
 		  if (gui_state == FWD) {
 			  direction = 0;
 		      L6470_Run(0,direction,motor_speed);
+		  }
+		  if (gui_state == NO_TOUCH) {
+			  motor_delta = 0;
 		  }
 
           vTaskDelay( 100 / portTICK_RATE_MS );

@@ -3,6 +3,7 @@
 #define __GUI_H
 
 #include "ugui.h"
+char buffer[5];
 
 enum {NO_TOUCH, STOP, START, FWD, REV, PLUS, MINUS};
 

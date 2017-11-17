@@ -4,7 +4,6 @@
 #include "stm32f429i_discovery_lcd.h" // lcd header
 
 #include <stdlib.h>
-char buffer[5];
 
 //Notes: Screen Size: 240x320
 
@@ -43,10 +42,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		   if (msg->event == OBJ_EVENT_PRESSED) {
     			 gui_state = START;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_GREEN ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
     		   }
     		   else {
     			 gui_state = NO_TOUCH;
+    			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "START");
     		   }
     		}
@@ -54,10 +56,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     			 gui_state = STOP;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_RED ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
     	      }
     	      else {
     			 gui_state = NO_TOUCH;
+    			 UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK );
     			 UG_ButtonSetText(&window_1, BTN_ID_1, "STOP");
     		  }
     		}
@@ -65,10 +70,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     			 gui_state = FWD;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
     		  }
     	      else {
     			 gui_state = NO_TOUCH;
+                 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_2, "FWD");
     		  }
     		}
@@ -76,10 +84,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     		     gui_state = REV;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
     		  }
     		  else {
     			 gui_state = NO_TOUCH;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_3, "REV");
     		  }
     		}
@@ -87,14 +98,14 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     		     gui_state = PLUS;
-    		     itoa(motor_speed,buffer,10);
-    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_GREEN ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "PRESS!");
     		     save_data_to_flash(motor_speed);
     		  }
     		  else {
 
     			 gui_state = NO_TOUCH;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "+");
     		  }
     		}
@@ -102,13 +113,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     		     gui_state = MINUS;
-    		     itoa(motor_speed,buffer,10);
-    		     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_GREEN ) ;
                  UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
     		     save_data_to_flash(motor_speed);
     		  }
     		  else {
     		     gui_state = NO_TOUCH;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     		  }
     	    }
@@ -141,8 +152,10 @@ void GUIInit()
 
 	          // Label the buttons
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_GREEN);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_RED);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK);
+	          UG_ButtonSetBackColor(&window_1, BTN_ID_1, C_RED);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
+	          UG_ButtonSetBackColor(&window_1, BTN_ID_2, C_YELLOW);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_4, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_5, C_BLACK);
@@ -186,8 +199,6 @@ void GUIInit()
 	          UG_TextboxSetFont ( &window_1 , TXB_ID_3 , &FONT_12X20 ) ;
 	          UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
 	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_3 , ALIGN_TOP_CENTER );
-
-
 
               UG_WindowShow(&window_1);
 }
