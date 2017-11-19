@@ -38,44 +38,44 @@ void window_1_callback (UG_MESSAGE* msg)
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
     	{
-    		if (msg->sub_id == BTN_ID_0)
+    		if (msg->sub_id == BTN_ID_1)
     		{
     		   if (msg->event == OBJ_EVENT_PRESSED) {
     			 gui_state = START;
-    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_GREEN ) ;
-    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
-    		     UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    		     UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
     		   }
     		   else {
-    			 gui_state = NO_TOUCH;
-    			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
-    			 UG_ButtonSetText(&window_1, BTN_ID_0, "START");
+    			 UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK );
+    			 UG_ButtonSetText(&window_1, BTN_ID_1, "START");
     		   }
     		}
-    		if (msg->sub_id == BTN_ID_1)
+    		if (msg->sub_id == BTN_ID_0)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
     			 gui_state = STOP;
-    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
-    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_RED ) ;
-    			 UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
+    			 UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
     	      }
     	      else {
-    			 gui_state = NO_TOUCH;
-    			 UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK );
-    			 UG_ButtonSetText(&window_1, BTN_ID_1, "STOP");
+    			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
+    			 UG_ButtonSetText(&window_1, BTN_ID_0, "STOP");
     		  }
     		}
     		if (msg->sub_id == BTN_ID_2)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
-    			 gui_state = FWD;
+    			 if (gui_state != STOP) {gui_state = FWD;}
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
     		  }
     	      else {
-    			 gui_state = NO_TOUCH;
+    	    	 if (gui_state != FWD ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
                  UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_2, "FWD");
     		  }
@@ -83,13 +83,13 @@ void window_1_callback (UG_MESSAGE* msg)
     		if (msg->sub_id == BTN_ID_3)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
-    		     gui_state = REV;
+    		     if (gui_state != STOP) {gui_state = REV;}
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
     		  }
     		  else {
-    			 gui_state = NO_TOUCH;
+    			 if (gui_state != REV ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_3, "REV");
     		  }
@@ -103,7 +103,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     save_data_to_flash(motor_speed);
     		  }
     		  else {
-
     			 gui_state = NO_TOUCH;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "+");
@@ -118,7 +117,7 @@ void window_1_callback (UG_MESSAGE* msg)
     		     save_data_to_flash(motor_speed);
     		  }
     		  else {
-    		     gui_state = NO_TOUCH;
+    			 gui_state = NO_TOUCH;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_BLUE ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     		  }
@@ -151,19 +150,18 @@ void GUIInit()
 	          UG_ButtonCreate(&window_1, &button_6, BTN_ID_5, 130, 220, 220, 270);
 
 	          // Label the buttons
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_GREEN);
-	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_BLACK);
-	          UG_ButtonSetBackColor(&window_1, BTN_ID_1, C_RED);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK);
+	          UG_ButtonSetBackColor(&window_1, BTN_ID_0, C_RED);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_1, C_GREEN);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_2, C_BLACK);
-	          UG_ButtonSetBackColor(&window_1, BTN_ID_2, C_YELLOW);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_4, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_5, C_BLACK);
 
 	          UG_ButtonSetFont ( &window_1, BTN_ID_0, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_0, "START");
+	          UG_ButtonSetText ( &window_1, BTN_ID_0, "STOP");
 	          UG_ButtonSetFont ( &window_1, BTN_ID_1, &FONT_12X20);
-	          UG_ButtonSetText ( &window_1, BTN_ID_1, "STOP");
+	          UG_ButtonSetText ( &window_1, BTN_ID_1, "START");
 	          UG_ButtonSetFont ( &window_1, BTN_ID_2, &FONT_12X20);
 	          UG_ButtonSetText ( &window_1, BTN_ID_2, "FWD");
 	          UG_ButtonSetFont ( &window_1, BTN_ID_3, &FONT_12X20);

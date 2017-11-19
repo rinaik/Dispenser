@@ -80,11 +80,10 @@ static void vGUIRun() {
               on_flag = 0;
           }
 
-		  if (motor_delta == 1) {
-			  itoa(motor_speed,buffer,10);
-			  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+		  itoa(motor_speed,buffer,10);
+		  if (gui_state == PLUS || gui_state == MINUS) {
+			  	  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 		  }
-
 		  UG_Update();
 
 		  vTaskDelay( 100 / portTICK_RATE_MS );
@@ -118,7 +117,7 @@ void MotorSPI() {
 
 static void vMotorRun() {
 
-	motor_delta = 0;
+	int motor_on_flag = 0;
 	for(;;)
 	{
 		  MotorSPI();
@@ -128,39 +127,28 @@ static void vMotorRun() {
 
 		  if (gui_state == START)
 		  {
-			  L6470_Run(0,direction,motor_speed);
+			  motor_on_flag = 1;
 		  }
 		  if (gui_state == STOP)
 		  {
-			  motor_speed = 0;
+			  motor_on_flag = 0;
 			  L6470_SoftStop(0);
 		  }
-		  if ((gui_state == PLUS) && (motor_delta == 0))
+		  if (gui_state == PLUS)
 		  {
 			  motor_speed = motor_speed + 100;
-			  motor_delta = 1;
-              if (motor_speed > 10000) {motor_speed = 10000;}
-		      L6470_Run(0,direction,motor_speed);
+			  if (motor_speed > 10000) {motor_speed = 10000;};
 		  }
-		  if ((gui_state == MINUS ) && (motor_delta == 0))
+		  if (gui_state == MINUS)
 		  {
 			  motor_speed = motor_speed - 100;
-			  motor_delta = 1;
 			  if (motor_speed < 0) {motor_speed = 0;}
-		      L6470_Run(0,direction,motor_speed);
 		  }
-		  if (gui_state == REV) {
-			  direction = 1;
+		  if ((motor_on_flag == 1) && (gui_state == REV || gui_state == FWD)) {
+			  if (gui_state == REV) {direction = 0;}
+			  if (gui_state == FWD) {direction = 1;}
 			  L6470_Run(0,direction,motor_speed);
 		  }
-		  if (gui_state == FWD) {
-			  direction = 0;
-		      L6470_Run(0,direction,motor_speed);
-		  }
-		  if (gui_state == NO_TOUCH) {
-			  motor_delta = 0;
-		  }
-
           vTaskDelay( 100 / portTICK_RATE_MS );
 	}
 }
@@ -181,7 +169,8 @@ int main(void)
   LCDInit();
 
   // miscellaneous inits
-  direction = 0;
+  direction = 1;
+  gui_state = STOP;
 
   /* Initialize GUI with 240x320 screen size*/
 
