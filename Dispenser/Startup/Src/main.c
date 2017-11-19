@@ -144,7 +144,7 @@ static void vMotorRun() {
 			  motor_speed = motor_speed - 100;
 			  if (motor_speed < 0) {motor_speed = 0;}
 		  }
-		  if ((motor_on_flag == 1) && (gui_state == REV || gui_state == FWD)) {
+		  if ((motor_on_flag == 1) && (gui_state == REV || gui_state == FWD || gui_state == PLUS || gui_state == MINUS)) {
 			  if (gui_state == REV) {direction = 0;}
 			  if (gui_state == FWD) {direction = 1;}
 			  L6470_Run(0,direction,motor_speed);
