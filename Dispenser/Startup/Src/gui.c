@@ -60,6 +60,8 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
+
+    			 save_data_to_flash(motor_speed);
     	      }
     	      else {
     			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
@@ -100,7 +102,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     gui_state = PLUS;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_GREEN ) ;
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "PRESS!");
-    		     save_data_to_flash(motor_speed);
     		  }
     		  else {
     			 gui_state = NO_TOUCH;
@@ -114,7 +115,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     gui_state = MINUS;
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_GREEN ) ;
                  UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
-    		     save_data_to_flash(motor_speed);
     		  }
     		  else {
     			 gui_state = NO_TOUCH;

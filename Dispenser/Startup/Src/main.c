@@ -118,6 +118,7 @@ void MotorSPI() {
 static void vMotorRun() {
 
 	int motor_on_flag = 0;
+	int motor_run_flag = 0;
 	for(;;)
 	{
 		  MotorSPI();
@@ -132,19 +133,23 @@ static void vMotorRun() {
 		  if (gui_state == STOP)
 		  {
 			  motor_on_flag = 0;
+			  motor_run_flag = 0;
 			  L6470_SoftStop(0);
 		  }
 		  if (gui_state == PLUS)
 		  {
 			  motor_speed = motor_speed + 100;
 			  if (motor_speed > 10000) {motor_speed = 10000;};
+			  if (motor_run_flag == 1) { L6470_Run(0,direction,motor_speed); }
 		  }
 		  if (gui_state == MINUS)
 		  {
 			  motor_speed = motor_speed - 100;
 			  if (motor_speed < 0) {motor_speed = 0;}
+			  if (motor_run_flag == 1) { L6470_Run(0,direction,motor_speed); }
 		  }
-		  if ((motor_on_flag == 1) && (gui_state == REV || gui_state == FWD || gui_state == PLUS || gui_state == MINUS)) {
+		  if ((motor_on_flag == 1) && (gui_state == REV || gui_state == FWD)) {
+			  motor_run_flag = 1;
 			  if (gui_state == REV) {direction = 0;}
 			  if (gui_state == FWD) {direction = 1;}
 			  L6470_Run(0,direction,motor_speed);
