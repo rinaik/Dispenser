@@ -5,23 +5,32 @@
 #include "ugui.h"
 char buffer[5];
 
+#include "stm32f4xx_hal_flash.h"
+#define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)
+#define ADDR_FLASH_SECTOR_11_B  ((uint32_t)0x080E0004)
+
+#define location_a ADDR_FLASH_SECTOR_11_A
+#define location_b ADDR_FLASH_SECTOR_11_B
+
 enum {NO_TOUCH, STOP, START, FWD, REV, PLUS, MINUS};
 
-int gui_state;
-int motor_speed;
-int direction;
+int gui_state, gui_state_a, gui_state_b;
+int motor_state;
+int motor_speed_a, motor_speed_b;
+int direction_a, direction_b;
 
 #define MAX_OBJECTS 10
 
 UG_GUI gui;
 UG_WINDOW window_1;
 UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
-UG_BUTTON button_1, button_2, button_3, button_4, button_5, button_6;
+UG_BUTTON button_1, button_2, button_3, button_4, button_5, button_6, button_7;
 UG_TEXTBOX textbox_1, textbox_2, textbox_3, textbox_4;
 
 //Notes: Screen Size: 240x320
 
-void save_data_to_flash(int data);
+void save_data_to_flash_a(int data);
+void save_data_to_flash_b(int data);
 
 void LCDInit(void);
 

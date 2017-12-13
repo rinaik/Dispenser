@@ -10,14 +10,25 @@
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
-#define ADDR_FLASH_SECTOR_11  ((uint32_t)0x080E0000)
-#define location ADDR_FLASH_SECTOR_11
+#define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)
+#define ADDR_FLASH_SECTOR_11_B  ((uint32_t)0x080E0004)
 
-void save_data_to_flash(int data) {
+#define location_a ADDR_FLASH_SECTOR_11_A
+#define location_b ADDR_FLASH_SECTOR_11_B
+
+void save_data_to_flash_a(int data) {
 	HAL_FLASH_Unlock();
 	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
     FLASH_Erase_Sector(FLASH_SECTOR_11, VOLTAGE_RANGE_3);
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11,data);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_A,data);
+	HAL_FLASH_Lock();
+}
+
+void save_data_to_flash_b(int data) {
+	HAL_FLASH_Unlock();
+	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
+    FLASH_Erase_Sector(FLASH_SECTOR_11, VOLTAGE_RANGE_3);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_B,data);
 	HAL_FLASH_Lock();
 }
 
@@ -34,6 +45,13 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
+	if (motor_state == 0) {
+		gui_state = gui_state_a;
+	}
+	if (motor_state == 1) {
+		gui_state = gui_state_b;
+	}
+
     if (msg->type == MSG_TYPE_OBJECT )
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
@@ -61,7 +79,8 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
 
-    			 save_data_to_flash(motor_speed);
+    			 if (motor_state == 0) save_data_to_flash_a(motor_speed_a);
+    			 if (motor_state == 1) save_data_to_flash_b(motor_speed_b);
     	      }
     	      else {
     			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
@@ -122,7 +141,39 @@ void window_1_callback (UG_MESSAGE* msg)
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     		  }
     	    }
+    		if (msg->sub_id == BTN_ID_6)
+    		{
+    		    if (msg->event == OBJ_EVENT_PRESSED) {
+    		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_GREEN ) ;
+    		    	UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
+    		    	if (motor_state == 0) {
+    		    			motor_state = 1;
+    		    			gui_state = gui_state_a;
+    		    	}
+    		    	else {
+    		    			motor_state = 0;
+    		    			gui_state = gui_state_b;
+    		    	}
+    		    }
+    		    else {
+    		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_BLUE ) ;
+    		    	if (motor_state == 0) {
+    		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR A");
+    		    	}
+    		    	if (motor_state == 1) {
+    		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR B");
+    		    	}
+    		   }
+    		}
+
     	}
+    }
+
+    if (motor_state == 0) {
+    		gui_state_a = gui_state;
+    }
+    if (motor_state == 1) {
+    		gui_state_b = gui_state;
     }
 }
 
@@ -148,6 +199,7 @@ void GUIInit()
 	          UG_ButtonCreate(&window_1, &button_4, BTN_ID_3, 10, 220, 110, 270);
 	          UG_ButtonCreate(&window_1, &button_5, BTN_ID_4, 130, 150, 220, 200);
 	          UG_ButtonCreate(&window_1, &button_6, BTN_ID_5, 130, 220, 220, 270);
+	          UG_ButtonCreate(&window_1, &button_7, BTN_ID_6, 130, 80, 220, 130);
 
 	          // Label the buttons
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK);
@@ -157,6 +209,7 @@ void GUIInit()
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_3, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_4, C_BLACK);
 	          UG_ButtonSetForeColor(&window_1, BTN_ID_5, C_BLACK);
+	          UG_ButtonSetForeColor(&window_1, BTN_ID_6, C_BLACK);
 
 	          UG_ButtonSetFont ( &window_1, BTN_ID_0, &FONT_12X20);
 	          UG_ButtonSetText ( &window_1, BTN_ID_0, "STOP");
@@ -173,6 +226,9 @@ void GUIInit()
 	          UG_ButtonSetFont ( &window_1, BTN_ID_5, &FONT_12X20);
 	          UG_ButtonSetText ( &window_1, BTN_ID_5, "-");
 
+	          UG_ButtonSetFont ( &window_1, BTN_ID_6, &FONT_12X20);
+	          UG_ButtonSetText ( &window_1, BTN_ID_6, "MTR A");
+
 	          //  Create Textboxs
 
 	          UG_TextboxCreate( &window_1 , &textbox_1 , TXB_ID_0 , 130 , 10 , 220 , 40 );
@@ -183,8 +239,14 @@ void GUIInit()
 
 	          UG_TextboxCreate( &window_1 , &textbox_2 , TXB_ID_1 , 130 , 40 , 220 , 70 );
 	          UG_TextboxSetFont ( &window_1 , TXB_ID_1 , &FONT_12X20 );
-	          motor_speed = *(int*)location;
-	          itoa(motor_speed,buffer,10);
+
+	          if (motor_state == 0) {
+	        	  itoa(motor_speed_a,buffer,10);
+	          }
+	          if (motor_state == 1) {
+	          	  itoa(motor_speed_b,buffer,10);
+	          }
+
 	          UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_TOP_CENTER );
 
