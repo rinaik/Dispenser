@@ -66,19 +66,10 @@ static void vLedBlinkRed(void *pvParameters)
 };
 
 static void vGUIRun() {
-	int on_flag;
-	on_flag = 0;
+
 	for(;;)
 	    {
 		  TouchPress();
-
-		  if (HAL_GPIO_ReadPin(KEY_BUTTON_GPIO_PORT,KEY_BUTTON_PIN)&&on_flag==0) {
-			  UG_TextboxSetText ( &window_1 , TXB_ID_3, "ON");
-			  on_flag = 1;
-		  } else if (!HAL_GPIO_ReadPin(KEY_BUTTON_GPIO_PORT,KEY_BUTTON_PIN)&&on_flag==1) {
-        	  UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
-              on_flag = 0;
-          }
 
 		  itoa(motor_speed,buffer,10);
 		  if (gui_state == PLUS || gui_state == MINUS) {

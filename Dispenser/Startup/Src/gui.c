@@ -134,7 +134,7 @@ void GUIInit()
 
 	          // Modify the window title
 
-	          UG_WindowSetTitleText(&window_1,"Dispense System");
+	          UG_WindowSetTitleText(&window_1,"Motor Control");
 	          UG_WindowSetTitleTextFont(&window_1, &FONT_12X20);
 
 	          // Change window fore and back color
@@ -187,16 +187,6 @@ void GUIInit()
 	          itoa(motor_speed,buffer,10);
 	          UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_1 , ALIGN_TOP_CENTER );
-
-	          UG_TextboxCreate( &window_1 , &textbox_3 , TXB_ID_2 , 130 , 80 , 220 , 110 );
-	          UG_TextboxSetFont ( &window_1 , TXB_ID_2 , &FONT_12X20 ) ;
-	          UG_TextboxSetText ( &window_1 , TXB_ID_2, "I/O:");
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_2 , ALIGN_TOP_CENTER );
-
-	          UG_TextboxCreate( &window_1 , &textbox_4 , TXB_ID_3 , 130 , 110 , 220 , 140 );
-	          UG_TextboxSetFont ( &window_1 , TXB_ID_3 , &FONT_12X20 ) ;
-	          UG_TextboxSetText ( &window_1 , TXB_ID_3, "OFF");
-	          UG_TextboxSetAlignment ( &window_1 , TXB_ID_3 , ALIGN_TOP_CENTER );
 
               UG_WindowShow(&window_1);
 }
