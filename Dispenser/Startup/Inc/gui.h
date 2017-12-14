@@ -19,7 +19,7 @@ int motor_state;
 int motor_speed_a, motor_speed_b;
 int direction_a, direction_b;
 
-#define MAX_OBJECTS 10
+#define MAX_OBJECTS 20
 
 UG_GUI gui;
 UG_WINDOW window_1;

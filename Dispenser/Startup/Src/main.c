@@ -174,6 +174,7 @@ static void vMotorRun() {
 			  }
 		  }
 
+
 		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD)) {
 			  motor_run_flag_a = 1;
 			  if (gui_state == REV) {direction_a = 0;}
@@ -217,6 +218,10 @@ int main(void)
   gui_state = gui_state_a; ;
   motor_speed_a = *(int*)location_a;
   motor_speed_b = *(int*)location_b;
+
+  if ((motor_speed_a < 0) || (motor_speed_a > 10000)) {motor_speed_a = 0;}
+  if ((motor_speed_b < 0) || (motor_speed_b > 10000)) {motor_speed_b = 0;}
+
 
 
   /* Initialize GUI with 240x320 screen size*/

@@ -45,13 +45,12 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
-	if (motor_state == 0) {
+	 if (motor_state == 0) {
 		gui_state = gui_state_a;
+	 }
+	 else {
+	    gui_state = gui_state_a;
 	}
-	if (motor_state == 1) {
-		gui_state = gui_state_b;
-	}
-
     if (msg->type == MSG_TYPE_OBJECT )
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
@@ -79,8 +78,8 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
 
-    			 if (motor_state == 0) save_data_to_flash_a(motor_speed_a);
-    			 if (motor_state == 1) save_data_to_flash_b(motor_speed_b);
+    			 save_data_to_flash_a(motor_speed_a);
+    			 save_data_to_flash_b(motor_speed_b);
     	      }
     	      else {
     			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
@@ -148,33 +147,41 @@ void window_1_callback (UG_MESSAGE* msg)
     		    	UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
     		    	if (motor_state == 0) {
     		    			motor_state = 1;
-    		    			gui_state = gui_state_a;
     		    	}
     		    	else {
     		    			motor_state = 0;
-    		    			gui_state = gui_state_b;
     		    	}
     		    }
     		    else {
-    		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_BLUE ) ;
     		    	if (motor_state == 0) {
+
+        		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR A");
     		    	}
     		    	if (motor_state == 1) {
+
+    	    			UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_WHITE ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR B");
     		    	}
+    		    	 if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
+    		    	 if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+    		    	 UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+
+
+
+
     		   }
+    		}
+    		if (motor_state == 0) {
+    		    	gui_state_a = gui_state;
+    		}
+    		else {
+    		    	gui_state_b = gui_state;
     		}
 
     	}
     }
 
-    if (motor_state == 0) {
-    		gui_state_a = gui_state;
-    }
-    if (motor_state == 1) {
-    		gui_state_b = gui_state;
-    }
 }
 
 void GUIInit()
@@ -227,6 +234,7 @@ void GUIInit()
 	          UG_ButtonSetText ( &window_1, BTN_ID_5, "-");
 
 	          UG_ButtonSetFont ( &window_1, BTN_ID_6, &FONT_12X20);
+  			  UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW );
 	          UG_ButtonSetText ( &window_1, BTN_ID_6, "MTR A");
 
 	          //  Create Textboxs
