@@ -20,7 +20,6 @@
 #include "gui.h" //  gui functions
 #include <stdlib.h>
 
-int motor_delta;
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -74,7 +73,7 @@ static void vGUIRun() {
 		  if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
 		  if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
 
-		  if (gui_state == PLUS || gui_state == MINUS) {
+		  if (gui_state_a == PLUS || gui_state_a == MINUS || gui_state_b == PLUS || gui_state_b == MINUS) {
 			  	  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 		  }
 		  UG_Update();
@@ -173,8 +172,6 @@ static void vMotorRun() {
 				  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
-
-
 		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD)) {
 			  motor_run_flag_a = 1;
 			  if (gui_state == REV) {direction_a = 0;}
@@ -215,14 +212,9 @@ int main(void)
   motor_state = 0;
   gui_state_a = STOP;
   gui_state_b = STOP;
-  gui_state = gui_state_a; ;
+  gui_state = STOP;
   motor_speed_a = *(int*)location_a;
   motor_speed_b = *(int*)location_b;
-
-  if ((motor_speed_a < 0) || (motor_speed_a > 10000)) {motor_speed_a = 0;}
-  if ((motor_speed_b < 0) || (motor_speed_b > 10000)) {motor_speed_b = 0;}
-
-
 
   /* Initialize GUI with 240x320 screen size*/
 

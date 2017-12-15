@@ -10,27 +10,16 @@
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
-#define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)
-#define ADDR_FLASH_SECTOR_11_B  ((uint32_t)0x080E0004)
 
-#define location_a ADDR_FLASH_SECTOR_11_A
-#define location_b ADDR_FLASH_SECTOR_11_B
-
-void save_data_to_flash_a(int data) {
+void save_data_to_flash(int data_a, int data_b) {
 	HAL_FLASH_Unlock();
 	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
     FLASH_Erase_Sector(FLASH_SECTOR_11, VOLTAGE_RANGE_3);
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_A,data);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_A,data_a);
+    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_B,data_b);
 	HAL_FLASH_Lock();
 }
 
-void save_data_to_flash_b(int data) {
-	HAL_FLASH_Unlock();
-	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR );
-    FLASH_Erase_Sector(FLASH_SECTOR_11, VOLTAGE_RANGE_3);
-    HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,ADDR_FLASH_SECTOR_11_B,data);
-	HAL_FLASH_Lock();
-}
 
 void LCDInit()
 {
@@ -45,11 +34,11 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
-	 if (motor_state == 0) {
+	if (motor_state == 0) {
 		gui_state = gui_state_a;
-	 }
-	 else {
-	    gui_state = gui_state_a;
+	}
+	if (motor_state == 1) {
+	    gui_state = gui_state_b;
 	}
     if (msg->type == MSG_TYPE_OBJECT )
     {
@@ -78,8 +67,8 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
 
-    			 save_data_to_flash_a(motor_speed_a);
-    			 save_data_to_flash_b(motor_speed_b);
+    			 // save data to flash
+    			 save_data_to_flash(motor_speed_a, motor_speed_b);
     	      }
     	      else {
     			 UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
@@ -147,25 +136,51 @@ void window_1_callback (UG_MESSAGE* msg)
     		    	UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
     		    	if (motor_state == 0) {
     		    			motor_state = 1;
+    		    			gui_state = gui_state_b;
     		    	}
-    		    	else {
+    		    	else if (motor_state == 1) {
     		    			motor_state = 0;
+    		    			gui_state = gui_state_a;
     		    	}
     		    }
     		    else {
     		    	if (motor_state == 0) {
-
-        		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW ) ;
+    		    		UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR A");
     		    	}
     		    	if (motor_state == 1) {
-
-    	    			UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_WHITE ) ;
+    		    		UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_WHITE ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR B");
     		    	}
-    		    	 if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
-    		    	 if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
-    		    	 UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+    		    	if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
+    		        if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+
+    		        // redo the gui
+    		        if (gui_state == STOP){
+    		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
+    		        }
+    		        if (gui_state == START) {
+    	    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    	    			 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    		        }
+    		        if (gui_state == FWD) {
+    		        	 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    		        	 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+
+    		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		         }
+                    if (gui_state == REV) {
+                    	 UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+                    	 UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+
+                    	UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+                    	UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
+                    }
+                    UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
     		   }
     		}
     		if (motor_state == 0) {

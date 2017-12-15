@@ -29,8 +29,7 @@ UG_TEXTBOX textbox_1, textbox_2, textbox_3, textbox_4;
 
 //Notes: Screen Size: 240x320
 
-void save_data_to_flash_a(int data);
-void save_data_to_flash_b(int data);
+void save_data_to_flash(int data_a, int data_b);
 
 void LCDInit(void);
 
