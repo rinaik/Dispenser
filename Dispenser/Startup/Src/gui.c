@@ -166,10 +166,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		    	 if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
     		    	 if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
     		    	 UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
-
-
-
-
     		   }
     		}
     		if (motor_state == 0) {
