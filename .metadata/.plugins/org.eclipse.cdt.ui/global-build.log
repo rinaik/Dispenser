@@ -2597,3 +2597,5 @@ arm-none-eabi-objcopy -O binary Dispenser.elf Dispenser.bin
    text	   data	    bss	    dec	    hex	filename
   61052	    600	  19984	  81636	  13ee4	Dispenser.elf
 Info: Nothing to build for Dispenser
+Info: Nothing to build for Dispenser
+Info: Nothing to build for Dispenser
