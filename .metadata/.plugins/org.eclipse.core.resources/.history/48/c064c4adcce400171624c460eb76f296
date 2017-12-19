@@ -20,7 +20,6 @@ void save_data_to_flash(int data_a, int data_b) {
 	HAL_FLASH_Lock();
 }
 
-// initialize the LCD
 
 void LCDInit()
 {
@@ -32,8 +31,6 @@ void LCDInit()
 
 	  BSP_LCD_DisplayOn();
 }
-
-// LCD event handler
 
 void window_1_callback (UG_MESSAGE* msg)
 {
@@ -47,7 +44,6 @@ void window_1_callback (UG_MESSAGE* msg)
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
     	{
-    		// start button pressed
     		if (msg->sub_id == BTN_ID_1)
     		{
     		   if (msg->event == OBJ_EVENT_PRESSED) {
@@ -61,7 +57,6 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetText(&window_1, BTN_ID_1, "START");
     		   }
     		}
-    		// stop button pressed
     		if (msg->sub_id == BTN_ID_0)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
@@ -80,7 +75,6 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetText(&window_1, BTN_ID_0, "STOP");
     		  }
     		}
-    		// fwd button pressed
     		if (msg->sub_id == BTN_ID_2)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
@@ -95,7 +89,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     UG_ButtonSetText(&window_1, BTN_ID_2, "FWD");
     		  }
     		}
-    		// rev button pressed
     		if (msg->sub_id == BTN_ID_3)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
@@ -110,7 +103,6 @@ void window_1_callback (UG_MESSAGE* msg)
     			 UG_ButtonSetText(&window_1, BTN_ID_3, "REV");
     		  }
     		}
-    		// plus button pressed
     		if (msg->sub_id == BTN_ID_4)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
@@ -124,7 +116,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     UG_ButtonSetText(&window_1, BTN_ID_4, "+");
     		  }
     		}
-    		// minus button pressed
     		if (msg->sub_id == BTN_ID_5)
     		{
     		  if (msg->event == OBJ_EVENT_PRESSED) {
@@ -138,7 +129,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     		  }
     	    }
-    		// motor button pressed
     		if (msg->sub_id == BTN_ID_6)
     		{
     		    if (msg->event == OBJ_EVENT_PRESSED) {
@@ -282,11 +272,8 @@ void GUIInit()
               UG_WindowShow(&window_1);
 }
 
-// interface between HAL and gui library
 
 void UserPixelSet(UG_S16 x, UG_S16 y, UG_COLOR c) {BSP_LCD_DrawPixel(x, y, c);}
-
-// interface between HAL and touchscreen library
 
 void TouchPress(void) {
 	TS_StateTypeDef TS_State;

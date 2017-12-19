@@ -6,20 +6,13 @@
 char buffer[5];
 
 #include "stm32f4xx_hal_flash.h"
-
-// flash locations for motor speed
-
 #define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)
 #define ADDR_FLASH_SECTOR_11_B  ((uint32_t)0x080E0004)
 
 #define location_a ADDR_FLASH_SECTOR_11_A
 #define location_b ADDR_FLASH_SECTOR_11_B
 
-// state machine for gui
-
 enum {NO_TOUCH, STOP, START, FWD, REV, PLUS, MINUS};
-
-// gui global variables
 
 int gui_state, gui_state_a, gui_state_b;
 int motor_state;
@@ -35,8 +28,6 @@ UG_BUTTON button_1, button_2, button_3, button_4, button_5, button_6, button_7;
 UG_TEXTBOX textbox_1, textbox_2, textbox_3, textbox_4;
 
 //Notes: Screen Size: 240x320
-
-// functions for GUI
 
 void save_data_to_flash(int data_a, int data_b);
 

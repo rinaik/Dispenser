@@ -87,8 +87,6 @@ static void vGUIRun() {
 	    }
 };
 
-// motor SPI configuration
-
 void MotorSPI() {
 	          GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -114,8 +112,6 @@ void MotorSPI() {
 			  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 }
 
-// main motor control routine
-
 static void vMotorRun() {
 
 	int motor_on_flag_a = 0;
@@ -125,9 +121,9 @@ static void vMotorRun() {
 
 	for(;;)
 	{
-		  // initialize
 		  MotorSPI();
 		  MX_SPI5_Init();
+
 		  L6470_GetStatus(motor_state);
 
 		  if (motor_state == 0) {
@@ -137,13 +133,11 @@ static void vMotorRun() {
 			  gui_state = gui_state_b;
 		  }
 
-		  // start button
 		  if (gui_state == START)
 		  {
 		      if (motor_state == 0) { motor_on_flag_a = 1;}
 		      if (motor_state == 1) { motor_on_flag_b = 1;}
 		  }
-		  // stop button
 		  if (gui_state == STOP)
 		  {
 
@@ -157,7 +151,6 @@ static void vMotorRun() {
 			  }
 			  L6470_SoftStop(motor_state);
 		  }
-		  // plus button
 		  if (gui_state == PLUS)
 		  {
 			  if(motor_state == 0) {
@@ -171,7 +164,6 @@ static void vMotorRun() {
 			  	  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
-		  // minus button
 		  if (gui_state == MINUS)
 		  {
 			  if (motor_state == 0) {
@@ -185,7 +177,6 @@ static void vMotorRun() {
 				  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
-		  // direction control with rev and fwd button
 		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD)) {
 			  motor_run_flag_a = 1;
 			  if (gui_state == REV) {direction_a = 0;}
