@@ -37,6 +37,7 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
+	// set the gui handling state
 	if (motor_state == 0) {
 		gui_state = gui_state_a;
 	}
@@ -138,10 +139,20 @@ void window_1_callback (UG_MESSAGE* msg)
     		     UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     		  }
     	    }
+            //reset the gui state
+
+    	    if (motor_state == 0) {
+    			gui_state_a = gui_state;
+    		}
+    		if (motor_state == 1) {
+    		    gui_state_b = gui_state;
+    		}
+
     		// motor button pressed
     		if (msg->sub_id == BTN_ID_6)
     		{
-    		    if (msg->event == OBJ_EVENT_PRESSED) {
+    			 if (msg->event == OBJ_EVENT_PRESSED) {
+
     		    	UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_GREEN ) ;
     		    	UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
     		    	if (motor_state == 0) {
@@ -164,6 +175,9 @@ void window_1_callback (UG_MESSAGE* msg)
     		    	}
     		    	if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
     		        if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+
+    		        if (motor_state == 0) {gui_state = gui_state_a;}
+    		        if (motor_state == 1) {gui_state = gui_state_b;}
 
     		        // redo the gui
     		        if (gui_state == STOP){
@@ -193,16 +207,8 @@ void window_1_callback (UG_MESSAGE* msg)
                     UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
     		   }
     		}
-    		if (motor_state == 0) {
-    		    	gui_state_a = gui_state;
-    		}
-    		else {
-    		    	gui_state_b = gui_state;
-    		}
-
     	}
     }
-
 }
 
 void GUIInit()

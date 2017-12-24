@@ -14,7 +14,6 @@
 #include "stm32f429i_discovery_ts.h"  // touch-screen header
 #include "stm32f429i_discovery_io.h"  // i-o header
 
-#include "params.h" // motor parameters
 #include "L6470.h" // motor control
 
 #include "gui.h" //  gui functions
@@ -128,6 +127,7 @@ static void vMotorRun() {
 		  // initialize
 		  MotorSPI();
 		  MX_SPI5_Init();
+
 		  L6470_GetStatus(motor_state);
 
 		  if (motor_state == 0) {
@@ -162,12 +162,12 @@ static void vMotorRun() {
 		  {
 			  if(motor_state == 0) {
 				  motor_speed_a = motor_speed_a + 100;
-				  if (motor_speed_a > 10000) {motor_speed_a = 10000;};
+				  if (motor_speed_a > 15000) {motor_speed_a = 15000;};
 				  if (motor_run_flag_a == 1) { L6470_Run(motor_state,direction_a,motor_speed_a); }
 			  }
 			  if(motor_state == 1) {
 			  	  motor_speed_b = motor_speed_b + 100;
-			  	  if (motor_speed_b > 10000) {motor_speed_b = 10000;};
+			  	  if (motor_speed_b > 15000) {motor_speed_b = 15000;};
 			  	  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
@@ -199,7 +199,7 @@ static void vMotorRun() {
 		  	 if (gui_state == REV) {direction_b = 0;}
 		  	 if (gui_state == FWD) {direction_b = 1;}
 
-		  	 L6470_Run(motor_state,direction_b,motor_speed_b);
+		   	 L6470_Run(motor_state,direction_b,motor_speed_b);
 		  }
           vTaskDelay( 100 / portTICK_RATE_MS );
 	}
@@ -208,7 +208,6 @@ static void vMotorRun() {
 
 int main(void)
 {
-
   /* Configure the system clock */
   SystemClock_Config();
 

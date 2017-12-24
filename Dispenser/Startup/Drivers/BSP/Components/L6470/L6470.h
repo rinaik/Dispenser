@@ -322,7 +322,7 @@ void L6470_DaisyChainCommand(uint8_t* pL6470_DaisyChainSpiTxStruct, uint8_t* pL6
 uint32_t L6470_ExtractReturnedData(uint8_t L6470_Id, uint8_t* pL6470_DaisyChainSpiRxStruct, uint8_t LengthByte);
 uint8_t L6470_CheckStatusRegisterFlag(uint8_t L6470_Id, uint8_t L6470_StatusRegisterFlagId);
 uint8_t *L6470_GetRegisterName(uint8_t id);
-void L6470_Config(StepperMotorDriverHandle_t *StepperMotorDriverdHandle, MotorParameterData_t *MotorParameterData);
+void L6470_Config(StepperMotorDriverHandle_t *StepperMotorDriversHandle, MotorParameterData_t *MotorParameterData);
 
 /**
   * @}
