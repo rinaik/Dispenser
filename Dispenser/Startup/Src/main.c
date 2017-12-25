@@ -86,6 +86,36 @@ static void vGUIRun() {
 	    }
 }
 
+// motor parameters calibration
+
+void MotorParams() {
+
+// change with caution !!
+#define KVAL_HOLD_A 0x10
+#define	KVAL_RUN_A 0x10
+#define	KVAL_ACC_A 0x10
+#define KVAL_DEC_A 0x10
+#define STALL_TH_A 0x00
+
+#define KVAL_HOLD_B 0x10
+#define	KVAL_RUN_B 0x10
+#define	KVAL_ACC_B 0x10
+#define KVAL_DEC_B 0x10
+#define STALL_TH_B 0x00
+
+	L6470_SetParam(0, L6470_KVAL_HOLD_ID, KVAL_HOLD_A);
+	L6470_SetParam(0, L6470_KVAL_RUN_ID, KVAL_RUN_A);
+	L6470_SetParam(0, L6470_KVAL_ACC_ID, KVAL_ACC_A);
+	L6470_SetParam(0, L6470_KVAL_DEC_ID, KVAL_DEC_A);
+	L6470_SetParam(0, L6470_STALL_TH_ID, STALL_TH_A);
+
+	L6470_SetParam(1, L6470_KVAL_HOLD_ID, KVAL_HOLD_B);
+	L6470_SetParam(1, L6470_KVAL_RUN_ID, KVAL_RUN_B);
+	L6470_SetParam(1, L6470_KVAL_ACC_ID, KVAL_ACC_B);
+	L6470_SetParam(1, L6470_KVAL_DEC_ID, KVAL_DEC_B);
+	L6470_SetParam(1, L6470_STALL_TH_ID, STALL_TH_B);
+}
+
 // motor SPI configuration
 
 void MotorSPI() {
@@ -128,10 +158,19 @@ static void vMotorRun() {
 		  MotorSPI();
 		  MX_SPI5_Init();
 
-		  L6470_GetStatus(0);
-		  L6470_GetStatus(1);
+		  // check for stall
+		  if (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)
+			  	  L6470_SoftStop(0);
+		  else {
+			  L6470_GetStatus(0);
+		  }
+		  if (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)
+		  		 L6470_SoftStop(1);
+		  else {
+		  	  L6470_GetStatus(1);
+		  }
 
-		 // L6470_Run(0,1,1500);
+		  // L6470_Run(0,1,1500);
 
 		  if (motor_state == 0) {
 			  gui_state = gui_state_a;
@@ -212,8 +251,11 @@ int main(void)
   SystemClock_Config();
 
   /* Initialize all configured IO and SPI */
+  // and configure motor parameters
+
   MX_GPIO_Init();
   MX_SPI5_Init();
+  MotorParams();
 
   /* Initialize LCD and Touch-screen */
 
