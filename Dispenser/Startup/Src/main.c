@@ -52,7 +52,7 @@ static void vLedBlinkGreen(void *pvParameters)
 
         vTaskDelay( 500 / portTICK_RATE_MS );
     }
-};
+}
 
 // led blink red
 
@@ -64,7 +64,7 @@ static void vLedBlinkRed(void *pvParameters)
 
         vTaskDelay( 1000 / portTICK_RATE_MS );
     }
-};
+}
 
 // gui function
 
@@ -84,7 +84,7 @@ static void vGUIRun() {
 
 		  vTaskDelay( 100 / portTICK_RATE_MS );
 	    }
-};
+}
 
 // motor SPI configuration
 
@@ -128,12 +128,15 @@ static void vMotorRun() {
 		  MotorSPI();
 		  MX_SPI5_Init();
 
-		  L6470_GetStatus(motor_state);
+		  L6470_GetStatus(0);
+		  L6470_GetStatus(1);
+
+		 // L6470_Run(0,1,1500);
 
 		  if (motor_state == 0) {
 			  gui_state = gui_state_a;
 		  }
-		  if (motor_state == 1) {
+		  else {
 			  gui_state = gui_state_b;
 		  }
 
@@ -161,13 +164,11 @@ static void vMotorRun() {
 		  if (gui_state == PLUS)
 		  {
 			  if(motor_state == 0) {
-				  motor_speed_a = motor_speed_a + 100;
 				  if (motor_speed_a > 15000) {motor_speed_a = 15000;};
 				  if (motor_run_flag_a == 1) { L6470_Run(motor_state,direction_a,motor_speed_a); }
 			  }
 			  if(motor_state == 1) {
-			  	  motor_speed_b = motor_speed_b + 100;
-			  	  if (motor_speed_b > 15000) {motor_speed_b = 15000;};
+				  if (motor_speed_b > 15000) {motor_speed_b = 15000;};
 			  	  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
@@ -175,36 +176,35 @@ static void vMotorRun() {
 		  if (gui_state == MINUS)
 		  {
 			  if (motor_state == 0) {
-			 	  motor_speed_a = motor_speed_a - 100;
-			  	  if (motor_speed_a < 0) {motor_speed_a = 0;}
+				  if (motor_speed_a < 0) {motor_speed_a = 0;}
 			  	  if (motor_run_flag_a == 1) { L6470_Run(motor_state,direction_a,motor_speed_a); }
 			  }
 			  if (motor_state == 1) {
-				  motor_speed_b = motor_speed_b - 100;
 				  if (motor_speed_b < 0) {motor_speed_b = 0;}
 				  if (motor_run_flag_b == 1) { L6470_Run(motor_state,direction_b,motor_speed_b); }
 			  }
 		  }
 		  // direction control with rev and fwd button
-		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD)) {
-			  motor_run_flag_a = 1;
-			  if (gui_state == REV) {direction_a = 0;}
-			  if (gui_state == FWD) {direction_a = 1;}
-
-			  L6470_Run(motor_state,direction_a,motor_speed_a);
+		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD) ) {
+			   if (motor_state == 0) {
+			      motor_run_flag_a = 1;
+				  if (gui_state == REV) {direction_a = 0;}
+				  if (gui_state == FWD) {direction_a = 1;}
+				  L6470_Run(motor_state,direction_a,motor_speed_a);
+			   }
 		  }
-
 		  if ((motor_on_flag_b == 1) && (gui_state == REV || gui_state == FWD)) {
-		  	 motor_run_flag_b = 1;
-		  	 if (gui_state == REV) {direction_b = 0;}
-		  	 if (gui_state == FWD) {direction_b = 1;}
-
-		   	 L6470_Run(motor_state,direction_b,motor_speed_b);
+			   if (motor_state == 1) {
+			      motor_run_flag_b = 1;
+				  if (gui_state == REV) {direction_b = 0;}
+				  if (gui_state == FWD) {direction_b = 1;}
+				  L6470_Run(motor_state,direction_b,motor_speed_b);
+			   }
 		  }
-          vTaskDelay( 100 / portTICK_RATE_MS );
+
+       vTaskDelay( 100 / portTICK_RATE_MS );
 	}
 }
-
 
 int main(void)
 {
