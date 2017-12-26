@@ -159,22 +159,18 @@ static void vMotorRun() {
 		  MX_SPI5_Init();
 
 		  // check for stall
-		  if (motor_state == 0) {
-			  if ((L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)) {
-				  L6470_SoftStop(0);
-				  gui_state_a = STOP;
-			  } else {
-				  L6470_GetStatus(0);
-			  }
+		  if (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)
+			  	  L6470_SoftStop(0);
+		  else {
+			  L6470_GetStatus(0);
 		  }
-		  if (motor_state == 1) {
-			  if ((L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)) {
-				  L6470_SoftStop(1);
-				  gui_state_b = STOP;
-			  } else {
-				  L6470_GetStatus(1);
-			  }
+		  if (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)
+		  		 L6470_SoftStop(1);
+		  else {
+		  	  L6470_GetStatus(1);
 		  }
+
+		  // L6470_Run(0,1,1500);
 
 		  if (motor_state == 0) {
 			  gui_state = gui_state_a;

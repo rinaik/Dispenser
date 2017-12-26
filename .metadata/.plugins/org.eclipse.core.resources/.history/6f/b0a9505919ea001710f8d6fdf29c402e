@@ -107,13 +107,13 @@ void MotorParams() {
 	L6470_SetParam(0, L6470_KVAL_RUN_ID, KVAL_RUN_A);
 	L6470_SetParam(0, L6470_KVAL_ACC_ID, KVAL_ACC_A);
 	L6470_SetParam(0, L6470_KVAL_DEC_ID, KVAL_DEC_A);
-	L6470_SetParam(0, L6470_STALL_TH_ID, STALL_TH_A);
+	//L6470_SetParam(0, L6470_STALL_TH_ID, STALL_TH_A); //Use default
 
 	L6470_SetParam(1, L6470_KVAL_HOLD_ID, KVAL_HOLD_B);
 	L6470_SetParam(1, L6470_KVAL_RUN_ID, KVAL_RUN_B);
 	L6470_SetParam(1, L6470_KVAL_ACC_ID, KVAL_ACC_B);
 	L6470_SetParam(1, L6470_KVAL_DEC_ID, KVAL_DEC_B);
-	L6470_SetParam(1, L6470_STALL_TH_ID, STALL_TH_B);
+	//L6470_SetParam(1, L6470_STALL_TH_ID, STALL_TH_B);//Use default
 }
 
 // motor SPI configuration
@@ -159,22 +159,18 @@ static void vMotorRun() {
 		  MX_SPI5_Init();
 
 		  // check for stall
-		  if (motor_state == 0) {
-			  if ((L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)) {
-				  L6470_SoftStop(0);
-				  gui_state_a = STOP;
-			  } else {
-				  L6470_GetStatus(0);
-			  }
+		  if (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0) {
+			  L6470_SoftStop(0);
+		  else {
+			  L6470_GetStatus(0);
 		  }
-		  if (motor_state == 1) {
-			  if ((L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)) {
-				  L6470_SoftStop(1);
-				  gui_state_b = STOP;
-			  } else {
-				  L6470_GetStatus(1);
-			  }
+		  if (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0 || L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0) {
+		  	 L6470_SoftStop(1);
+		   } else {
+		  	  L6470_GetStatus(1);
 		  }
+
+		  // L6470_Run(0,1,1500);
 
 		  if (motor_state == 0) {
 			  gui_state = gui_state_a;

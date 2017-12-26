@@ -162,6 +162,7 @@ static void vMotorRun() {
 		  if (motor_state == 0) {
 			  if ((L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)) {
 				  L6470_SoftStop(0);
+				  gui_state = STOP;
 				  gui_state_a = STOP;
 			  } else {
 				  L6470_GetStatus(0);
@@ -170,6 +171,7 @@ static void vMotorRun() {
 		  if (motor_state == 1) {
 			  if ((L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)) {
 				  L6470_SoftStop(1);
+				  gui_state = STOP;
 				  gui_state_b = STOP;
 			  } else {
 				  L6470_GetStatus(1);
