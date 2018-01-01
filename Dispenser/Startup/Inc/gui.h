@@ -31,11 +31,11 @@ char buffer[5];
 
 // state machine for gui
 
-enum { STOP, START, FWD, REV, PLUS, MINUS};
+enum { NO_TOUCH_A, STOP_A, START_A, FWD_A, REV_A, PLUS_A, MINUS_A, NO_TOUCH_B, STOP_B, START_B, FWD_B, REV_B, PLUS_B, MINUS_B};
 
 // gui global variables
 
-int gui_state, gui_state_a, gui_state_b;
+int gui_state;
 int motor_state;
 int motor_speed_a, motor_speed_b;
 int direction_a, direction_b;

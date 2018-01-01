@@ -2,3 +2,5 @@
 1514829936446	Rename resource 'stm32f429i_discovery_sdram.h'
 1514830095295	Rename resource 'stm32f429i_discovery_io.h'
 1514830118123	Rename resource 'stm32f429i_discovery_io.c'
+1514833048228	Rename resource 'stm32f429i_discovery_sdram.c'
+1514833180407	Rename resource 'stm32f429i_discovery_sdram.cback'

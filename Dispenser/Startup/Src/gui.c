@@ -10,7 +10,6 @@
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
-#define SDRAM_DEVICE_ADDR  ((uint32_t)0xD0000000)
 
 void save_data_to_flash(int data_a, int data_b) {
 	HAL_FLASH_Unlock();
@@ -38,23 +37,40 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
+	int group;
+
     if (msg->type == MSG_TYPE_OBJECT )
     {
     	if (msg->id == OBJ_TYPE_BUTTON )
     	{
-    		// set the gui handling state
-    		if (motor_state == 0) {
-    		   	gui_state = gui_state_a;
-    		}
-    		else {
-    		    gui_state = gui_state_b;
-    		}
+
+    		if (gui_state < NO_TOUCH_B) {group = 0;}
+			if (gui_state >= NO_TOUCH_B) {group = 1;}
 
     		switch(msg->sub_id) // handle button presses
     		{
+
+    			case BTN_ID_0:  // stop button pressed
+    		    				if (msg->event == OBJ_EVENT_PRESSED) {
+    		    					if (group == 0) {gui_state = STOP_A;} else {gui_state = STOP_B;}
+    		    					UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
+    		    					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    		    					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		    					UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
+    		    					UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
+
+    		    					// save data to flash
+    		    					save_data_to_flash(motor_speed_a, motor_speed_b);
+    		    				}
+    		    				else {
+    		    					UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
+    		    					UG_ButtonSetText(&window_1, BTN_ID_0, "STOP");
+    		    				}
+    		    				break;
     			case BTN_ID_1: // start button pressed
     				if (msg->event == OBJ_EVENT_PRESSED) {
-    					gui_state = START;
+    					if (group == 0) {gui_state = START_A;} else {gui_state = START_B;}
+
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_1, "PRESS!");
@@ -64,52 +80,44 @@ void window_1_callback (UG_MESSAGE* msg)
     					UG_ButtonSetText(&window_1, BTN_ID_1, "START");
     				}
     				break;
-    			case BTN_ID_0:  // stop button pressed
-    				if (msg->event == OBJ_EVENT_PRESSED) {
-    					gui_state = STOP;
-    					UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
-    					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
-    					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
-    					UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
-    					UG_ButtonSetText(&window_1, BTN_ID_0, "PRESS!");
-
-    					// save data to flash
-    					save_data_to_flash(motor_speed_a, motor_speed_b);
-    				}
-    				else {
-    					UG_ButtonSetForeColor(&window_1, BTN_ID_0, C_BLACK );
-    					UG_ButtonSetText(&window_1, BTN_ID_0, "STOP");
-    				}
-    				break;
     			case BTN_ID_2: // fwd button pressed
     				if (msg->event == OBJ_EVENT_PRESSED) {
-    					if (gui_state != STOP) {gui_state = FWD;}
+
+    					if (gui_state != STOP_A && group == 0 ) {gui_state = FWD_A;}
+    					if (gui_state != STOP_B && group == 1 ) {gui_state = FWD_B;}
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
     				}
     				else {
-    					if (gui_state != FWD ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
+    					if (gui_state != FWD_A && group == 0 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
+    					if (gui_state != FWD_B && group == 1 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_2, "FWD");
     				}
     				break;
     			case BTN_ID_3: // rev button pressed
     				if (msg->event == OBJ_EVENT_PRESSED) {
-    					if (gui_state != STOP) {gui_state = REV;}
+
+    					if (gui_state != STOP_A && group == 0 ) {gui_state = REV_A;}
+    					if (gui_state != STOP_B && group == 1 ) {gui_state = REV_B;}
+
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
     				}
     				else {
-    					if (gui_state != REV ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
+    					if (gui_state != REV_A && group == 0 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
+    					if (gui_state != REV_B && group == 1 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
+
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_3, "REV");
     				}
     				break;
     		   case BTN_ID_4: // plus button pressed
     				if ( msg->event == OBJ_EVENT_PRESSED) {
-    					gui_state = PLUS;
+    					if (group == 0) {gui_state = PLUS_A;}
+    					if (group == 1) {gui_state = PLUS_B;}
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_GREEN ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_4, "PRESS!");
     					if (motor_state == 0) {
@@ -120,14 +128,17 @@ void window_1_callback (UG_MESSAGE* msg)
     					}
     				}
     				else {
+
+
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_4, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_4, "+");
     				}
     			    break;
     		   case BTN_ID_5: // minus button pressed
     			   if (msg->event == OBJ_EVENT_PRESSED) {
-    				   gui_state = MINUS;
-    				   UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_GREEN ) ;
+    				   if (group == 0) {gui_state = MINUS_A;}
+    				   if (group == 1) {gui_state = MINUS_B;}
+                       UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_GREEN ) ;
     				   UG_ButtonSetText(&window_1, BTN_ID_5, "PRESS!");
     				   if (motor_state == 0) {
     				       	motor_speed_a = motor_speed_a - 100;
@@ -137,6 +148,7 @@ void window_1_callback (UG_MESSAGE* msg)
     				   }
     			   }
     			   else {
+
     				   UG_ButtonSetBackColor (&window_1 , BTN_ID_5, C_BLUE ) ;
     				   UG_ButtonSetText(&window_1, BTN_ID_5, "-");
     			   }
@@ -147,11 +159,11 @@ void window_1_callback (UG_MESSAGE* msg)
     				   UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
     				   if (motor_state == 0) {
     		    			motor_state = 1;
-    		    			gui_state = gui_state_b;
+    		    			gui_state = gui_state + NO_TOUCH_B;
     				   }
     				   else {
     		    			motor_state = 0;
-    		    			gui_state = gui_state_a;
+    		    			gui_state = gui_state - NO_TOUCH_B;
     				   }
     			   }
     			   else {
@@ -165,30 +177,54 @@ void window_1_callback (UG_MESSAGE* msg)
     		    	}
     		        // redo the gui
     		        switch (gui_state) {
-    		          case STOP:
+    		          case STOP_A:
     		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
     		            UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
     		        	break;
-    		         case START:
+    		         case START_A:
     	    			UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
     	    			UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
      		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     	    			UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
     	    			break;
-    		          case FWD:
+    		          case FWD_A:
     		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
     		            UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
     		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
     		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     		            break;
-    		        case REV:
+    		         case REV_A:
                     	UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
                     	UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
                     	UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
                     	UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
                         break;
+    		         case STOP_B:
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_RED ) ;
+    		            break;
+    		         case START_B:
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		            UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    		            break;
+    		          case FWD_B:
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_YELLOW ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
+    		            break;
+    		          case REV_B:
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_GREEN ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_0, C_BLUE ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
+    		             UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_YELLOW ) ;
+    		           break;
     		        default:
     		        	break;
     		        }
@@ -196,14 +232,6 @@ void window_1_callback (UG_MESSAGE* msg)
     		    break;
     		 default:
     		    break;
-    			   }
-
-    			   // reset the gui handling state
-    			   if (motor_state == 0) {
-    			  	   	gui_state_a = gui_state;
-    			   }
-    			   else {
-    			        gui_state_b = gui_state;
     			   }
     		}
     	}
