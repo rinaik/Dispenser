@@ -7,6 +7,20 @@ char buffer[5];
 
 #include "stm32f4xx_hal_flash.h"
 
+// change with caution !! (motor parameters A)
+#define KVAL_HOLD_A 0x10
+#define	KVAL_RUN_A 0x10
+#define	KVAL_ACC_A 0x10
+#define KVAL_DEC_A 0x10
+#define STALL_TH_A 0x00
+
+// motor parameters B
+#define KVAL_HOLD_B 0x10
+#define	KVAL_RUN_B 0x10
+#define	KVAL_ACC_B 0x10
+#define KVAL_DEC_B 0x10
+#define STALL_TH_B 0x00
+
 // flash locations for motor speed
 
 #define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)

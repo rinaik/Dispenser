@@ -90,19 +90,6 @@ static void vGUIRun() {
 
 void MotorParams() {
 
-// change with caution !!
-#define KVAL_HOLD_A 0x10
-#define	KVAL_RUN_A 0x10
-#define	KVAL_ACC_A 0x10
-#define KVAL_DEC_A 0x10
-#define STALL_TH_A 0x00
-
-#define KVAL_HOLD_B 0x10
-#define	KVAL_RUN_B 0x10
-#define	KVAL_ACC_B 0x10
-#define KVAL_DEC_B 0x10
-#define STALL_TH_B 0x00
-
 	L6470_SetParam(0, L6470_KVAL_HOLD_ID, KVAL_HOLD_A);
 	L6470_SetParam(0, L6470_KVAL_RUN_ID, KVAL_RUN_A);
 	L6470_SetParam(0, L6470_KVAL_ACC_ID, KVAL_ACC_A);
