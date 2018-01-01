@@ -76,7 +76,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f429i_discovery_lcd.h"
 
-#include "fonts.h"
+
 
 
 /** @addtogroup BSP
@@ -134,7 +134,6 @@ LCD_DrvTypeDef  *LcdDrv;
 /** @defgroup STM32F429I_DISCOVERY_LCD_Private_FunctionPrototypes STM32F429I DISCOVERY LCD Private FunctionPrototypes
   * @{
   */ 
-static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c);
 static void FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t OffLine, uint32_t ColorIndex);
 static void ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
 /**
@@ -223,7 +222,7 @@ uint8_t BSP_LCD_Init(void)
     BSP_SDRAM_Init();
 
     /* Initialize the font */
-    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
+  //  BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
 
   return LCD_OK;
 }  
@@ -275,7 +274,7 @@ void BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FB_Address)
   HAL_LTDC_ConfigLayer(&LtdcHandler, &Layercfg, LayerIndex); 
 
   DrawProp[LayerIndex].BackColor = LCD_COLOR_WHITE;
-  DrawProp[LayerIndex].pFont     = &Font24;
+  //DrawProp[LayerIndex].pFont     = &Font24;
   DrawProp[LayerIndex].TextColor = LCD_COLOR_BLACK; 
 
   /* Dithering activation */
@@ -509,20 +508,12 @@ void BSP_LCD_SetBackColor(uint32_t Color)
   * @brief  Sets the Text Font.
   * @param  pFonts: the layer font to be used
   */
-void BSP_LCD_SetFont(sFONT *pFonts)
-{
-  DrawProp[ActiveLayer].pFont = pFonts;
-}
+
 
 /**
   * @brief  Gets the Text Font.
   * @retval Layer font
   */
-sFONT *BSP_LCD_GetFont(void)
-{
-  return DrawProp[ActiveLayer].pFont;
-}
-
 /**
   * @brief  Reads Pixel.
   * @param  Xpos: the X position
@@ -567,121 +558,6 @@ void BSP_LCD_Clear(uint32_t Color)
 { 
   /* Clear the LCD */ 
   FillBuffer(ActiveLayer, (uint32_t *)(LtdcHandler.LayerCfg[ActiveLayer].FBStartAdress), BSP_LCD_GetXSize(), BSP_LCD_GetYSize(), 0, Color);
-}
-
-/**
-  * @brief  Clears the selected line.
-  * @param  Line: the line to be cleared
-  */
-void BSP_LCD_ClearStringLine(uint32_t Line)
-{
-  uint32_t colorbackup = DrawProp[ActiveLayer].TextColor;
-  DrawProp[ActiveLayer].TextColor = DrawProp[ActiveLayer].BackColor;
-
-  /* Draw rectangle with background color */
-  BSP_LCD_FillRect(0, (Line * DrawProp[ActiveLayer].pFont->Height), BSP_LCD_GetXSize(), DrawProp[ActiveLayer].pFont->Height);
-  
-  DrawProp[ActiveLayer].TextColor = colorbackup;
-  BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);  
-}
-
-/**
-  * @brief  Displays one character.
-  * @param  Xpos: start column address
-  * @param  Ypos: the Line where to display the character shape
-  * @param  Ascii: character ascii code, must be between 0x20 and 0x7E
-  */
-void BSP_LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
-{
-  DrawChar(Xpos, Ypos, &DrawProp[ActiveLayer].pFont->table[(Ascii-' ') *\
-              DrawProp[ActiveLayer].pFont->Height * ((DrawProp[ActiveLayer].pFont->Width + 7) / 8)]);
-}
-
-/**
-  * @brief  Displays a maximum of 60 char on the LCD.
-  * @param  X: pointer to x position (in pixel)
-  * @param  Y: pointer to y position (in pixel)    
-  * @param  pText: pointer to string to display on LCD
-  * @param  mode: The display mode
-  *    This parameter can be one of the following values:
-  *                @arg CENTER_MODE 
-  *                @arg RIGHT_MODE
-  *                @arg LEFT_MODE   
-  */
-void BSP_LCD_DisplayStringAt(uint16_t X, uint16_t Y, uint8_t *pText, Text_AlignModeTypdef mode)
-{
-  uint16_t refcolumn = 1, i = 0;
-  uint32_t size = 0, xsize = 0; 
-  uint8_t  *ptr = pText;
-  
-  /* Get the text size */
-  while (*ptr++) size ++ ;
-  
-  /* Characters number per line */
-  xsize = (BSP_LCD_GetXSize()/DrawProp[ActiveLayer].pFont->Width);
-  
-  switch (mode)
-  {
-  case CENTER_MODE:
-    {
-      refcolumn = X+ ((xsize - size)* DrawProp[ActiveLayer].pFont->Width) / 2;
-      break;
-    }
-  case LEFT_MODE:
-    {
-      refcolumn = X;
-      break;
-    }
-  case RIGHT_MODE:
-    {
-      refcolumn = X + ((xsize - size)*DrawProp[ActiveLayer].pFont->Width);
-      break;
-    }
-  default:
-    {
-      refcolumn = X;
-      break;
-    }
-  }
-
-  /* Send the string character by character on LCD */
-  while ((*pText != 0) & (((BSP_LCD_GetXSize() - (i*DrawProp[ActiveLayer].pFont->Width)) & 0xFFFF) >= DrawProp[ActiveLayer].pFont->Width))
-  {
-    /* Display one character on LCD */
-    BSP_LCD_DisplayChar(refcolumn, Y, *pText);
-    /* Decrement the column position by 16 */
-    refcolumn += DrawProp[ActiveLayer].pFont->Width;
-    /* Point on the next character */
-    pText++;
-    i++;
-  }  
-}
-
-/**
-  * @brief  Displays a maximum of 20 char on the LCD.
-  * @param  Line: the Line where to display the character shape
-  * @param  ptr: pointer to string to display on LCD
-  */
-void BSP_LCD_DisplayStringAtLine(uint16_t Line, uint8_t *ptr)
-{
-  BSP_LCD_DisplayStringAt(0, LINE(Line), ptr, LEFT_MODE);
-}
-
-/**
-  * @brief  Displays an horizontal line.
-  * @param  Xpos: the X position
-  * @param  Ypos: the Y position
-  * @param  Length: line length
-  */
-void BSP_LCD_DrawHLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
-{
-  uint32_t xaddress = 0;
-  
-  /* Get the line address */
-  xaddress = (LtdcHandler.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
-
-  /* Write line */
-  FillBuffer(ActiveLayer, (uint32_t *)xaddress, Length, 1, 0, DrawProp[ActiveLayer].TextColor);
 }
 
 /**
@@ -1311,60 +1187,6 @@ void BSP_LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint32_t RGB_Code)
 {
   /* Write data value to all SDRAM memory */
   *(__IO uint32_t*) (LtdcHandler.LayerCfg[ActiveLayer].FBStartAdress + (4*(Ypos*BSP_LCD_GetXSize() + Xpos))) = RGB_Code;
-}
-
-/**
-  * @brief  Draws a character on LCD.
-  * @param  Xpos: the Line where to display the character shape
-  * @param  Ypos: start column address
-  * @param  c: pointer to the character data
-  */
-static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c)
-{
-  uint32_t i = 0, j = 0;
-  uint16_t height, width;
-  uint8_t offset;
-  uint8_t *pchar;
-  uint32_t line=0;
-
-  height = DrawProp[ActiveLayer].pFont->Height;
-  width  = DrawProp[ActiveLayer].pFont->Width;
-
-  offset = 8 *((width + 7)/8) -  width ;
-
-  for(i = 0; i < height; i++)
-  {
-    pchar = ((uint8_t *)c + (width + 7)/8 * i);
-
-    switch(((width + 7)/8))
-    {
-    case 1:
-      line =  pchar[0];      
-      break;
-      
-    case 2:
-      line =  (pchar[0]<< 8) | pchar[1];
-      break;
-
-    case 3:
-    default:
-      line =  (pchar[0]<< 16) | (pchar[1]<< 8) | pchar[2];      
-      break;
-    }
-
-    for (j = 0; j < width; j++)
-    {
-      if(line & (1 << (width- j + offset- 1))) 
-      {
-        BSP_LCD_DrawPixel((Xpos + j), Ypos, DrawProp[ActiveLayer].TextColor);
-      }
-      else
-      {
-        BSP_LCD_DrawPixel((Xpos + j), Ypos, DrawProp[ActiveLayer].BackColor);
-      } 
-    }
-    Ypos++;
-  }
 }
 
 /**

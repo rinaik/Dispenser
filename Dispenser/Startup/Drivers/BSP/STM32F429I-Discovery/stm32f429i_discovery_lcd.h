@@ -49,7 +49,7 @@
 /* Include SDRAM Driver */
 #include "stm32f429i_discovery_sdram.h"
  /* Include fonts */
-#include "fonts.h"
+//#include "fonts.h"
 /* Include LCD component driver */
 #include "ili9341.h"
 
@@ -79,7 +79,7 @@ typedef struct
 { 
   uint32_t  TextColor; 
   uint32_t  BackColor;  
-  sFONT     *pFont;
+ // sFONT     *pFont;
 }LCD_DrawPropTypeDef;
    
 typedef struct 
@@ -209,8 +209,6 @@ void     BSP_LCD_SetTextColor(uint32_t Color);
 void     BSP_LCD_SetBackColor(uint32_t Color);
 uint32_t BSP_LCD_GetTextColor(void);
 uint32_t BSP_LCD_GetBackColor(void);
-void     BSP_LCD_SetFont(sFONT *pFonts);
-sFONT    *BSP_LCD_GetFont(void);
 
 uint32_t BSP_LCD_ReadPixel(uint16_t Xpos, uint16_t Ypos);
 void     BSP_LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint32_t pixel);

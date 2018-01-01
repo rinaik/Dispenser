@@ -10,6 +10,7 @@
 // do flash routine here for now
 
 #include "stm32f4xx_hal_flash.h"
+#define SDRAM_DEVICE_ADDR  ((uint32_t)0xD0000000)
 
 void save_data_to_flash(int data_a, int data_b) {
 	HAL_FLASH_Unlock();
