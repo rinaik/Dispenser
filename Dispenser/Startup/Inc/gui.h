@@ -21,6 +21,8 @@ char buffer[5];
 #define KVAL_DEC_B 0x10
 #define STALL_TH_B 0x00
 
+#define MAX_MTR_SPEED 15000
+
 // flash locations for motor speed
 
 #define ADDR_FLASH_SECTOR_11_A  ((uint32_t)0x080E0000)
@@ -39,6 +41,7 @@ int gui_state;
 int motor_state;
 int motor_speed_a, motor_speed_b;
 int direction_a, direction_b;
+int touch_flag;
 
 #define MAX_OBJECTS 20
 

@@ -74,14 +74,38 @@ static void vGUIRun() {
 	    {
 		  TouchPress();
 
-		  if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
-		  if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+		  if (touch_flag) {
+			  if ((gui_state == MINUS_A) || (gui_state == MINUS_B)) {
+			   if (motor_state == 0) {
+			       	motor_speed_a = motor_speed_a - 100;
+			       	if (motor_speed_a < 0) motor_speed_a = 0;
+			   }
+			   if (motor_state == 1) {
+			        motor_speed_b = motor_speed_b - 100;
+			        if (motor_speed_b < 0) motor_speed_b = 0;
+			   }
+			  }
+			  if ((gui_state == PLUS_A) || (gui_state == PLUS_B)) {
 
-		  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+			   if (motor_state == 0) {
+			       	motor_speed_a = motor_speed_a + 100;
+			       	if (motor_speed_a > MAX_MTR_SPEED) motor_speed_a = MAX_MTR_SPEED;
+			   }
+			   if (motor_state == 1) {
+			    	motor_speed_b = motor_speed_b + 100;
+	    			if (motor_speed_b > MAX_MTR_SPEED) motor_speed_b = MAX_MTR_SPEED;
+				}
+			  }
+
+			   if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
+		       if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+		       UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+		  }
+
 
 		  UG_Update();
 
-		  vTaskDelay( 50 / portTICK_RATE_MS );
+		  vTaskDelay( 100 / portTICK_RATE_MS );
 	    }
 }
 
@@ -251,6 +275,9 @@ int main(void)
   gui_state = STOP_A;
   motor_speed_a = *(int*)location_a;
   motor_speed_b = *(int*)location_b;
+
+  if (motor_speed_a < 0) motor_speed_a = 0;
+  if (motor_speed_b < 0) motor_speed_b = 0;
 
   /* Initialize GUI with 240x320 screen size*/
 

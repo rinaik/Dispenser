@@ -74,12 +74,6 @@ static void vGUIRun() {
 	    {
 		  TouchPress();
 
-		  if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
-		  if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
-
-		  if (gui_state_a == PLUS || gui_state_a == MINUS || gui_state_b == PLUS || gui_state_b == MINUS) {
-			  	  UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
-		  }
 		  UG_Update();
 
 		  vTaskDelay( 100 / portTICK_RATE_MS );
@@ -149,7 +143,7 @@ static void vMotorRun() {
 		  if (motor_state == 0) {
 			  if ((L6470_CheckStatusRegisterFlag(0,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(0,STEP_LOSS_B_ID)==0)) {
 				  L6470_SoftStop(0);
-				  gui_state_a = STOP;
+				  gui_state = STOP_A;
 			  } else {
 				  L6470_GetStatus(0);
 			  }
@@ -157,27 +151,20 @@ static void vMotorRun() {
 		  if (motor_state == 1) {
 			  if ((L6470_CheckStatusRegisterFlag(1,STEP_LOSS_A_ID)==0) || (L6470_CheckStatusRegisterFlag(1,STEP_LOSS_B_ID)==0)) {
 				  L6470_SoftStop(1);
-				  gui_state_b = STOP;
+				  gui_state = STOP_B;
 			  } else {
 				  L6470_GetStatus(1);
 			  }
 		  }
 
-		  if (motor_state == 0) {
-			  gui_state = gui_state_a;
-		  }
-		  else {
-			  gui_state = gui_state_b;
-		  }
-
 		  // start button
-		  if (gui_state == START)
+		  if (gui_state == START_A || gui_state == START_B)
 		  {
 		      if (motor_state == 0) { motor_on_flag_a = 1;}
 		      if (motor_state == 1) { motor_on_flag_b = 1;}
 		  }
 		  // stop button
-		  if (gui_state == STOP)
+		  if (gui_state == STOP_A || gui_state == STOP_B)
 		  {
 
 			  if (motor_state == 0) {
@@ -191,7 +178,7 @@ static void vMotorRun() {
 			  L6470_SoftStop(motor_state);
 		  }
 		  // plus button
-		  if (gui_state == PLUS)
+		  if (gui_state == PLUS_A || gui_state == PLUS_B )
 		  {
 			  if(motor_state == 0) {
 				  if (motor_speed_a > 15000) {motor_speed_a = 15000;};
@@ -203,7 +190,7 @@ static void vMotorRun() {
 			  }
 		  }
 		  // minus button
-		  if (gui_state == MINUS)
+		  if (gui_state == MINUS_A || gui_state == MINUS_B)
 		  {
 			  if (motor_state == 0) {
 				  if (motor_speed_a < 0) {motor_speed_a = 0;}
@@ -215,19 +202,19 @@ static void vMotorRun() {
 			  }
 		  }
 		  // direction control with rev and fwd button
-		  if ((motor_on_flag_a == 1) && (gui_state == REV || gui_state == FWD) ) {
+		  if ((motor_on_flag_a == 1) && (gui_state == REV_A || gui_state == FWD_A) ) {
 			   if (motor_state == 0) {
 			      motor_run_flag_a = 1;
-				  if (gui_state == REV) {direction_a = 0;}
-				  if (gui_state == FWD) {direction_a = 1;}
+				  if (gui_state == REV_A) {direction_a = 0;}
+				  if (gui_state == FWD_A) {direction_a = 1;}
 				  L6470_Run(motor_state,direction_a,motor_speed_a);
 			   }
 		  }
-		  if ((motor_on_flag_b == 1) && (gui_state == REV || gui_state == FWD)) {
+		  if ((motor_on_flag_b == 1) && (gui_state == REV_B || gui_state == FWD_B)) {
 			   if (motor_state == 1) {
 			      motor_run_flag_b = 1;
-				  if (gui_state == REV) {direction_b = 0;}
-				  if (gui_state == FWD) {direction_b = 1;}
+				  if (gui_state == REV_B) {direction_b = 0;}
+				  if (gui_state == FWD_B) {direction_b = 1;}
 				  L6470_Run(motor_state,direction_b,motor_speed_b);
 			   }
 		  }
@@ -256,9 +243,7 @@ int main(void)
   direction_a = 1;
   direction_b = 1;
   motor_state = 0;
-  gui_state_a = STOP;
-  gui_state_b = STOP;
-  gui_state = STOP;
+  gui_state = STOP_A;
   motor_speed_a = *(int*)location_a;
   motor_speed_b = *(int*)location_b;
 
