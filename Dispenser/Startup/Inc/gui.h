@@ -33,7 +33,7 @@ char buffer[5];
 
 // state machine for gui
 
-enum { NO_TOUCH_A, STOP_A, START_A, FWD_A, REV_A, PLUS_A, MINUS_A, NO_TOUCH_B, STOP_B, START_B, FWD_B, REV_B, PLUS_B, MINUS_B};
+enum {STOP_A, START_A, FWD_A, REV_A, PLUS_A, MINUS_A,STOP_B, START_B, FWD_B, REV_B, PLUS_B, MINUS_B};
 
 // gui global variables
 

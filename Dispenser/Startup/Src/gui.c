@@ -44,8 +44,8 @@ void window_1_callback (UG_MESSAGE* msg)
     	if (msg->id == OBJ_TYPE_BUTTON )
     	{
 
-    		if (gui_state < NO_TOUCH_B) {group = 0;}
-			if (gui_state >= NO_TOUCH_B) {group = 1;}
+    		if (gui_state <= MINUS_A) {group = 0;}
+			if (gui_state > MINUS_A) {group = 1;}
 
     		switch(msg->sub_id) // handle button presses
     		{
@@ -90,8 +90,7 @@ void window_1_callback (UG_MESSAGE* msg)
     					UG_ButtonSetText(&window_1, BTN_ID_2, "PRESS!");
     				}
     				else {
-    					if (gui_state != FWD_A && group == 0 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
-    					if (gui_state != FWD_B && group == 1 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
+    					if (gui_state != FWD_A && gui_state != FWD_B) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_2, C_BLUE);}
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_3, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_2, "FWD");
     				}
@@ -107,8 +106,7 @@ void window_1_callback (UG_MESSAGE* msg)
     					UG_ButtonSetText(&window_1, BTN_ID_3, "PRESS!");
     				}
     				else {
-    				if (gui_state != REV_A && group == 0 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
-    					if (gui_state != REV_B && group == 1 ) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
+    				    if (gui_state != REV_A && gui_state != REV_B) { UG_ButtonSetBackColor (&window_1 ,BTN_ID_3, C_BLUE);}
 
     					UG_ButtonSetBackColor (&window_1 , BTN_ID_2, C_BLUE ) ;
     					UG_ButtonSetText(&window_1, BTN_ID_3, "REV");
@@ -129,6 +127,7 @@ void window_1_callback (UG_MESSAGE* msg)
     						motor_speed_b = motor_speed_b + 100;
     						if (motor_speed_b > MAX_MTR_SPEED) motor_speed_b = MAX_MTR_SPEED;
     					}
+
     				   if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
     			       if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
     			       UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
@@ -170,20 +169,24 @@ void window_1_callback (UG_MESSAGE* msg)
     			   if (msg->event == OBJ_EVENT_PRESSED) {
     				   UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_GREEN ) ;
     				   UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
-    				   if (motor_state == 0) {
-    		    			motor_state = 1;
-    		    			gui_state = gui_state + NO_TOUCH_B;
+    				   if (motor_state) {
+    		    			motor_state = 0;
     				   }
     				   else {
-    		    			motor_state = 0;
-    		    			gui_state = gui_state - NO_TOUCH_B;
+    		    			motor_state = 1;
     				   }
-    				   if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
-    				   if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
-    				   UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
 
+    				   if (group == 0)
+    				   {gui_state = gui_state + STOP_B; group = 1;}
+    				   else
+    				   {gui_state = gui_state - STOP_B; group = 0;}
+
+    				   if (gui_state < 0) gui_state = 0;
+    				   if (gui_state > MINUS_B) gui_state = MINUS_B;
+    				   touch_flag = 0;
     			   }
     			   else {
+    				touch_flag = 0;
     		    	if (motor_state == 0) {
     		    		UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR A");
@@ -193,6 +196,10 @@ void window_1_callback (UG_MESSAGE* msg)
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR B");
     		    	}
     		        // redo the gui
+    		    	 if (motor_state == 0) {itoa(motor_speed_a,buffer,10);}
+    		    	 if (motor_state == 1) {itoa(motor_speed_b,buffer,10);}
+    				 UG_TextboxSetText ( &window_1 , TXB_ID_1, buffer);
+
     		        switch (gui_state) {
     		          case STOP_A:
     		        	UG_ButtonSetBackColor (&window_1 , BTN_ID_1, C_BLUE ) ;
