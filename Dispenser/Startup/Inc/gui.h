@@ -38,10 +38,11 @@ enum {STOP_A, START_A, FWD_A, REV_A, PLUS_A, MINUS_A,STOP_B, START_B, FWD_B, REV
 // gui global variables
 
 int gui_state;
+int previous_gui;
 int motor_state;
 int motor_speed_a, motor_speed_b;
 int direction_a, direction_b;
-int touch_flag;
+int touch_flag, motor_flag;
 
 #define MAX_OBJECTS 20
 

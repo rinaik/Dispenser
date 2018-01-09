@@ -75,7 +75,7 @@ static void vGUIRun() {
 		  TouchPress();
 
 
-		  if (touch_flag) {
+		  if (touch_flag && !motor_flag) {
 			   if ((gui_state == MINUS_A) || (gui_state == MINUS_B)) {
 			                   if (motor_state == 0) {
 		     				       	motor_speed_a = motor_speed_a - 100;
@@ -279,6 +279,8 @@ int main(void)
   direction_b = 1;
   motor_state = 0; // motor A
   gui_state = STOP_A;
+  motor_flag = 0;
+  previous_gui = STOP_B;
   motor_speed_a = *(int*)location_a;
   motor_speed_b = *(int*)location_b;
 

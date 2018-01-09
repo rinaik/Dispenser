@@ -37,7 +37,7 @@ void LCDInit()
 
 void window_1_callback (UG_MESSAGE* msg)
 {
-	int group;
+	int group, temp;
 
     if (msg->type == MSG_TYPE_OBJECT )
     {
@@ -167,6 +167,7 @@ void window_1_callback (UG_MESSAGE* msg)
     			   break;
     		   case BTN_ID_6: // motor button pressed
     			   if (msg->event == OBJ_EVENT_PRESSED) {
+    				   motor_flag = 1;
     				   UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_GREEN ) ;
     				   UG_ButtonSetText(&window_1, BTN_ID_6, "PRESS!");
     				   if (motor_state) {
@@ -176,17 +177,19 @@ void window_1_callback (UG_MESSAGE* msg)
     		    			motor_state = 1;
     				   }
 
-    				   if (group == 0)
-    				   {gui_state = gui_state + STOP_B; group = 1;}
-    				   else
-    				   {gui_state = gui_state - STOP_B; group = 0;}
+                       temp = gui_state;
+                       gui_state = previous_gui;
+                       previous_gui = temp;
 
-    				   if (gui_state < 0) gui_state = 0;
-    				   if (gui_state > MINUS_B) gui_state = MINUS_B;
-    				   touch_flag = 0;
+    				   if (group == 0)
+    				   { group = 1;}
+    				   else
+    				   { group = 0;}
+
     			   }
     			   else {
-    				touch_flag = 0;
+    				motor_flag = 0;
+
     		    	if (motor_state == 0) {
     		    		UG_ButtonSetBackColor (&window_1 , BTN_ID_6, C_YELLOW ) ;
     		    		UG_ButtonSetText(&window_1, BTN_ID_6, "MTR A");
